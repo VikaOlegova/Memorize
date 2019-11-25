@@ -16,6 +16,9 @@
 		3C049B18238C738B00F17697 /* RoundedBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B17238C738B00F17697 /* RoundedBackgroundView.swift */; };
 		3C049B1A238C7B3600F17697 /* MainMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B19238C7B3600F17697 /* MainMenuButton.swift */; };
 		3C049B1C238C8D8000F17697 /* AllWordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B1B238C8D8000F17697 /* AllWordsViewController.swift */; };
+		3C049B1E238C902D00F17697 /* TranslationPairCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B1D238C902D00F17697 /* TranslationPairCell.swift */; };
+		3C049B20238C919800F17697 /* TranslationPairViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B1F238C919800F17697 /* TranslationPairViewModel.swift */; };
+		3C049B22238C972C00F17697 /* DoubleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B21238C972C00F17697 /* DoubleLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +45,9 @@
 		3C049B17238C738B00F17697 /* RoundedBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedBackgroundView.swift; sourceTree = "<group>"; };
 		3C049B19238C7B3600F17697 /* MainMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuButton.swift; sourceTree = "<group>"; };
 		3C049B1B238C8D8000F17697 /* AllWordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllWordsViewController.swift; sourceTree = "<group>"; };
+		3C049B1D238C902D00F17697 /* TranslationPairCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationPairCell.swift; sourceTree = "<group>"; };
+		3C049B1F238C919800F17697 /* TranslationPairViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationPairViewModel.swift; sourceTree = "<group>"; };
+		3C049B21238C972C00F17697 /* DoubleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +98,9 @@
 				3C049B17238C738B00F17697 /* RoundedBackgroundView.swift */,
 				3C049B19238C7B3600F17697 /* MainMenuButton.swift */,
 				3C049B1B238C8D8000F17697 /* AllWordsViewController.swift */,
+				3C049B1D238C902D00F17697 /* TranslationPairCell.swift */,
+				3C049B1F238C919800F17697 /* TranslationPairViewModel.swift */,
+				3C049B21238C972C00F17697 /* DoubleLabel.swift */,
 			);
 			path = Memorize;
 			sourceTree = "<group>";
@@ -205,8 +214,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C049B20238C919800F17697 /* TranslationPairViewModel.swift in Sources */,
+				3C049B22238C972C00F17697 /* DoubleLabel.swift in Sources */,
 				3C049B1C238C8D8000F17697 /* AllWordsViewController.swift in Sources */,
 				3C049AFD238C714D00F17697 /* Memorize.xcdatamodeld in Sources */,
+				3C049B1E238C902D00F17697 /* TranslationPairCell.swift in Sources */,
 				3C049B1A238C7B3600F17697 /* MainMenuButton.swift in Sources */,
 				3C049AF7238C714D00F17697 /* MainMenuViewController.swift in Sources */,
 				3C049B18238C738B00F17697 /* RoundedBackgroundView.swift in Sources */,
