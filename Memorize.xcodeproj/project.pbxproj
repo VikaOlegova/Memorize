@@ -15,6 +15,7 @@
 		3C049B0D238C715000F17697 /* MemorizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B0C238C715000F17697 /* MemorizeTests.swift */; };
 		3C049B18238C738B00F17697 /* RoundedBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B17238C738B00F17697 /* RoundedBackgroundView.swift */; };
 		3C049B1A238C7B3600F17697 /* MainMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B19238C7B3600F17697 /* MainMenuButton.swift */; };
+		3C049B1C238C8D8000F17697 /* AllWordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B1B238C8D8000F17697 /* AllWordsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		3C049B0E238C715000F17697 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C049B17238C738B00F17697 /* RoundedBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedBackgroundView.swift; sourceTree = "<group>"; };
 		3C049B19238C7B3600F17697 /* MainMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuButton.swift; sourceTree = "<group>"; };
+		3C049B1B238C8D8000F17697 /* AllWordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllWordsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				3C049AFB238C714D00F17697 /* Memorize.xcdatamodeld */,
 				3C049B17238C738B00F17697 /* RoundedBackgroundView.swift */,
 				3C049B19238C7B3600F17697 /* MainMenuButton.swift */,
+				3C049B1B238C8D8000F17697 /* AllWordsViewController.swift */,
 			);
 			path = Memorize;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C049B1C238C8D8000F17697 /* AllWordsViewController.swift in Sources */,
 				3C049AFD238C714D00F17697 /* Memorize.xcdatamodeld in Sources */,
 				3C049B1A238C7B3600F17697 /* MainMenuButton.swift in Sources */,
 				3C049AF7238C714D00F17697 /* MainMenuViewController.swift in Sources */,

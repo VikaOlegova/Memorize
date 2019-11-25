@@ -16,9 +16,16 @@ class MainMenuViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        navigationItem.title = "Меню"
         
         view.addSubview(repeatWordsButton)
         view.addSubview(allWordsButton)
+        
+        repeatWordsButton.leftLabel.text = "Повторить"
+        repeatWordsButton.rightLabel.text = "10"
+        
+        allWordsButton.leftLabel.text = "Все переводы"
+        allWordsButton.rightLabel.text = "30"
         
         repeatWordsButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true
         repeatWordsButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = true

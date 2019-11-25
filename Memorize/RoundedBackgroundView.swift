@@ -26,7 +26,7 @@ class RoundedBackgroundView: UIView {
         layer.shadowRadius = 4.0
         
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.backgroundColor = .lightGray
+        containerView.backgroundColor = UIColor(white: 249/255.0, alpha: 1)
         containerView.layer.cornerRadius = 12.0
         containerView.layer.masksToBounds = true
         
