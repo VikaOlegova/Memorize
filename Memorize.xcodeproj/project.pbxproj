@@ -24,6 +24,7 @@
 		3C049B28238CBF1C00F17697 /* BigGreenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B27238CBF1C00F17697 /* BigGreenButton.swift */; };
 		3C049B2C238DC1E900F17697 /* TitleTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B2B238DC1E900F17697 /* TitleTextFieldView.swift */; };
 		3C049B32238DCA4700F17697 /* CreateWordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B31238DCA4700F17697 /* CreateWordPresenter.swift */; };
+		3C049B34238DD36E00F17697 /* CreateWordAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B33238DD36E00F17697 /* CreateWordAssembly.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		3C049B27238CBF1C00F17697 /* BigGreenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigGreenButton.swift; sourceTree = "<group>"; };
 		3C049B2B238DC1E900F17697 /* TitleTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTextFieldView.swift; sourceTree = "<group>"; };
 		3C049B31238DCA4700F17697 /* CreateWordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWordPresenter.swift; sourceTree = "<group>"; };
+		3C049B33238DD36E00F17697 /* CreateWordAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWordAssembly.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 			children = (
 				3C049B23238CAA7A00F17697 /* CreateWordViewController.swift */,
 				3C049B31238DCA4700F17697 /* CreateWordPresenter.swift */,
+				3C049B33238DD36E00F17697 /* CreateWordAssembly.swift */,
 			);
 			path = CreateWord;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				3C049B32238DCA4700F17697 /* CreateWordPresenter.swift in Sources */,
 				3C049B1E238C902D00F17697 /* TranslationPairCell.swift in Sources */,
 				3C049B1A238C7B3600F17697 /* MainMenuButton.swift in Sources */,
+				3C049B34238DD36E00F17697 /* CreateWordAssembly.swift in Sources */,
 				3C049AF7238C714D00F17697 /* MainMenuViewController.swift in Sources */,
 				3C049B18238C738B00F17697 /* RoundedBackgroundView.swift in Sources */,
 				3C049AF5238C714D00F17697 /* AppDelegate.swift in Sources */,

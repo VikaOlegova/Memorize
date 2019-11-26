@@ -8,23 +8,24 @@
 
 import UIKit
 
-protocol CreateWordViewInput {
+protocol CreateWordViewInput: class {
     func showWords(original: String, translation: String)
     func show(image: UIImage)
     func show(languageInfo: String)
-    func show(backwardTranslationEnabled: Bool)
+    func show(reverseTranslationEnabled: Bool)
 }
 
-protocol CreateWordViewOutput {
+protocol CreateWordViewOutput: class {
     func saveTapped(originalWord: String?,
                     translationWord: String?,
-                    backwardTranslationEnabled: Bool )
+                    reverseTranslationEnabled: Bool )
+    func viewDidLoad()
 }
 
 class CreateWordViewController: UIViewController {
     let originalView = TitleTextFieldView()
     let fromToButton = UIButton()
-    let languageInfoLabel = UILabel()
+    let createReverseTranslationLabel = UILabel()
     let checkBox = CheckBox()
     let translationView = TitleTextFieldView()
     let imageView = UIImageView()
@@ -50,12 +51,12 @@ class CreateWordViewController: UIViewController {
         navigationItem.title = "Создать"
         
         fromToButton.translatesAutoresizingMaskIntoConstraints = false
-        languageInfoLabel.translatesAutoresizingMaskIntoConstraints = false
+        createReverseTranslationLabel.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(originalView)
         view.addSubview(fromToButton)
-        view.addSubview(languageInfoLabel)
+        view.addSubview(createReverseTranslationLabel)
         view.addSubview(checkBox)
         view.addSubview(translationView)
         view.addSubview(imageView)
@@ -63,10 +64,9 @@ class CreateWordViewController: UIViewController {
         
         originalView.label.text = "Новое слово или фраза"
         originalView.textField.placeholder = "Введите слово"
-        fromToButton.setTitle("RU -> EN", for: .normal)
         fromToButton.setTitleColor(.black, for: .normal)
         fromToButton.addTarget(self, action:#selector(fromToButtonTapped), for: .touchUpInside)
-        languageInfoLabel.text = "Создать обратный перевод"
+        createReverseTranslationLabel.text = "Создать обратный перевод"
         translationView.label.text = "Перевод"
         translationView.textField.placeholder = "Введите перевод"
         imageView.backgroundColor = .gray
@@ -83,12 +83,12 @@ class CreateWordViewController: UIViewController {
         fromToButton.topAnchor.constraint(equalTo: originalView.bottomAnchor, constant: 18).isActive = true
         fromToButton.heightAnchor.constraint(equalToConstant: 21).isActive = true
         
-        languageInfoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        languageInfoLabel.topAnchor.constraint(equalTo: fromToButton.bottomAnchor, constant: 8).isActive = true
-        languageInfoLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        createReverseTranslationLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        createReverseTranslationLabel.topAnchor.constraint(equalTo: fromToButton.bottomAnchor, constant: 8).isActive = true
+        createReverseTranslationLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
         
-        checkBox.rightAnchor.constraint(equalTo: languageInfoLabel.leftAnchor, constant: -10).isActive = true
-        checkBox.centerYAnchor.constraint(equalTo: languageInfoLabel.centerYAnchor).isActive = true
+        checkBox.rightAnchor.constraint(equalTo: createReverseTranslationLabel.leftAnchor, constant: -10).isActive = true
+        checkBox.centerYAnchor.constraint(equalTo: createReverseTranslationLabel.centerYAnchor).isActive = true
         checkBox.heightAnchor.constraint(equalToConstant: 24).isActive = true
         checkBox.widthAnchor.constraint(equalToConstant: 24).isActive = true
         
@@ -104,20 +104,18 @@ class CreateWordViewController: UIViewController {
         imageView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -18).isActive = true
         imageView.topAnchor.constraint(equalTo: translationView.bottomAnchor, constant: 18).isActive = true
         imageView.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -32).isActive = true
+        
+        presenter.viewDidLoad()
     }
     
     @objc func fromToButtonTapped() {
-        if fromToButton.title(for: .normal) == "RU -> EN" {
-            fromToButton.setTitle("EN -> RU", for: .normal)
-        } else {
-            fromToButton.setTitle("RU -> EN", for: .normal)
-        }
+        
     }
     
     @objc func saveButtonTapped() {
         presenter.saveTapped(originalWord: originalView.textField.text,
                              translationWord: translationView.textField.text,
-                             backwardTranslationEnabled: checkBox.isSelected)
+                             reverseTranslationEnabled: checkBox.isSelected)
     }
 }
 
@@ -132,11 +130,11 @@ extension CreateWordViewController: CreateWordViewInput {
     }
     
     func show(languageInfo: String) {
-        languageInfoLabel.text = languageInfo
+        fromToButton.setTitle(languageInfo, for: .normal)
     }
     
-    func show(backwardTranslationEnabled: Bool) {
-        checkBox.isSelected = backwardTranslationEnabled
+    func show(reverseTranslationEnabled: Bool) {
+        checkBox.isSelected = reverseTranslationEnabled
     }
     
     
