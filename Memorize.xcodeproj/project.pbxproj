@@ -22,6 +22,7 @@
 		3C049B24238CAA7A00F17697 /* CreateWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B23238CAA7A00F17697 /* CreateWordViewController.swift */; };
 		3C049B26238CB7E400F17697 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B25238CB7E400F17697 /* CheckBox.swift */; };
 		3C049B28238CBF1C00F17697 /* BigGreenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B27238CBF1C00F17697 /* BigGreenButton.swift */; };
+		3C049B2C238DC1E900F17697 /* TitleTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B2B238DC1E900F17697 /* TitleTextFieldView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		3C049B23238CAA7A00F17697 /* CreateWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWordViewController.swift; sourceTree = "<group>"; };
 		3C049B25238CB7E400F17697 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		3C049B27238CBF1C00F17697 /* BigGreenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigGreenButton.swift; sourceTree = "<group>"; };
+		3C049B2B238DC1E900F17697 /* TitleTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTextFieldView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,9 +109,10 @@
 				3C049B1D238C902D00F17697 /* TranslationPairCell.swift */,
 				3C049B1F238C919800F17697 /* TranslationPairViewModel.swift */,
 				3C049B21238C972C00F17697 /* DoubleLabel.swift */,
-				3C049B23238CAA7A00F17697 /* CreateWordViewController.swift */,
 				3C049B25238CB7E400F17697 /* CheckBox.swift */,
 				3C049B27238CBF1C00F17697 /* BigGreenButton.swift */,
+				3C049B23238CAA7A00F17697 /* CreateWordViewController.swift */,
+				3C049B2B238DC1E900F17697 /* TitleTextFieldView.swift */,
 			);
 			path = Memorize;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				3C049B26238CB7E400F17697 /* CheckBox.swift in Sources */,
 				3C049B1C238C8D8000F17697 /* AllWordsViewController.swift in Sources */,
 				3C049AFD238C714D00F17697 /* Memorize.xcdatamodeld in Sources */,
+				3C049B2C238DC1E900F17697 /* TitleTextFieldView.swift in Sources */,
 				3C049B1E238C902D00F17697 /* TranslationPairCell.swift in Sources */,
 				3C049B1A238C7B3600F17697 /* MainMenuButton.swift in Sources */,
 				3C049AF7238C714D00F17697 /* MainMenuViewController.swift in Sources */,
