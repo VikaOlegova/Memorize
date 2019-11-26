@@ -11,17 +11,9 @@ import UIKit
 class TitleTextFieldView: UIView {
     let label = UILabel()
     let textField = UITextField()
+    let spinner = UIActivityIndicatorView(style: .gray)
     
     private let splitter = UIView()
-    
-    var text: String {
-        get {
-            return textField.text ?? ""
-        }
-        set {
-            textField.text = newValue
-        }
-    }
     
     convenience init() {
         self.init(frame: .zero)
@@ -40,10 +32,12 @@ class TitleTextFieldView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         textField.translatesAutoresizingMaskIntoConstraints = false
         splitter.translatesAutoresizingMaskIntoConstraints = false
+        spinner.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(label)
         addSubview(textField)
         addSubview(splitter)
+        addSubview(spinner)
         
         label.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         label.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
@@ -54,6 +48,10 @@ class TitleTextFieldView: UIView {
         textField.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         textField.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 5).isActive = true
         textField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        spinner.leftAnchor.constraint(equalTo: textField.rightAnchor, constant: 7).isActive = true
+        spinner.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        spinner.heightAnchor.constraint(equalToConstant: 22).isActive = true
         
         splitter.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         splitter.rightAnchor.constraint(equalTo: rightAnchor).isActive = true

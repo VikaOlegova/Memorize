@@ -23,14 +23,14 @@ class CheckBox: UIButton {
         
         setImage(uncheckedImage, for: .normal)
         setImage(checkedImage, for: .selected)
-        addTarget(self, action:#selector(checkBoxClicked), for: .touchUpInside)
+        addTarget(self, action:#selector(checkBoxTapped), for: .touchUpInside)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func checkBoxClicked() {
+    @objc func checkBoxTapped() {
         isSelected = !isSelected
     }
 }
