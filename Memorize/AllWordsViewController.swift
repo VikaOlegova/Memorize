@@ -44,10 +44,7 @@ extension AllWordsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TranslationPairCell", for: indexPath) as! TranslationPairCell
-        cell.topLabels.leftLabel.text = data[indexPath.row].firstWord
-        cell.bottomLabels.leftLabel.text = data[indexPath.row].secondWord
-        cell.topLabels.rightLabel.text = "RU"
-        cell.bottomLabels.rightLabel.text = "EN"
+        cell.viewModel = data[indexPath.row]
         
         return cell
     }

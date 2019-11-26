@@ -13,6 +13,16 @@ class TranslationPairCell: UITableViewCell {
     let topLabels = DoubleLabel(multiline: true)
     let bottomLabels = DoubleLabel(multiline: true)
     
+    var viewModel: TranslationPairViewModel? {
+        didSet {
+            guard let model = viewModel else { return }
+            topLabels.leftLabel.text = model.firstWord
+            bottomLabels.leftLabel.text = model.secondWord
+            topLabels.rightLabel.text = "RU"
+            bottomLabels.rightLabel.text = "EN"
+        }
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
