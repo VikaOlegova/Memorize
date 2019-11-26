@@ -17,6 +17,7 @@ class AllWordsViewController: UIViewController {
         
         view.backgroundColor = .white
         navigationItem.title = "Переводы"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonClicked))
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(tableView)
@@ -34,6 +35,10 @@ class AllWordsViewController: UIViewController {
                 TranslationPairViewModel(firstWord: "Ручка", secondWord: "Pen")]
         
         tableView.reloadData()
+    }
+    
+    @objc func addButtonClicked() {
+        
     }
 }
 

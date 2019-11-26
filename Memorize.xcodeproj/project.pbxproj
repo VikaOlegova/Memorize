@@ -19,6 +19,9 @@
 		3C049B1E238C902D00F17697 /* TranslationPairCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B1D238C902D00F17697 /* TranslationPairCell.swift */; };
 		3C049B20238C919800F17697 /* TranslationPairViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B1F238C919800F17697 /* TranslationPairViewModel.swift */; };
 		3C049B22238C972C00F17697 /* DoubleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B21238C972C00F17697 /* DoubleLabel.swift */; };
+		3C049B24238CAA7A00F17697 /* CreateWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B23238CAA7A00F17697 /* CreateWordViewController.swift */; };
+		3C049B26238CB7E400F17697 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B25238CB7E400F17697 /* CheckBox.swift */; };
+		3C049B28238CBF1C00F17697 /* BigGreenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B27238CBF1C00F17697 /* BigGreenButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,9 @@
 		3C049B1D238C902D00F17697 /* TranslationPairCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationPairCell.swift; sourceTree = "<group>"; };
 		3C049B1F238C919800F17697 /* TranslationPairViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationPairViewModel.swift; sourceTree = "<group>"; };
 		3C049B21238C972C00F17697 /* DoubleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleLabel.swift; sourceTree = "<group>"; };
+		3C049B23238CAA7A00F17697 /* CreateWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWordViewController.swift; sourceTree = "<group>"; };
+		3C049B25238CB7E400F17697 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		3C049B27238CBF1C00F17697 /* BigGreenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigGreenButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +107,9 @@
 				3C049B1D238C902D00F17697 /* TranslationPairCell.swift */,
 				3C049B1F238C919800F17697 /* TranslationPairViewModel.swift */,
 				3C049B21238C972C00F17697 /* DoubleLabel.swift */,
+				3C049B23238CAA7A00F17697 /* CreateWordViewController.swift */,
+				3C049B25238CB7E400F17697 /* CheckBox.swift */,
+				3C049B27238CBF1C00F17697 /* BigGreenButton.swift */,
 			);
 			path = Memorize;
 			sourceTree = "<group>";
@@ -214,8 +223,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C049B24238CAA7A00F17697 /* CreateWordViewController.swift in Sources */,
 				3C049B20238C919800F17697 /* TranslationPairViewModel.swift in Sources */,
+				3C049B28238CBF1C00F17697 /* BigGreenButton.swift in Sources */,
 				3C049B22238C972C00F17697 /* DoubleLabel.swift in Sources */,
+				3C049B26238CB7E400F17697 /* CheckBox.swift in Sources */,
 				3C049B1C238C8D8000F17697 /* AllWordsViewController.swift in Sources */,
 				3C049AFD238C714D00F17697 /* Memorize.xcdatamodeld in Sources */,
 				3C049B1E238C902D00F17697 /* TranslationPairCell.swift in Sources */,
