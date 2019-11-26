@@ -18,6 +18,7 @@ extension CreateWordPresenter: CreateWordViewOutput {
         view.show(image: UIImage(named: "checked")!)
         view.show(languageInfo: "RU -> EN")
         view.show(reverseTranslationEnabled: false)
+        view.show(title: "Редактировать")
     }
     
     func saveTapped(originalWord: String?, translationWord: String?, reverseTranslationEnabled: Bool) {

@@ -13,6 +13,7 @@ protocol CreateWordViewInput: class {
     func show(image: UIImage)
     func show(languageInfo: String)
     func show(reverseTranslationEnabled: Bool)
+    func show(title: String)
 }
 
 protocol CreateWordViewOutput: class {
@@ -47,8 +48,6 @@ class CreateWordViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
-        navigationItem.title = "Создать"
         
         fromToButton.translatesAutoresizingMaskIntoConstraints = false
         createReverseTranslationLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -135,6 +134,10 @@ extension CreateWordViewController: CreateWordViewInput {
     
     func show(reverseTranslationEnabled: Bool) {
         checkBox.isSelected = reverseTranslationEnabled
+    }
+    
+    func show(title: String) {
+        navigationItem.title = title
     }
     
     
