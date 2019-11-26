@@ -37,8 +37,8 @@ class TranslationPairCell: UITableViewCell {
         
         roundedBackgroundView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 15).isActive = true
         roundedBackgroundView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -15).isActive = true
-        roundedBackgroundView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
-        roundedBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        roundedBackgroundView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 7).isActive = true
+        roundedBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -7).isActive = true
         
         stackView.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 11).isActive = true
         stackView.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -11).isActive = true

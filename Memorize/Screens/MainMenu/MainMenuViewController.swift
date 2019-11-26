@@ -8,10 +8,33 @@
 
 import UIKit
 
+protocol MainMenuViewInput: class {
+    func show(repeatWordsCount: Int)
+    func show(allWordsCount: Int)
+}
+
+protocol MainMenuViewOutput: class {
+    func viewDidLoad()
+    func repeatWordsButtonTapped()
+    func allWordsButtonTapped()
+}
+
 class MainMenuViewController: UIViewController {
     let repeatWordsButton = MainMenuButton()
     let allWordsButton = MainMenuButton()
-
+    
+    let presenter: MainMenuViewOutput
+    
+    init(presenter: MainMenuViewOutput) {
+        self.presenter = presenter
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,10 +45,10 @@ class MainMenuViewController: UIViewController {
         view.addSubview(allWordsButton)
         
         repeatWordsButton.doubleLabel.leftLabel.text = "Повторить"
-        repeatWordsButton.doubleLabel.rightLabel.text = "10"
+        repeatWordsButton.addTarget(self, action: #selector(repeatWordsButtonTapped), for: .touchUpInside)
         
         allWordsButton.doubleLabel.leftLabel.text = "Все переводы"
-        allWordsButton.doubleLabel.rightLabel.text = "30"
+        allWordsButton.addTarget(self, action: #selector(allWordsButtonTapped), for: .touchUpInside)
         
         repeatWordsButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true
         repeatWordsButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = true
@@ -36,8 +59,26 @@ class MainMenuViewController: UIViewController {
         allWordsButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = true
         allWordsButton.topAnchor.constraint(equalTo: repeatWordsButton.bottomAnchor, constant: 15).isActive = true
         allWordsButton.heightAnchor.constraint(equalToConstant: 46).isActive = true
+        
+        presenter.viewDidLoad()
     }
+    
+    @objc func repeatWordsButtonTapped() {
+        presenter.repeatWordsButtonTapped()
+    }
+    
+    @objc func allWordsButtonTapped() {
+        presenter.allWordsButtonTapped()
+    }
+}
 
-
+extension MainMenuViewController: MainMenuViewInput {
+    func show(repeatWordsCount: Int) {
+        repeatWordsButton.doubleLabel.rightLabel.text = String(repeatWordsCount)
+    }
+    
+    func show(allWordsCount: Int) {
+        allWordsButton.doubleLabel.rightLabel.text = String(allWordsCount)
+    }
 }
 

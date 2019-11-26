@@ -18,6 +18,8 @@ class AllWordsViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "Переводы"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonClicked))
+        
+        tableView.contentInset.top = 7
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(tableView)

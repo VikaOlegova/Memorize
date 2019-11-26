@@ -25,6 +25,10 @@
 		3C049B2C238DC1E900F17697 /* TitleTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B2B238DC1E900F17697 /* TitleTextFieldView.swift */; };
 		3C049B32238DCA4700F17697 /* CreateWordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B31238DCA4700F17697 /* CreateWordPresenter.swift */; };
 		3C049B34238DD36E00F17697 /* CreateWordAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B33238DD36E00F17697 /* CreateWordAssembly.swift */; };
+		3C049B36238DD98400F17697 /* MainMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B35238DD98400F17697 /* MainMenuPresenter.swift */; };
+		3C049B38238DD9B700F17697 /* MainMenuAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B37238DD9B700F17697 /* MainMenuAssembly.swift */; };
+		3C049B3B238DDD3D00F17697 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B3A238DDD3D00F17697 /* Router.swift */; };
+		3C049B3E238DE71300F17697 /* RepeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B3D238DE71300F17697 /* RepeatViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +64,10 @@
 		3C049B2B238DC1E900F17697 /* TitleTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTextFieldView.swift; sourceTree = "<group>"; };
 		3C049B31238DCA4700F17697 /* CreateWordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWordPresenter.swift; sourceTree = "<group>"; };
 		3C049B33238DD36E00F17697 /* CreateWordAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWordAssembly.swift; sourceTree = "<group>"; };
+		3C049B35238DD98400F17697 /* MainMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuPresenter.swift; sourceTree = "<group>"; };
+		3C049B37238DD9B700F17697 /* MainMenuAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuAssembly.swift; sourceTree = "<group>"; };
+		3C049B3A238DDD3D00F17697 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		3C049B3D238DE71300F17697 /* RepeatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +139,8 @@
 		3C049B2D238DC9D200F17697 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				3C049B3C238DE6FA00F17697 /* Repeat */,
+				3C049B39238DDD2800F17697 /* Router */,
 				3C049B30238DCA1E00F17697 /* CreateWord */,
 				3C049B2F238DCA1500F17697 /* MainMenu */,
 				3C049B2E238DCA0400F17697 /* AllWords */,
@@ -150,6 +160,8 @@
 			isa = PBXGroup;
 			children = (
 				3C049AF6238C714D00F17697 /* MainMenuViewController.swift */,
+				3C049B35238DD98400F17697 /* MainMenuPresenter.swift */,
+				3C049B37238DD9B700F17697 /* MainMenuAssembly.swift */,
 			);
 			path = MainMenu;
 			sourceTree = "<group>";
@@ -162,6 +174,22 @@
 				3C049B33238DD36E00F17697 /* CreateWordAssembly.swift */,
 			);
 			path = CreateWord;
+			sourceTree = "<group>";
+		};
+		3C049B39238DDD2800F17697 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				3C049B3A238DDD3D00F17697 /* Router.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		3C049B3C238DE6FA00F17697 /* Repeat */ = {
+			isa = PBXGroup;
+			children = (
+				3C049B3D238DE71300F17697 /* RepeatViewController.swift */,
+			);
+			path = Repeat;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,6 +296,9 @@
 				3C049B20238C919800F17697 /* TranslationPairViewModel.swift in Sources */,
 				3C049B28238CBF1C00F17697 /* BigGreenButton.swift in Sources */,
 				3C049B22238C972C00F17697 /* DoubleLabel.swift in Sources */,
+				3C049B3B238DDD3D00F17697 /* Router.swift in Sources */,
+				3C049B36238DD98400F17697 /* MainMenuPresenter.swift in Sources */,
+				3C049B38238DD9B700F17697 /* MainMenuAssembly.swift in Sources */,
 				3C049B26238CB7E400F17697 /* CheckBox.swift in Sources */,
 				3C049B1C238C8D8000F17697 /* AllWordsViewController.swift in Sources */,
 				3C049AFD238C714D00F17697 /* Memorize.xcdatamodeld in Sources */,
@@ -277,6 +308,7 @@
 				3C049B1A238C7B3600F17697 /* MainMenuButton.swift in Sources */,
 				3C049B34238DD36E00F17697 /* CreateWordAssembly.swift in Sources */,
 				3C049AF7238C714D00F17697 /* MainMenuViewController.swift in Sources */,
+				3C049B3E238DE71300F17697 /* RepeatViewController.swift in Sources */,
 				3C049B18238C738B00F17697 /* RoundedBackgroundView.swift in Sources */,
 				3C049AF5238C714D00F17697 /* AppDelegate.swift in Sources */,
 			);

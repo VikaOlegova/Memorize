@@ -21,6 +21,9 @@ class MainMenuButton: UIButton {
         
         translatesAutoresizingMaskIntoConstraints = false
         
+        roundedBackgroundView.isUserInteractionEnabled = false
+        doubleLabel.isUserInteractionEnabled = false
+        
         addSubview(roundedBackgroundView)
         sendSubviewToBack(roundedBackgroundView)
         addSubview(doubleLabel)
