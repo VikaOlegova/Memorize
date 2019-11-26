@@ -92,7 +92,9 @@ class CreateWordViewController: UIViewController {
         createTranslationLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
         
         checkBox.rightAnchor.constraint(equalTo: createTranslationLabel.leftAnchor, constant: -10).isActive = true
-        checkBox.topAnchor.constraint(equalTo: fromToButton.bottomAnchor, constant: 6).isActive = true
+        checkBox.centerYAnchor.constraint(equalTo: createTranslationLabel.centerYAnchor).isActive = true
+        checkBox.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        checkBox.widthAnchor.constraint(equalToConstant: 24).isActive = true
         
         translationLabel.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 18).isActive = true
         translationLabel.topAnchor.constraint(equalTo: checkBox.bottomAnchor, constant: 18).isActive = true
