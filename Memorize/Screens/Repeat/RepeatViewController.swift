@@ -8,6 +8,21 @@
 
 import UIKit
 
+protocol RepeatViewInput: class {
+    func show(mistakeCount: Int)
+    func show(translationsCount: Int, from allCount: Int)
+    func show(originalWord: String)
+    func addOriginalWord(audio: Data)
+    func show(image: UIImage)
+    func show(titleButton: String)
+}
+
+protocol RepeatViewOutput: class {
+    func viewDidLoad()
+    func textFieldChanged(textIsEmpty: Bool)
+    func greenButtonTapped(enteredTranslation: String)
+}
+
 class RepeatViewController: UIViewController {
     let stack = UIStackView()
     let translationsAndMistakesCount = TranslationsAndMistakesCount()
@@ -16,15 +31,31 @@ class RepeatViewController: UIViewController {
     let imageView = UIImageView()
     let greenButton = BigGreenButton()
     
+    let presenter: RepeatViewOutput
+    
+    init(presenter: RepeatViewOutput) {
+        self.presenter = presenter
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        navigationItem.title = "Повторение"
+        
         translation.label.text = "Перевод"
         translation.label.textColor = .gray
         translation.textField.placeholder = "Введите перевод"
-        imageView.backgroundColor = .gray
+        translation.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        imageView.contentMode = .scaleAspectFit
         greenButton.setTitle("Показать перевод", for: .normal)
+        greenButton.addTarget(self, action: #selector(greenButtonTapped), for: .touchUpInside)
         
         stack.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,103 +83,50 @@ class RepeatViewController: UIViewController {
         imageView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -18).isActive = true
         imageView.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: 18).isActive = true
         imageView.bottomAnchor.constraint(equalTo: greenButton.topAnchor, constant: -50).isActive = true
+        
+        presenter.viewDidLoad()
+    }
+    
+    @objc func greenButtonTapped() {
+        presenter.greenButtonTapped(enteredTranslation: translation.textField.text ?? "")
+    }
+    
+    private var oldTextIsEmpty = true
+    
+    @objc func textFieldDidChange() {
+        guard let _ = translation.textField.text else {
+            oldTextIsEmpty = true
+            presenter.textFieldChanged(textIsEmpty: oldTextIsEmpty)
+            return
+        }
+        guard oldTextIsEmpty else { return }
+        oldTextIsEmpty = false
+        presenter.textFieldChanged(textIsEmpty: oldTextIsEmpty)
     }
 }
 
-class TranslationsAndMistakesCount: UIView {
-    private let translationLabel = UILabel()
-    let translationCounter = UILabel()
-    private let mistakeLabel = UILabel()
-    let mistakeCounter = UILabel()
-    
-    convenience init() {
-        self.init(frame: .zero)
+extension RepeatViewController: RepeatViewInput {
+    func show(mistakeCount: Int) {
+        translationsAndMistakesCount.mistakeCounter.text = String(mistakeCount)
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        translatesAutoresizingMaskIntoConstraints = false
-        translationLabel.translatesAutoresizingMaskIntoConstraints = false
-        translationCounter.translatesAutoresizingMaskIntoConstraints = false
-        mistakeLabel.translatesAutoresizingMaskIntoConstraints = false
-        mistakeCounter.translatesAutoresizingMaskIntoConstraints = false
-        
-        addSubview(translationCounter)
-        addSubview(translationLabel)
-        addSubview(mistakeCounter)
-        addSubview(mistakeLabel)
-        
-        translationLabel.text = "Перевод:"
-        mistakeLabel.text = "Ошибок:"
-        translationCounter.text = "1/10"
-        mistakeCounter.text = "0"
-        
-        translationCounter.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        translationCounter.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        translationCounter.heightAnchor.constraint(equalToConstant: 19).isActive = true
-        
-        translationLabel.rightAnchor.constraint(equalTo: translationCounter.leftAnchor, constant: -4).isActive = true
-        translationLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        translationLabel.heightAnchor.constraint(equalToConstant: 19).isActive = true
-        
-        mistakeCounter.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        mistakeCounter.topAnchor.constraint(equalTo: translationLabel.bottomAnchor, constant: 1).isActive = true
-        mistakeCounter.heightAnchor.constraint(equalToConstant: 19).isActive = true
-        
-        mistakeLabel.rightAnchor.constraint(equalTo: mistakeCounter.leftAnchor, constant: -4).isActive = true
-        mistakeLabel.topAnchor.constraint(equalTo: translationLabel.bottomAnchor, constant: 1).isActive = true
-        mistakeLabel.heightAnchor.constraint(equalToConstant: 19).isActive = true
-        mistakeLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    func show(translationsCount: Int, from allCount: Int) {
+        translationsAndMistakesCount.translationCounter.text = "\(translationsCount)/\(allCount)"
     }
     
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-class AskingWordAndButton: UIView {
-    let wordLabel = UILabel()
-    let audioButton = UIButton()
-    
-    convenience init() {
-        self.init(frame: .zero)
+    func show(originalWord: String) {
+        askingWordAndButton.wordLabel.text = originalWord
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        translatesAutoresizingMaskIntoConstraints = false
-        wordLabel.translatesAutoresizingMaskIntoConstraints = false
-        audioButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        addSubview(wordLabel)
-        addSubview(audioButton)
-        
-        wordLabel.text = "Я пришел к тебе с приветом, рассказать, что солнце встало и все в таком духе, только"
-        wordLabel.font = .systemFont(ofSize: 22)
-        wordLabel.lineBreakMode = .byWordWrapping
-        wordLabel.numberOfLines = 0
-        
-        audioButton.setImage(UIImage(named: "audio"), for: .normal)
-        audioButton.addTarget(self, action: #selector(audioButtonTapped), for: .touchUpInside)
-        
-        wordLabel.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        wordLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -23).isActive = true
-        wordLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        
-        audioButton.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        audioButton.heightAnchor.constraint(equalToConstant: 22).isActive = true
-        audioButton.widthAnchor.constraint(equalToConstant: 22).isActive = true
-        audioButton.bottomAnchor.constraint(equalTo: wordLabel.bottomAnchor).isActive = true
-        audioButton.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    func addOriginalWord(audio: Data) {
+ 
     }
     
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func show(image: UIImage) {
+        imageView.image = image
     }
     
-    @objc func audioButtonTapped() {
-        print("audio button tapped")
+    func show(titleButton: String) {
+        greenButton.setTitle(titleButton, for: .normal)
     }
 }

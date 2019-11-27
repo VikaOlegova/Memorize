@@ -1,5 +1,5 @@
 //
-//  CreateWordAssembly.swift
+//  RepeatAssembly.swift
 //  Memorize
 //
 //  Created by Вика on 27/11/2019.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-class CreateWordAssembly {
+class RepeatAssembly {
     func create() -> UIViewController {
-        let presenter = CreateWordPresenter()
-        let viewController = CreateWordViewController(presenter: presenter)
+        let presenter = RepeatPresenter()
+        let viewController = RepeatViewController(presenter: presenter)
         
         presenter.view = viewController
         
         return viewController
-    } 
+    }
 }
