@@ -15,7 +15,7 @@ class CreateWordPresenter {
 extension CreateWordPresenter: CreateWordViewOutput {
     func viewDidLoad() {
         view.showWords(original: "Яблоко", translation: "Apple")
-        view.show(image: UIImage(named: "checked")!)
+        view.show(image: UIImage(named: "night")!)
         view.show(languageInfo: "RU -> EN")
         view.show(reverseTranslationEnabled: false)
         view.show(title: "Редактировать")

@@ -21,6 +21,14 @@ class Router {
     }
     
     func showAllWords() {
-        rootNavigationController.pushViewController(AllWordsViewController(), animated: true)
+        rootNavigationController.pushViewController(AllWordsAssembly().create(), animated: true)
+    }
+    
+    func showRepeat() {
+        rootNavigationController.pushViewController(RepeatAssembly().create(), animated: true)
+    }
+    
+    func showCreateWord() {
+        rootNavigationController.pushViewController(CreateWordAssembly().create(), animated: true)
     }
 }

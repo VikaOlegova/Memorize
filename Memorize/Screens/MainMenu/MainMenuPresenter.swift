@@ -19,7 +19,7 @@ extension MainMenuPresenter: MainMenuViewOutput {
     }
     
     func repeatWordsButtonTapped() {
-        
+        Router.shared.showRepeat()
     }
     
     func allWordsButtonTapped() {

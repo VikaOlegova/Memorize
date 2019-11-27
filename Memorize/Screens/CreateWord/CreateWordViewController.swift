@@ -68,7 +68,7 @@ class CreateWordViewController: UIViewController {
         createReverseTranslationLabel.text = "Создать обратный перевод"
         translationView.label.text = "Перевод"
         translationView.textField.placeholder = "Введите перевод"
-        imageView.backgroundColor = .gray
+        imageView.contentMode = .scaleAspectFit
         saveButton.setTitle("Сохранить", for: .normal)
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         

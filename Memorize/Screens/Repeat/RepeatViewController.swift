@@ -94,7 +94,7 @@ class RepeatViewController: UIViewController {
     private var oldTextIsEmpty = true
     
     @objc func textFieldDidChange() {
-        guard let _ = translation.textField.text else {
+        guard let text = translation.textField.text, !text.isEmpty else {
             oldTextIsEmpty = true
             presenter.textFieldChanged(textIsEmpty: oldTextIsEmpty)
             return

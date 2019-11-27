@@ -8,16 +8,38 @@
 
 import UIKit
 
+protocol AllWordsViewInput: class {
+    func show(allWords: [TranslationPairViewModel])
+}
+
+protocol AllWordsViewOutput: class {
+    func viewDidLoad()
+    func addButtonTapped()
+    func cellTapped(with pair: TranslationPairViewModel)
+}
+
 class AllWordsViewController: UIViewController {
     let tableView = UITableView(frame: .zero, style: .plain)
     var data = [TranslationPairViewModel]()
+    
+    let presenter: AllWordsViewOutput
+    
+    init(presenter: AllWordsViewOutput) {
+        self.presenter = presenter
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         navigationItem.title = "Переводы"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonClicked))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         
         tableView.contentInset.top = 7
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,14 +55,13 @@ class AllWordsViewController: UIViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         
-        data = [TranslationPairViewModel(firstWord: "Яблоко ЯблокоЯблоко ЯблокоЯблоко Яблоко ЯблокоЯблоко", secondWord: "Apple  ЯблокоЯблоко ЯблокоЯблоко Яблоко ЯблокоЯблоко"),
-                TranslationPairViewModel(firstWord: "Ручка", secondWord: "Pen")]
+        presenter.viewDidLoad()
         
         tableView.reloadData()
     }
     
-    @objc func addButtonClicked() {
-        
+    @objc func addButtonTapped() {
+        presenter.addButtonTapped()
     }
 }
 
@@ -54,5 +75,17 @@ extension AllWordsViewController: UITableViewDataSource {
         cell.viewModel = data[indexPath.row]
         
         return cell
+    }
+}
+
+extension AllWordsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.cellTapped(with: data[indexPath.row])
+    }
+}
+
+extension AllWordsViewController: AllWordsViewInput {
+    func show(allWords: [TranslationPairViewModel]) {
+        data = allWords
     }
 }
