@@ -22,10 +22,6 @@ class TitleTextFieldView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-//        isUserInteractionEnabled = true
-//        textField.isUserInteractionEnabled = true
-//        textField.isEnabled = true
-        
         splitter.backgroundColor = UIColor(white: 210/255.0, alpha: 1)
         
         translatesAutoresizingMaskIntoConstraints = false
