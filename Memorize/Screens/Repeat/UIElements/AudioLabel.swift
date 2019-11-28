@@ -1,5 +1,5 @@
 //
-//  AskingWordAndButton.swift
+//  AudioLabel.swift
 //  Memorize
 //
 //  Created by Вика on 27/11/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AskingWordAndButton: UIView {
+class AudioLabel: UIView {
     let wordLabel = UILabel()
     let audioButton = UIButton()
     
@@ -35,7 +35,7 @@ class AskingWordAndButton: UIView {
         audioButton.addTarget(self, action: #selector(audioButtonTapped), for: .touchUpInside)
         
         wordLabel.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        wordLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -23).isActive = true
+        wordLabel.rightAnchor.constraint(equalTo: audioButton.leftAnchor, constant: -1).isActive = true
         wordLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         
         audioButton.rightAnchor.constraint(equalTo: rightAnchor).isActive = true

@@ -13,6 +13,7 @@ class TranslationsAndMistakesCount: UIView {
     let translationCounter = UILabel()
     private let mistakeLabel = UILabel()
     let mistakeCounter = UILabel()
+    let fromToLanguageLabel = UILabel()
     
     convenience init() {
         self.init(frame: .zero)
@@ -26,11 +27,13 @@ class TranslationsAndMistakesCount: UIView {
         translationCounter.translatesAutoresizingMaskIntoConstraints = false
         mistakeLabel.translatesAutoresizingMaskIntoConstraints = false
         mistakeCounter.translatesAutoresizingMaskIntoConstraints = false
+        fromToLanguageLabel.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(translationCounter)
         addSubview(translationLabel)
         addSubview(mistakeCounter)
         addSubview(mistakeLabel)
+        addSubview(fromToLanguageLabel)
         
         translationLabel.text = "Перевод:"
         mistakeLabel.text = "Ошибок:"
@@ -51,6 +54,10 @@ class TranslationsAndMistakesCount: UIView {
         mistakeLabel.topAnchor.constraint(equalTo: translationLabel.bottomAnchor, constant: 1).isActive = true
         mistakeLabel.heightAnchor.constraint(equalToConstant: 19).isActive = true
         mistakeLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        
+        fromToLanguageLabel.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        fromToLanguageLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        fromToLanguageLabel.heightAnchor.constraint(equalToConstant: 19).isActive = true
     }
     
     required init(coder: NSCoder) {

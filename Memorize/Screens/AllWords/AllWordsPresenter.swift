@@ -22,10 +22,14 @@ extension AllWordsPresenter: AllWordsViewOutput {
     }
     
     func addButtonTapped() {
-        Router.shared.showCreateWord()
+        Router.shared.showCreatePair()
     }
     
     func cellTapped(with pair: TranslationPairViewModel) {
+        let translationPair = TranslationPair.empty
+        translationPair.originalWord = pair.firstWord
+        translationPair.translatedWord = pair.secondWord
         
+        Router.shared.showEdit(translationPair: translationPair)
     }
 }

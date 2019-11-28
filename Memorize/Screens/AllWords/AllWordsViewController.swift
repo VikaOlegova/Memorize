@@ -53,6 +53,7 @@ class AllWordsViewController: UIViewController {
         
         tableView.register(TranslationPairCell.self, forCellReuseIdentifier: "TranslationPairCell")
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.separatorStyle = .none
         
         presenter.viewDidLoad()

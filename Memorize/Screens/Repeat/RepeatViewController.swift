@@ -11,8 +11,8 @@ import UIKit
 protocol RepeatViewInput: class {
     func show(mistakeCount: Int)
     func show(translationsCount: Int, from allCount: Int)
+    func show(fromToLanguage: String)
     func show(originalWord: String)
-    func addOriginalWord(audio: Data)
     func show(image: UIImage)
     func show(titleButton: String)
 }
@@ -21,12 +21,13 @@ protocol RepeatViewOutput: class {
     func viewDidLoad()
     func textFieldChanged(textIsEmpty: Bool)
     func greenButtonTapped(enteredTranslation: String)
+    func playAudioTapped()
 }
 
 class RepeatViewController: UIViewController {
     let stack = UIStackView()
     let translationsAndMistakesCount = TranslationsAndMistakesCount()
-    let askingWordAndButton = AskingWordAndButton()
+    let askingWordAndButton = AudioLabel()
     let translation = TitleTextFieldView()
     let imageView = UIImageView()
     let greenButton = BigGreenButton()
@@ -88,7 +89,14 @@ class RepeatViewController: UIViewController {
     }
     
     @objc func greenButtonTapped() {
-        presenter.greenButtonTapped(enteredTranslation: translation.textField.text ?? "")
+        let popUpVC = CheckAnswerPopViewController() // 1
+        
+        self.addChild(popUpVC) // 2
+        popUpVC.view.frame = self.view.frame  // 3
+        self.view.addSubview(popUpVC.view) // 4
+        
+        popUpVC.didMove(toParent: self) // 5
+        //presenter.greenButtonTapped(enteredTranslation: translation.textField.text ?? "")
     }
     
     private var oldTextIsEmpty = true
@@ -106,6 +114,10 @@ class RepeatViewController: UIViewController {
 }
 
 extension RepeatViewController: RepeatViewInput {
+    func show(fromToLanguage: String) {
+        translationsAndMistakesCount.fromToLanguageLabel.text = fromToLanguage
+    }
+    
     func show(mistakeCount: Int) {
         translationsAndMistakesCount.mistakeCounter.text = String(mistakeCount)
     }

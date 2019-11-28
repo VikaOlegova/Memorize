@@ -19,22 +19,25 @@
 		3C049B1E238C902D00F17697 /* TranslationPairCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B1D238C902D00F17697 /* TranslationPairCell.swift */; };
 		3C049B20238C919800F17697 /* TranslationPairViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B1F238C919800F17697 /* TranslationPairViewModel.swift */; };
 		3C049B22238C972C00F17697 /* DoubleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B21238C972C00F17697 /* DoubleLabel.swift */; };
-		3C049B24238CAA7A00F17697 /* CreateWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B23238CAA7A00F17697 /* CreateWordViewController.swift */; };
+		3C049B24238CAA7A00F17697 /* EditPairViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B23238CAA7A00F17697 /* EditPairViewController.swift */; };
 		3C049B26238CB7E400F17697 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B25238CB7E400F17697 /* CheckBox.swift */; };
 		3C049B28238CBF1C00F17697 /* BigGreenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B27238CBF1C00F17697 /* BigGreenButton.swift */; };
 		3C049B2C238DC1E900F17697 /* TitleTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B2B238DC1E900F17697 /* TitleTextFieldView.swift */; };
-		3C049B32238DCA4700F17697 /* CreateWordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B31238DCA4700F17697 /* CreateWordPresenter.swift */; };
-		3C049B34238DD36E00F17697 /* CreateWordAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B33238DD36E00F17697 /* CreateWordAssembly.swift */; };
+		3C049B32238DCA4700F17697 /* EditPairPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B31238DCA4700F17697 /* EditPairPresenter.swift */; };
+		3C049B34238DD36E00F17697 /* EditPairAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B33238DD36E00F17697 /* EditPairAssembly.swift */; };
 		3C049B36238DD98400F17697 /* MainMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B35238DD98400F17697 /* MainMenuPresenter.swift */; };
 		3C049B38238DD9B700F17697 /* MainMenuAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B37238DD9B700F17697 /* MainMenuAssembly.swift */; };
 		3C049B3B238DDD3D00F17697 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B3A238DDD3D00F17697 /* Router.swift */; };
 		3C049B3E238DE71300F17697 /* RepeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B3D238DE71300F17697 /* RepeatViewController.swift */; };
 		3C049B41238E4A7400F17697 /* TranslationsAndMistakesCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B40238E4A7400F17697 /* TranslationsAndMistakesCount.swift */; };
-		3C049B43238E4A9600F17697 /* AskingWordAndButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B42238E4A9600F17697 /* AskingWordAndButton.swift */; };
+		3C049B43238E4A9600F17697 /* AudioLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B42238E4A9600F17697 /* AudioLabel.swift */; };
 		3C049B48238E538F00F17697 /* RepeatPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B47238E538F00F17697 /* RepeatPresenter.swift */; };
 		3C049B4A238E53A100F17697 /* RepeatAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B49238E53A100F17697 /* RepeatAssembly.swift */; };
 		3C049B4C238E622E00F17697 /* AllWordsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B4B238E622E00F17697 /* AllWordsPresenter.swift */; };
 		3C049B4E238E624000F17697 /* AllWordsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B4D238E624000F17697 /* AllWordsAssembly.swift */; };
+		3C049B50238F10E700F17697 /* TranslationPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B4F238F10E700F17697 /* TranslationPair.swift */; };
+		3C049B52238F41EC00F17697 /* TitleCheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B51238F41EC00F17697 /* TitleCheckboxView.swift */; };
+		3C049B55238F9DC800F17697 /* CheckAnswerPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B54238F9DC800F17697 /* CheckAnswerPopViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,22 +67,25 @@
 		3C049B1D238C902D00F17697 /* TranslationPairCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationPairCell.swift; sourceTree = "<group>"; };
 		3C049B1F238C919800F17697 /* TranslationPairViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationPairViewModel.swift; sourceTree = "<group>"; };
 		3C049B21238C972C00F17697 /* DoubleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleLabel.swift; sourceTree = "<group>"; };
-		3C049B23238CAA7A00F17697 /* CreateWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWordViewController.swift; sourceTree = "<group>"; };
+		3C049B23238CAA7A00F17697 /* EditPairViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPairViewController.swift; sourceTree = "<group>"; };
 		3C049B25238CB7E400F17697 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		3C049B27238CBF1C00F17697 /* BigGreenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigGreenButton.swift; sourceTree = "<group>"; };
 		3C049B2B238DC1E900F17697 /* TitleTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTextFieldView.swift; sourceTree = "<group>"; };
-		3C049B31238DCA4700F17697 /* CreateWordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWordPresenter.swift; sourceTree = "<group>"; };
-		3C049B33238DD36E00F17697 /* CreateWordAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWordAssembly.swift; sourceTree = "<group>"; };
+		3C049B31238DCA4700F17697 /* EditPairPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPairPresenter.swift; sourceTree = "<group>"; };
+		3C049B33238DD36E00F17697 /* EditPairAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPairAssembly.swift; sourceTree = "<group>"; };
 		3C049B35238DD98400F17697 /* MainMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuPresenter.swift; sourceTree = "<group>"; };
 		3C049B37238DD9B700F17697 /* MainMenuAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuAssembly.swift; sourceTree = "<group>"; };
 		3C049B3A238DDD3D00F17697 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		3C049B3D238DE71300F17697 /* RepeatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatViewController.swift; sourceTree = "<group>"; };
 		3C049B40238E4A7400F17697 /* TranslationsAndMistakesCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationsAndMistakesCount.swift; sourceTree = "<group>"; };
-		3C049B42238E4A9600F17697 /* AskingWordAndButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskingWordAndButton.swift; sourceTree = "<group>"; };
+		3C049B42238E4A9600F17697 /* AudioLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLabel.swift; sourceTree = "<group>"; };
 		3C049B47238E538F00F17697 /* RepeatPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatPresenter.swift; sourceTree = "<group>"; };
 		3C049B49238E53A100F17697 /* RepeatAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatAssembly.swift; sourceTree = "<group>"; };
 		3C049B4B238E622E00F17697 /* AllWordsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllWordsPresenter.swift; sourceTree = "<group>"; };
 		3C049B4D238E624000F17697 /* AllWordsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllWordsAssembly.swift; sourceTree = "<group>"; };
+		3C049B4F238F10E700F17697 /* TranslationPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationPair.swift; sourceTree = "<group>"; };
+		3C049B51238F41EC00F17697 /* TitleCheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCheckboxView.swift; sourceTree = "<group>"; };
+		3C049B54238F9DC800F17697 /* CheckAnswerPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckAnswerPopViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +136,7 @@
 				3C049B17238C738B00F17697 /* RoundedBackgroundView.swift */,
 				3C049B27238CBF1C00F17697 /* BigGreenButton.swift */,
 				3C049B2B238DC1E900F17697 /* TitleTextFieldView.swift */,
+				3C049B4F238F10E700F17697 /* TranslationPair.swift */,
 			);
 			path = Memorize;
 			sourceTree = "<group>";
@@ -146,6 +153,7 @@
 		3C049B2D238DC9D200F17697 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				3C049B53238F9D7E00F17697 /* CheckAnswer */,
 				3C049B3C238DE6FA00F17697 /* Repeat */,
 				3C049B39238DDD2800F17697 /* Router */,
 				3C049B30238DCA1E00F17697 /* CreateWord */,
@@ -158,7 +166,7 @@
 		3C049B2E238DCA0400F17697 /* AllWords */ = {
 			isa = PBXGroup;
 			children = (
-				3C049B45238E4AFD00F17697 /* UIHelpers */,
+				3C049B45238E4AFD00F17697 /* UIElements */,
 				3C049B1B238C8D8000F17697 /* AllWordsViewController.swift */,
 				3C049B4B238E622E00F17697 /* AllWordsPresenter.swift */,
 				3C049B4D238E624000F17697 /* AllWordsAssembly.swift */,
@@ -169,7 +177,7 @@
 		3C049B2F238DCA1500F17697 /* MainMenu */ = {
 			isa = PBXGroup;
 			children = (
-				3C049B44238E4ACE00F17697 /* UIHelpers */,
+				3C049B44238E4ACE00F17697 /* UIElements */,
 				3C049AF6238C714D00F17697 /* MainMenuViewController.swift */,
 				3C049B35238DD98400F17697 /* MainMenuPresenter.swift */,
 				3C049B37238DD9B700F17697 /* MainMenuAssembly.swift */,
@@ -180,10 +188,10 @@
 		3C049B30238DCA1E00F17697 /* CreateWord */ = {
 			isa = PBXGroup;
 			children = (
-				3C049B46238E4B1200F17697 /* UIHelpers */,
-				3C049B23238CAA7A00F17697 /* CreateWordViewController.swift */,
-				3C049B31238DCA4700F17697 /* CreateWordPresenter.swift */,
-				3C049B33238DD36E00F17697 /* CreateWordAssembly.swift */,
+				3C049B46238E4B1200F17697 /* UIElements */,
+				3C049B23238CAA7A00F17697 /* EditPairViewController.swift */,
+				3C049B31238DCA4700F17697 /* EditPairPresenter.swift */,
+				3C049B33238DD36E00F17697 /* EditPairAssembly.swift */,
 			);
 			path = CreateWord;
 			sourceTree = "<group>";
@@ -199,7 +207,7 @@
 		3C049B3C238DE6FA00F17697 /* Repeat */ = {
 			isa = PBXGroup;
 			children = (
-				3C049B3F238E4A4800F17697 /* UIHelpers */,
+				3C049B3F238E4A4800F17697 /* UIElements */,
 				3C049B3D238DE71300F17697 /* RepeatViewController.swift */,
 				3C049B47238E538F00F17697 /* RepeatPresenter.swift */,
 				3C049B49238E53A100F17697 /* RepeatAssembly.swift */,
@@ -207,39 +215,48 @@
 			path = Repeat;
 			sourceTree = "<group>";
 		};
-		3C049B3F238E4A4800F17697 /* UIHelpers */ = {
+		3C049B3F238E4A4800F17697 /* UIElements */ = {
 			isa = PBXGroup;
 			children = (
+				3C049B42238E4A9600F17697 /* AudioLabel.swift */,
 				3C049B40238E4A7400F17697 /* TranslationsAndMistakesCount.swift */,
-				3C049B42238E4A9600F17697 /* AskingWordAndButton.swift */,
 			);
-			path = UIHelpers;
+			path = UIElements;
 			sourceTree = "<group>";
 		};
-		3C049B44238E4ACE00F17697 /* UIHelpers */ = {
+		3C049B44238E4ACE00F17697 /* UIElements */ = {
 			isa = PBXGroup;
 			children = (
 				3C049B19238C7B3600F17697 /* MainMenuButton.swift */,
 				3C049B21238C972C00F17697 /* DoubleLabel.swift */,
 			);
-			path = UIHelpers;
+			path = UIElements;
 			sourceTree = "<group>";
 		};
-		3C049B45238E4AFD00F17697 /* UIHelpers */ = {
+		3C049B45238E4AFD00F17697 /* UIElements */ = {
 			isa = PBXGroup;
 			children = (
 				3C049B1D238C902D00F17697 /* TranslationPairCell.swift */,
 				3C049B1F238C919800F17697 /* TranslationPairViewModel.swift */,
 			);
-			path = UIHelpers;
+			path = UIElements;
 			sourceTree = "<group>";
 		};
-		3C049B46238E4B1200F17697 /* UIHelpers */ = {
+		3C049B46238E4B1200F17697 /* UIElements */ = {
 			isa = PBXGroup;
 			children = (
 				3C049B25238CB7E400F17697 /* CheckBox.swift */,
+				3C049B51238F41EC00F17697 /* TitleCheckboxView.swift */,
 			);
-			path = UIHelpers;
+			path = UIElements;
+			sourceTree = "<group>";
+		};
+		3C049B53238F9D7E00F17697 /* CheckAnswer */ = {
+			isa = PBXGroup;
+			children = (
+				3C049B54238F9DC800F17697 /* CheckAnswerPopViewController.swift */,
+			);
+			path = CheckAnswer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -342,7 +359,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C049B24238CAA7A00F17697 /* CreateWordViewController.swift in Sources */,
+				3C049B24238CAA7A00F17697 /* EditPairViewController.swift in Sources */,
 				3C049B20238C919800F17697 /* TranslationPairViewModel.swift in Sources */,
 				3C049B28238CBF1C00F17697 /* BigGreenButton.swift in Sources */,
 				3C049B22238C972C00F17697 /* DoubleLabel.swift in Sources */,
@@ -353,18 +370,21 @@
 				3C049B36238DD98400F17697 /* MainMenuPresenter.swift in Sources */,
 				3C049B38238DD9B700F17697 /* MainMenuAssembly.swift in Sources */,
 				3C049B26238CB7E400F17697 /* CheckBox.swift in Sources */,
+				3C049B52238F41EC00F17697 /* TitleCheckboxView.swift in Sources */,
 				3C049B4C238E622E00F17697 /* AllWordsPresenter.swift in Sources */,
 				3C049B1C238C8D8000F17697 /* AllWordsViewController.swift in Sources */,
 				3C049AFD238C714D00F17697 /* Memorize.xcdatamodeld in Sources */,
-				3C049B43238E4A9600F17697 /* AskingWordAndButton.swift in Sources */,
+				3C049B43238E4A9600F17697 /* AudioLabel.swift in Sources */,
+				3C049B50238F10E700F17697 /* TranslationPair.swift in Sources */,
 				3C049B2C238DC1E900F17697 /* TitleTextFieldView.swift in Sources */,
-				3C049B32238DCA4700F17697 /* CreateWordPresenter.swift in Sources */,
+				3C049B32238DCA4700F17697 /* EditPairPresenter.swift in Sources */,
 				3C049B1E238C902D00F17697 /* TranslationPairCell.swift in Sources */,
 				3C049B1A238C7B3600F17697 /* MainMenuButton.swift in Sources */,
-				3C049B34238DD36E00F17697 /* CreateWordAssembly.swift in Sources */,
+				3C049B34238DD36E00F17697 /* EditPairAssembly.swift in Sources */,
 				3C049AF7238C714D00F17697 /* MainMenuViewController.swift in Sources */,
 				3C049B4A238E53A100F17697 /* RepeatAssembly.swift in Sources */,
 				3C049B3E238DE71300F17697 /* RepeatViewController.swift in Sources */,
+				3C049B55238F9DC800F17697 /* CheckAnswerPopViewController.swift in Sources */,
 				3C049B18238C738B00F17697 /* RoundedBackgroundView.swift in Sources */,
 				3C049AF5238C714D00F17697 /* AppDelegate.swift in Sources */,
 			);
