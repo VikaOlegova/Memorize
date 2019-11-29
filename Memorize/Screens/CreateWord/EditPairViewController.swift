@@ -70,7 +70,6 @@ class EditPairViewController: UIViewController {
         translationView.label.text = "Перевод"
         translationView.textField.placeholder = "Введите перевод"
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .gray
         saveButton.setTitle("Сохранить", for: .normal)
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         

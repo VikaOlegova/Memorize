@@ -15,6 +15,8 @@ protocol RepeatViewInput: class {
     func show(originalWord: String)
     func show(image: UIImage)
     func show(titleButton: String)
+    func show(popViewController: UIViewController)
+    func clearTextField()
 }
 
 protocol RepeatViewOutput: class {
@@ -27,7 +29,7 @@ protocol RepeatViewOutput: class {
 class RepeatViewController: UIViewController {
     let stack = UIStackView()
     let translationsAndMistakesCount = TranslationsAndMistakesCount()
-    let askingWordAndButton = AudioLabel()
+    let audioQuestion = AudioLabel()
     let translation = TitleTextFieldView()
     let imageView = UIImageView()
     let greenButton = BigGreenButton()
@@ -56,7 +58,9 @@ class RepeatViewController: UIViewController {
         translation.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         imageView.contentMode = .scaleAspectFit
         greenButton.setTitle("Показать перевод", for: .normal)
+        
         greenButton.addTarget(self, action: #selector(greenButtonTapped), for: .touchUpInside)
+        audioQuestion.audioButton.addTarget(self, action: #selector(audioButtonTapped), for: .touchUpInside)
         
         stack.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -69,7 +73,7 @@ class RepeatViewController: UIViewController {
         stack.spacing = 15
         
         stack.addArrangedSubview(translationsAndMistakesCount)
-        stack.addArrangedSubview(askingWordAndButton)
+        stack.addArrangedSubview(audioQuestion)
         stack.addArrangedSubview(translation)
         
         stack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 18).isActive = true
@@ -89,14 +93,11 @@ class RepeatViewController: UIViewController {
     }
     
     @objc func greenButtonTapped() {
-        let popUpVC = CheckAnswerPopViewController() // 1
-        
-        self.addChild(popUpVC) // 2
-        popUpVC.view.frame = self.view.frame  // 3
-        self.view.addSubview(popUpVC.view) // 4
-        
-        popUpVC.didMove(toParent: self) // 5
-        //presenter.greenButtonTapped(enteredTranslation: translation.textField.text ?? "")
+        presenter.greenButtonTapped(enteredTranslation: translation.textField.text ?? "")
+    }
+    
+    @objc func audioButtonTapped() {
+        presenter.playAudioTapped()
     }
     
     private var oldTextIsEmpty = true
@@ -127,11 +128,7 @@ extension RepeatViewController: RepeatViewInput {
     }
     
     func show(originalWord: String) {
-        askingWordAndButton.wordLabel.text = originalWord
-    }
-    
-    func addOriginalWord(audio: Data) {
- 
+        audioQuestion.wordLabel.text = originalWord
     }
     
     func show(image: UIImage) {
@@ -140,5 +137,17 @@ extension RepeatViewController: RepeatViewInput {
     
     func show(titleButton: String) {
         greenButton.setTitle(titleButton, for: .normal)
+    }
+    
+    func show(popViewController: UIViewController) {
+        popViewController.willMove(toParent: self)
+        self.addChild(popViewController)
+        popViewController.view.frame = self.view.frame
+        self.view.addSubview(popViewController.view)
+        popViewController.didMove(toParent: self)
+    }
+    
+    func clearTextField() {
+        translation.textField.text = ""
     }
 }

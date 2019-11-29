@@ -35,4 +35,8 @@ class Router {
     func showEdit(translationPair: TranslationPair) {
         rootNavigationController.pushViewController(EditPairAssembly().create(translationPair: translationPair), animated: true)
     }
+    
+    func showCorrectAnswer(isCorrect: Bool, correctTranslation: String, repeatPresenter: RepeatPresenter) -> UIViewController {
+        return CorrectAnswerAssembly().create(isCorrect: isCorrect, correctTranslation: correctTranslation, repeatPresenter: repeatPresenter)
+    }
 }

@@ -11,10 +11,19 @@ import UIKit
 class RepeatPresenter {
     weak var view: RepeatViewInput!
     let translationPairs: [TranslationPair] = [TranslationPair(originalWord: "Яблоко", translatedWord: "Apple", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "night"), rightAnswersStreakCounter: 0, nextShowDate: Date()),
-    TranslationPair(originalWord: "Ручка", translatedWord: "Pen", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "checked"), rightAnswersStreakCounter: 0, nextShowDate: Date())]
+    TranslationPair(originalWord: "Ручка", translatedWord: "Pen", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "checked"), rightAnswersStreakCounter: 0, nextShowDate: Date()),
+    TranslationPair(originalWord: "Cucumber", translatedWord: "Огурец", originalLanguage: .EN, translatedLanguage: .RU, image: UIImage(named: "unchecked"), rightAnswersStreakCounter: 0, nextShowDate: Date())]
+    
     var currentTranslationPair: TranslationPair = TranslationPair.empty
     var mistakeCounter = 0
     var translationCounter = 0
+    
+    func showNextQuestion() {
+        translationCounter += 1
+        guard translationCounter < translationPairs.count else { return }
+        view.clearTextField()
+        viewDidLoad()
+    }
 }
 
 extension RepeatPresenter: RepeatViewOutput {
@@ -37,9 +46,12 @@ extension RepeatPresenter: RepeatViewOutput {
     }
     
     func greenButtonTapped(enteredTranslation: String) {
-        translationCounter += 1
-        guard translationCounter < translationPairs.count else { return }
-        viewDidLoad()
+        let isCorrect = currentTranslationPair.translatedWord.lowercased() == enteredTranslation.lowercased()
+        if !isCorrect {
+            mistakeCounter += 1
+        }
+        let popViewController = Router.shared.showCorrectAnswer(isCorrect: isCorrect, correctTranslation: currentTranslationPair.translatedWord, repeatPresenter: self)
+        view.show(popViewController: popViewController)
     }
     
     func playAudioTapped() {

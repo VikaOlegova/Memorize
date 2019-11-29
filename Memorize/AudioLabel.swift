@@ -26,13 +26,11 @@ class AudioLabel: UIView {
         addSubview(wordLabel)
         addSubview(audioButton)
         
-        wordLabel.text = "iOS разработка и горящие дедлайны - веселье на всю ночь"
         wordLabel.font = .systemFont(ofSize: 22)
         wordLabel.lineBreakMode = .byWordWrapping
         wordLabel.numberOfLines = 0
         
         audioButton.setImage(UIImage(named: "audio"), for: .normal)
-        audioButton.addTarget(self, action: #selector(audioButtonTapped), for: .touchUpInside)
         
         wordLabel.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         wordLabel.rightAnchor.constraint(equalTo: audioButton.leftAnchor, constant: -1).isActive = true
@@ -47,9 +45,5 @@ class AudioLabel: UIView {
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    @objc func audioButtonTapped() {
-        print("audio button tapped")
     }
 }

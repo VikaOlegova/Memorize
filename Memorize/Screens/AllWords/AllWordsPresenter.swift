@@ -6,19 +6,22 @@
 //  Copyright © 2019 Vika Olegova. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class AllWordsPresenter {
     weak var view: AllWordsViewInput!
+    let translationPairs: [TranslationPair] = [TranslationPair(originalWord: "Яблоко", translatedWord: "Apple", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "night"), rightAnswersStreakCounter: 0, nextShowDate: Date()),
+                                               TranslationPair(originalWord: "Ручка", translatedWord: "Pen", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "checked"), rightAnswersStreakCounter: 0, nextShowDate: Date()),
+                                               TranslationPair(originalWord: "Cucumber", translatedWord: "Огурец", originalLanguage: .EN, translatedLanguage: .RU, image: UIImage(named: "unchecked"), rightAnswersStreakCounter: 0, nextShowDate: Date())]
 }
 
 extension AllWordsPresenter: AllWordsViewOutput {
     func viewDidLoad() {
-        view.show(allWords: [TranslationPairViewModel(firstWord: "Яблоко ЯблокоЯблоко ЯблокоЯблоко Яблоко ЯблокоЯблоко",
-                                                      secondWord: "Apple  ЯблокоЯблоко ЯблокоЯблоко Яблоко ЯблокоЯблоко"),
-                             TranslationPairViewModel(firstWord: "Ручка", secondWord: "Pen"),
-                             TranslationPairViewModel(firstWord: "Лягушка", secondWord: "Frog"),
-                             TranslationPairViewModel(firstWord: "Лошадь", secondWord: "Horse")])
+        var translationPairViewModels = [TranslationPairViewModel]()
+        for pair in translationPairs {
+            translationPairViewModels.append(TranslationPairViewModel(firstWord: pair.originalWord, secondWord: pair.translatedWord))
+        }
+        view.show(allWords: translationPairViewModels)
     }
     
     func addButtonTapped() {
@@ -26,10 +29,13 @@ extension AllWordsPresenter: AllWordsViewOutput {
     }
     
     func cellTapped(with pair: TranslationPairViewModel) {
-        let translationPair = TranslationPair.empty
-        translationPair.originalWord = pair.firstWord
-        translationPair.translatedWord = pair.secondWord
-        
-        Router.shared.showEdit(translationPair: translationPair)
+        let translationPair = translationPairs.first { (translationPair) -> Bool in
+            return translationPair.originalWord == pair.firstWord && translationPair.translatedWord == pair.secondWord
+        }
+        guard let notNilPair = translationPair else {
+            print("Невозможная ошибка: не найдена нужная пара в массиве всех слов")
+            return
+        }
+        Router.shared.showEdit(translationPair: notNilPair)
     }
 }

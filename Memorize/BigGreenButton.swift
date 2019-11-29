@@ -20,7 +20,7 @@ class BigGreenButton: UIButton {
         heightAnchor.constraint(equalToConstant: 44).isActive = true
         
         layer.cornerRadius = 8
-        backgroundColor = UIColor(red: 115/255.0, green: 199/255.0, blue: 0, alpha: 1)
+        backgroundColor = UIColor(red: 118/255.0, green: 200/255.0, blue: 0, alpha: 1)
         setTitleColor(.white, for: .normal)
     }
     
