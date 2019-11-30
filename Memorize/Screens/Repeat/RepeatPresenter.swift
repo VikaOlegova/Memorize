@@ -17,17 +17,11 @@ class RepeatPresenter {
     var currentTranslationPair: TranslationPair = TranslationPair.empty
     var mistakeCounter = 0
     var translationCounter = 0
+    var showKeyboardWorkItem: DispatchWorkItem?
     
     func showNextQuestion() {
-        translationCounter += 1
         guard translationCounter < translationPairs.count else { return }
-        view.clearTextField()
-        viewDidLoad()
-    }
-}
-
-extension RepeatPresenter: RepeatViewOutput {
-    func viewDidLoad() {
+        
         currentTranslationPair = translationPairs[translationCounter]
         view.show(image: currentTranslationPair.image!)
         view.show(titleButton: "Показать перевод")
@@ -35,6 +29,20 @@ extension RepeatPresenter: RepeatViewOutput {
         view.show(originalWord: currentTranslationPair.originalWord)
         view.show(translationsCount: translationCounter + 1, from: translationPairs.count)
         view.show(fromToLanguage: currentTranslationPair.originalLanguage.fromTo(currentTranslationPair.translatedLanguage))
+        view.clearTextField()
+        
+        showKeyboardWorkItem = DispatchWorkItem(block: { [weak self] in
+            self?.view.showKeyboard()
+        })
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: showKeyboardWorkItem!)
+        
+        translationCounter += 1
+    }
+}
+
+extension RepeatPresenter: RepeatViewOutput {
+    func viewDidLoad() {
+        showNextQuestion()
     }
     
     func textFieldChanged(textIsEmpty: Bool) {
@@ -45,7 +53,8 @@ extension RepeatPresenter: RepeatViewOutput {
         }
     }
     
-    func greenButtonTapped(enteredTranslation: String) {
+    func didEnterTranslation(_ enteredTranslation: String) {
+        showKeyboardWorkItem?.cancel()
         let isCorrect = currentTranslationPair.translatedWord.lowercased() == enteredTranslation.lowercased()
         if !isCorrect {
             mistakeCounter += 1
@@ -58,5 +67,9 @@ extension RepeatPresenter: RepeatViewOutput {
     
     func playAudioTapped() {
         
+    }
+    
+    func didOpenKeyboard() {
+        showKeyboardWorkItem?.cancel()
     }
 }

@@ -16,17 +16,18 @@ protocol RepeatViewInput: class {
     func show(image: UIImage)
     func show(titleButton: String)
     func clearTextField()
+    func showKeyboard() 
 }
 
 protocol RepeatViewOutput: class {
     func viewDidLoad()
     func textFieldChanged(textIsEmpty: Bool)
-    func greenButtonTapped(enteredTranslation: String)
+    func didEnterTranslation(_ enteredTranslation: String)
     func playAudioTapped()
+    func didOpenKeyboard()
 }
 
 class RepeatViewController: UIViewController {
-    let stack = UIStackView()
     let translationsAndMistakesCount = TranslationsAndMistakesCount()
     let audioQuestion = AudioLabel()
     let translation = TitleTextFieldView()
@@ -34,6 +35,8 @@ class RepeatViewController: UIViewController {
     let greenButton = BigGreenButton()
     
     let presenter: RepeatViewOutput
+    
+    private var imageHeightConstraint: NSLayoutConstraint?
     
     init(presenter: RepeatViewOutput) {
         self.presenter = presenter
@@ -55,25 +58,30 @@ class RepeatViewController: UIViewController {
         translation.label.textColor = .gray
         translation.textField.placeholder = "Введите перевод"
         translation.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        imageView.contentMode = .scaleAspectFit
-        greenButton.setTitle("Показать перевод", for: .normal)
+        translation.textField.returnKeyType = .done
+        translation.textField.delegate = self
         
+        imageView.contentMode = .scaleAspectFit
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapImage)))
+        imageView.isUserInteractionEnabled = true
+        
+        greenButton.setTitle("Показать перевод", for: .normal)
         greenButton.addTarget(self, action: #selector(greenButtonTapped), for: .touchUpInside)
+        
         audioQuestion.audioButton.addTarget(self, action: #selector(audioButtonTapped), for: .touchUpInside)
         
+        let stack = UIStackView(arrangedSubviews: [translationsAndMistakesCount,
+                                                   audioQuestion,
+                                                   translation])
+        stack.axis = .vertical
+        stack.spacing = 15
+
         stack.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(stack)
         view.addSubview(imageView)
         view.addSubview(greenButton)
-        
-        stack.axis = .vertical
-        stack.spacing = 15
-        
-        stack.addArrangedSubview(translationsAndMistakesCount)
-        stack.addArrangedSubview(audioQuestion)
-        stack.addArrangedSubview(translation)
         
         stack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 18).isActive = true
         stack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -18).isActive = true
@@ -86,13 +94,21 @@ class RepeatViewController: UIViewController {
         imageView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 18).isActive = true
         imageView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -18).isActive = true
         imageView.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: 18).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: greenButton.topAnchor, constant: -50).isActive = true
+        imageView.bottomAnchor.constraint(lessThanOrEqualTo: greenButton.topAnchor, constant: -10).isActive = true
         
         presenter.viewDidLoad()
     }
     
+    func passAnswerToPresenter() {
+        presenter.didEnterTranslation(translation.textField.text ?? "")
+    }
+    
+    @objc func didTapImage() {
+        view.endEditing(true)
+    }
+    
     @objc func greenButtonTapped() {
-        presenter.greenButtonTapped(enteredTranslation: translation.textField.text ?? "")
+        passAnswerToPresenter()
     }
     
     @objc func audioButtonTapped() {
@@ -102,14 +118,11 @@ class RepeatViewController: UIViewController {
     private var oldTextIsEmpty = true
     
     @objc func textFieldDidChange() {
-        guard let text = translation.textField.text, !text.isEmpty else {
-            oldTextIsEmpty = true
-            presenter.textFieldChanged(textIsEmpty: oldTextIsEmpty)
-            return
-        }
-        guard oldTextIsEmpty else { return }
-        oldTextIsEmpty = false
-        presenter.textFieldChanged(textIsEmpty: oldTextIsEmpty)
+        let isEmpty = translation.textField.text?.isEmpty ?? true
+        
+        guard isEmpty != oldTextIsEmpty else { return }
+        oldTextIsEmpty = isEmpty
+        presenter.textFieldChanged(textIsEmpty: isEmpty)
     }
 }
 
@@ -132,6 +145,14 @@ extension RepeatViewController: RepeatViewInput {
     
     func show(image: UIImage) {
         imageView.image = image
+        
+        if let existing = imageHeightConstraint {
+            imageView.removeConstraint(existing)
+        }
+        
+        imageHeightConstraint = imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor,
+                                                                  multiplier: image.size.height / image.size.width)
+        imageHeightConstraint?.isActive = true
     }
     
     func show(titleButton: String) {
@@ -141,5 +162,23 @@ extension RepeatViewController: RepeatViewInput {
     func clearTextField() {
         translation.textField.text = nil
         textFieldDidChange()
+    }
+    
+    func showKeyboard() {
+        translation.textField.becomeFirstResponder()
+    }
+}
+
+extension RepeatViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        if !(textField.text?.isEmpty ?? true) {
+            passAnswerToPresenter()
+        }
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        presenter.didOpenKeyboard()
     }
 }
