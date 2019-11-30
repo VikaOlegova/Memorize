@@ -1,5 +1,5 @@
 //
-//  PopViewContent.swift
+//  CorrectAnswerView.swift
 //  Memorize
 //
 //  Created by Вика on 29/11/2019.
@@ -8,12 +8,14 @@
 
 import UIKit
 
-class PopViewContent: UIView {
+class CorrectAnswerView: UIView {
     let colorView = UIView()
     let titleLabel = UILabel()
     let helpLabel = UILabel()
     let correctTranslation = AudioLabel()
     let nextButton = UIButton()
+    
+    private lazy var hideLabelConstraint = helpLabel.heightAnchor.constraint(equalToConstant: 0)
     
     convenience init() {
         self.init(frame: .zero)
@@ -74,7 +76,7 @@ class PopViewContent: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func hideHelpLabel() {
-        helpLabel.heightAnchor.constraint(equalToConstant: 0).isActive = true
+    func hideHelpLabel(_ hide: Bool = true) {
+        hideLabelConstraint.isActive = hide
     }
 }

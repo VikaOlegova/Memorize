@@ -1,5 +1,5 @@
 //
-//  CorrectAnswerPopViewController.swift
+//  CorrectAnswerViewController.swift
 //  Memorize
 //
 //  Created by Вика on 28/11/2019.
@@ -8,27 +8,27 @@
 
 import UIKit
 
-protocol CorrectAnswerPopViewInput: class {
-    func showPopView(for isCorrectAnswer: Bool)
+protocol CorrectAnswerPopupViewInput: class {
+    func setupUI(forCorrectAnswer correctAnswer: Bool)
     func show(correctTranslation: String)
 }
 
-protocol CorrectAnswerPopViewOutput: class {
+protocol CorrectAnswerPopupViewOutput: class {
     func viewDidLoad()
     func playAudioTapped()
     func nextButtonTapped()
 }
 
-class CorrectAnswerPopViewController: UIViewController {
+class CorrectAnswerViewController: UIViewController {
     var answerView = UIView()
-    let content = PopViewContent()
+    let content = CorrectAnswerView()
     
     lazy var underScreenConstraint = answerView.topAnchor.constraint(equalTo: view.bottomAnchor)
     lazy var onScreenConstraint = answerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
     
-    let presenter: CorrectAnswerPopViewOutput
+    let presenter: CorrectAnswerPopupViewOutput
     
-    init(presenter: CorrectAnswerPopViewOutput) {
+    init(presenter: CorrectAnswerPopupViewOutput) {
         self.presenter = presenter
         
         super.init(nibName: nil, bundle: nil)
@@ -109,9 +109,9 @@ class CorrectAnswerPopViewController: UIViewController {
     }
 }
 
-extension CorrectAnswerPopViewController: CorrectAnswerPopViewInput {
-    func showPopView(for isCorrectAnswer: Bool) {
-        if isCorrectAnswer {
+extension CorrectAnswerViewController: CorrectAnswerPopupViewInput {
+    func setupUI(forCorrectAnswer correctAnswer: Bool) {
+        if correctAnswer {
             content.colorView.backgroundColor = UIColor(red: 118/255.0, green: 200/255.0, blue: 0, alpha: 1)
             content.titleLabel.text = "ПРАВИЛЬНО!"
             content.hideHelpLabel()

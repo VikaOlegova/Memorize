@@ -38,11 +38,11 @@ extension RepeatPresenter: RepeatViewOutput {
     }
     
     func textFieldChanged(textIsEmpty: Bool) {
-        guard textIsEmpty else {
+        if textIsEmpty {
+            view.show(titleButton: "Показать перевод")
+        } else {
             view.show(titleButton: "OK")
-            return
         }
-        view.show(titleButton: "Показать перевод")
     }
     
     func greenButtonTapped(enteredTranslation: String) {
@@ -50,8 +50,10 @@ extension RepeatPresenter: RepeatViewOutput {
         if !isCorrect {
             mistakeCounter += 1
         }
-        let popViewController = Router.shared.showCorrectAnswer(isCorrect: isCorrect, correctTranslation: currentTranslationPair.translatedWord, repeatPresenter: self)
-        view.show(popViewController: popViewController)
+        Router.shared.showCorrectAnswer(isCorrect: isCorrect,
+                                        correctTranslation: currentTranslationPair.translatedWord) { [weak self] in
+                                            self?.showNextQuestion()
+        }
     }
     
     func playAudioTapped() {

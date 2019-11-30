@@ -9,11 +9,11 @@
 import UIKit
 
 class CorrectAnswerAssembly {
-    func create(isCorrect: Bool, correctTranslation: String, repeatPresenter: RepeatPresenter) -> UIViewController {
+    func create(isCorrect: Bool, correctTranslation: String, didTapNextCallback: @escaping ()->()) -> UIViewController {
         let presenter = CorrectAnswerPresenter(isCorrect: isCorrect,
                                                correctTranslation: correctTranslation,
-                                               repeatPresenter: repeatPresenter)
-        let viewController = CorrectAnswerPopViewController(presenter: presenter)
+                                               didTapNextCallback: didTapNextCallback)
+        let viewController = CorrectAnswerViewController(presenter: presenter)
         
         presenter.view = viewController
         

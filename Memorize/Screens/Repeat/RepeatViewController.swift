@@ -15,7 +15,6 @@ protocol RepeatViewInput: class {
     func show(originalWord: String)
     func show(image: UIImage)
     func show(titleButton: String)
-    func show(popViewController: UIViewController)
     func clearTextField()
 }
 
@@ -139,15 +138,8 @@ extension RepeatViewController: RepeatViewInput {
         greenButton.setTitle(titleButton, for: .normal)
     }
     
-    func show(popViewController: UIViewController) {
-        popViewController.willMove(toParent: self)
-        self.addChild(popViewController)
-        popViewController.view.frame = self.view.frame
-        self.view.addSubview(popViewController.view)
-        popViewController.didMove(toParent: self)
-    }
-    
     func clearTextField() {
-        translation.textField.text = ""
+        translation.textField.text = nil
+        textFieldDidChange()
     }
 }

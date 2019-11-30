@@ -8,6 +8,17 @@
 
 import UIKit
 
+fileprivate extension UIViewController {
+    func add(subViewController: UIViewController) {
+        subViewController.view.frame = view.bounds
+        
+        subViewController.willMove(toParent: self)
+        addChild(subViewController)
+        view.addSubview(subViewController.view)
+        subViewController.didMove(toParent: self)
+    }
+}
+
 class Router {
     static let shared = Router()
     
@@ -36,7 +47,10 @@ class Router {
         rootNavigationController.pushViewController(EditPairAssembly().create(translationPair: translationPair), animated: true)
     }
     
-    func showCorrectAnswer(isCorrect: Bool, correctTranslation: String, repeatPresenter: RepeatPresenter) -> UIViewController {
-        return CorrectAnswerAssembly().create(isCorrect: isCorrect, correctTranslation: correctTranslation, repeatPresenter: repeatPresenter)
+    func showCorrectAnswer(isCorrect: Bool, correctTranslation: String, didTapNextCallback: @escaping ()->()) {
+        let subViewController = CorrectAnswerAssembly().create(isCorrect: isCorrect,
+                                                               correctTranslation: correctTranslation,
+                                                               didTapNextCallback: didTapNextCallback)
+        rootNavigationController.viewControllers.last?.add(subViewController: subViewController)
     }
 }

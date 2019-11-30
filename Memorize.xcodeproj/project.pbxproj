@@ -37,8 +37,8 @@
 		3C049B4E238E624000F17697 /* AllWordsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B4D238E624000F17697 /* AllWordsAssembly.swift */; };
 		3C049B50238F10E700F17697 /* TranslationPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B4F238F10E700F17697 /* TranslationPair.swift */; };
 		3C049B52238F41EC00F17697 /* TitleCheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B51238F41EC00F17697 /* TitleCheckboxView.swift */; };
-		3C049B55238F9DC800F17697 /* CorrectAnswerPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B54238F9DC800F17697 /* CorrectAnswerPopViewController.swift */; };
-		3C049B572390C01200F17697 /* PopViewContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B562390C01200F17697 /* PopViewContent.swift */; };
+		3C049B55238F9DC800F17697 /* CorrectAnswerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B54238F9DC800F17697 /* CorrectAnswerViewController.swift */; };
+		3C049B572390C01200F17697 /* CorrectAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B562390C01200F17697 /* CorrectAnswerView.swift */; };
 		3C049B592390EC4B00F17697 /* CorrectAnswerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B582390EC4B00F17697 /* CorrectAnswerPresenter.swift */; };
 		3C049B5B2390EC5A00F17697 /* CorrectAnswerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B5A2390EC5A00F17697 /* CorrectAnswerAssembly.swift */; };
 /* End PBXBuildFile section */
@@ -88,8 +88,8 @@
 		3C049B4D238E624000F17697 /* AllWordsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllWordsAssembly.swift; sourceTree = "<group>"; };
 		3C049B4F238F10E700F17697 /* TranslationPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationPair.swift; sourceTree = "<group>"; };
 		3C049B51238F41EC00F17697 /* TitleCheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCheckboxView.swift; sourceTree = "<group>"; };
-		3C049B54238F9DC800F17697 /* CorrectAnswerPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectAnswerPopViewController.swift; sourceTree = "<group>"; };
-		3C049B562390C01200F17697 /* PopViewContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopViewContent.swift; sourceTree = "<group>"; };
+		3C049B54238F9DC800F17697 /* CorrectAnswerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectAnswerViewController.swift; sourceTree = "<group>"; };
+		3C049B562390C01200F17697 /* CorrectAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectAnswerView.swift; sourceTree = "<group>"; };
 		3C049B582390EC4B00F17697 /* CorrectAnswerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectAnswerPresenter.swift; sourceTree = "<group>"; };
 		3C049B5A2390EC5A00F17697 /* CorrectAnswerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectAnswerAssembly.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -260,12 +260,20 @@
 		3C049B53238F9D7E00F17697 /* CheckAnswer */ = {
 			isa = PBXGroup;
 			children = (
-				3C049B54238F9DC800F17697 /* CorrectAnswerPopViewController.swift */,
-				3C049B562390C01200F17697 /* PopViewContent.swift */,
+				3C049B5C2391E2E300F17697 /* View */,
+				3C049B54238F9DC800F17697 /* CorrectAnswerViewController.swift */,
 				3C049B582390EC4B00F17697 /* CorrectAnswerPresenter.swift */,
 				3C049B5A2390EC5A00F17697 /* CorrectAnswerAssembly.swift */,
 			);
 			path = CheckAnswer;
+			sourceTree = "<group>";
+		};
+		3C049B5C2391E2E300F17697 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3C049B562390C01200F17697 /* CorrectAnswerView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -388,7 +396,7 @@
 				3C049B50238F10E700F17697 /* TranslationPair.swift in Sources */,
 				3C049B2C238DC1E900F17697 /* TitleTextFieldView.swift in Sources */,
 				3C049B32238DCA4700F17697 /* EditPairPresenter.swift in Sources */,
-				3C049B572390C01200F17697 /* PopViewContent.swift in Sources */,
+				3C049B572390C01200F17697 /* CorrectAnswerView.swift in Sources */,
 				3C049B5B2390EC5A00F17697 /* CorrectAnswerAssembly.swift in Sources */,
 				3C049B1E238C902D00F17697 /* TranslationPairCell.swift in Sources */,
 				3C049B1A238C7B3600F17697 /* MainMenuButton.swift in Sources */,
@@ -396,7 +404,7 @@
 				3C049AF7238C714D00F17697 /* MainMenuViewController.swift in Sources */,
 				3C049B4A238E53A100F17697 /* RepeatAssembly.swift in Sources */,
 				3C049B3E238DE71300F17697 /* RepeatViewController.swift in Sources */,
-				3C049B55238F9DC800F17697 /* CorrectAnswerPopViewController.swift in Sources */,
+				3C049B55238F9DC800F17697 /* CorrectAnswerViewController.swift in Sources */,
 				3C049B18238C738B00F17697 /* RoundedBackgroundView.swift in Sources */,
 				3C049AF5238C714D00F17697 /* AppDelegate.swift in Sources */,
 			);

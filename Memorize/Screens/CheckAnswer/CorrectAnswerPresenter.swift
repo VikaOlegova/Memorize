@@ -9,21 +9,21 @@
 import UIKit
 
 class CorrectAnswerPresenter {
-    weak var view: CorrectAnswerPopViewInput!
+    weak var view: CorrectAnswerPopupViewInput!
     let isCorrect: Bool
     let correctTranslation: String
-    let repeatPresenter: RepeatPresenter
+    let didTapNextCallback: (() -> ())
     
-    init(isCorrect: Bool, correctTranslation: String, repeatPresenter: RepeatPresenter) {
+    init(isCorrect: Bool, correctTranslation: String, didTapNextCallback: @escaping ()->()) {
         self.isCorrect = isCorrect
         self.correctTranslation = correctTranslation
-        self.repeatPresenter = repeatPresenter
+        self.didTapNextCallback = didTapNextCallback
     }
 }
 
-extension CorrectAnswerPresenter: CorrectAnswerPopViewOutput {
+extension CorrectAnswerPresenter: CorrectAnswerPopupViewOutput {
     func viewDidLoad() {
-        view.showPopView(for: isCorrect)
+        view.setupUI(forCorrectAnswer: isCorrect)
         view.show(correctTranslation: correctTranslation)
     }
     
@@ -32,6 +32,6 @@ extension CorrectAnswerPresenter: CorrectAnswerPopViewOutput {
     }
     
     func nextButtonTapped() {
-        repeatPresenter.showNextQuestion()
+        didTapNextCallback()
     }
 }
