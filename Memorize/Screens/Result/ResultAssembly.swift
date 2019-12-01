@@ -6,4 +6,15 @@
 //  Copyright © 2019 Vika Olegova. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class ResultAssembly {
+    func create(translationPair: TranslationPair? = nil) -> UIViewController {
+        let presenter = ResultPresenter()
+        let viewController = ResultViewController(presenter: presenter)
+        
+        presenter.view = viewController
+        
+        return viewController
+    }
+}

@@ -6,4 +6,14 @@
 //  Copyright © 2019 Vika Olegova. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class ResultViewModel {
+    let word: String
+    let image: UIImage
+    
+    init(word: String, image: UIImage) {
+        self.word = word
+        self.image = image
+    }
+}

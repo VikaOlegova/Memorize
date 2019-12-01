@@ -41,6 +41,12 @@
 		3C049B572390C01200F17697 /* CorrectAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B562390C01200F17697 /* CorrectAnswerView.swift */; };
 		3C049B592390EC4B00F17697 /* CorrectAnswerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B582390EC4B00F17697 /* CorrectAnswerPresenter.swift */; };
 		3C049B5B2390EC5A00F17697 /* CorrectAnswerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B5A2390EC5A00F17697 /* CorrectAnswerAssembly.swift */; };
+		3CC655212392075400ADC021 /* YandexTranslateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC655202392075400ADC021 /* YandexTranslateService.swift */; };
+		3CC655242393592B00ADC021 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC655232393592B00ADC021 /* ResultViewController.swift */; };
+		3CC6552723935A1B00ADC021 /* ResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6552623935A1B00ADC021 /* ResultCell.swift */; };
+		3CC6552923935E1400ADC021 /* ResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6552823935E1400ADC021 /* ResultViewModel.swift */; };
+		3CC6552B23939A0300ADC021 /* ResultPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6552A23939A0300ADC021 /* ResultPresenter.swift */; };
+		3CC6552D2393A6E600ADC021 /* ResultAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6552C2393A6E600ADC021 /* ResultAssembly.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +98,12 @@
 		3C049B562390C01200F17697 /* CorrectAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectAnswerView.swift; sourceTree = "<group>"; };
 		3C049B582390EC4B00F17697 /* CorrectAnswerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectAnswerPresenter.swift; sourceTree = "<group>"; };
 		3C049B5A2390EC5A00F17697 /* CorrectAnswerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectAnswerAssembly.swift; sourceTree = "<group>"; };
+		3CC655202392075400ADC021 /* YandexTranslateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YandexTranslateService.swift; sourceTree = "<group>"; };
+		3CC655232393592B00ADC021 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		3CC6552623935A1B00ADC021 /* ResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCell.swift; sourceTree = "<group>"; };
+		3CC6552823935E1400ADC021 /* ResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewModel.swift; sourceTree = "<group>"; };
+		3CC6552A23939A0300ADC021 /* ResultPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultPresenter.swift; sourceTree = "<group>"; };
+		3CC6552C2393A6E600ADC021 /* ResultAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultAssembly.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +145,7 @@
 		3C049AF3238C714D00F17697 /* Memorize */ = {
 			isa = PBXGroup;
 			children = (
+				3CC6551F2392074100ADC021 /* Services */,
 				3C049B2D238DC9D200F17697 /* Screens */,
 				3C049AF4238C714D00F17697 /* AppDelegate.swift */,
 				3C049AFE238C715000F17697 /* Assets.xcassets */,
@@ -160,6 +173,7 @@
 		3C049B2D238DC9D200F17697 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				3CC65522239358CE00ADC021 /* Result */,
 				3C049B53238F9D7E00F17697 /* CheckAnswer */,
 				3C049B3C238DE6FA00F17697 /* Repeat */,
 				3C049B39238DDD2800F17697 /* Router */,
@@ -276,6 +290,34 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		3CC6551F2392074100ADC021 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				3CC655202392075400ADC021 /* YandexTranslateService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		3CC65522239358CE00ADC021 /* Result */ = {
+			isa = PBXGroup;
+			children = (
+				3CC65525239359FD00ADC021 /* UIElements */,
+				3CC655232393592B00ADC021 /* ResultViewController.swift */,
+				3CC6552A23939A0300ADC021 /* ResultPresenter.swift */,
+				3CC6552C2393A6E600ADC021 /* ResultAssembly.swift */,
+			);
+			path = Result;
+			sourceTree = "<group>";
+		};
+		3CC65525239359FD00ADC021 /* UIElements */ = {
+			isa = PBXGroup;
+			children = (
+				3CC6552623935A1B00ADC021 /* ResultCell.swift */,
+				3CC6552823935E1400ADC021 /* ResultViewModel.swift */,
+			);
+			path = UIElements;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -377,10 +419,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C049B24238CAA7A00F17697 /* EditPairViewController.swift in Sources */,
+				3CC6552923935E1400ADC021 /* ResultViewModel.swift in Sources */,
 				3C049B20238C919800F17697 /* TranslationPairViewModel.swift in Sources */,
 				3C049B28238CBF1C00F17697 /* BigGreenButton.swift in Sources */,
 				3C049B22238C972C00F17697 /* DoubleLabel.swift in Sources */,
 				3C049B4E238E624000F17697 /* AllWordsAssembly.swift in Sources */,
+				3CC6552D2393A6E600ADC021 /* ResultAssembly.swift in Sources */,
 				3C049B41238E4A7400F17697 /* TranslationsAndMistakesCount.swift in Sources */,
 				3C049B48238E538F00F17697 /* RepeatPresenter.swift in Sources */,
 				3C049B3B238DDD3D00F17697 /* Router.swift in Sources */,
@@ -398,6 +442,7 @@
 				3C049B32238DCA4700F17697 /* EditPairPresenter.swift in Sources */,
 				3C049B572390C01200F17697 /* CorrectAnswerView.swift in Sources */,
 				3C049B5B2390EC5A00F17697 /* CorrectAnswerAssembly.swift in Sources */,
+				3CC6552723935A1B00ADC021 /* ResultCell.swift in Sources */,
 				3C049B1E238C902D00F17697 /* TranslationPairCell.swift in Sources */,
 				3C049B1A238C7B3600F17697 /* MainMenuButton.swift in Sources */,
 				3C049B34238DD36E00F17697 /* EditPairAssembly.swift in Sources */,
@@ -407,6 +452,9 @@
 				3C049B55238F9DC800F17697 /* CorrectAnswerViewController.swift in Sources */,
 				3C049B18238C738B00F17697 /* RoundedBackgroundView.swift in Sources */,
 				3C049AF5238C714D00F17697 /* AppDelegate.swift in Sources */,
+				3CC655212392075400ADC021 /* YandexTranslateService.swift in Sources */,
+				3CC655242393592B00ADC021 /* ResultViewController.swift in Sources */,
+				3CC6552B23939A0300ADC021 /* ResultPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
