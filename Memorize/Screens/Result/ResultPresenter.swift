@@ -18,9 +18,15 @@ class ResultPresenter {
     let words: [TranslationPair]
     let resultScreenType: ResultScreenType
     
-    init(words: [TranslationPair], resultScreenType: ResultScreenType) {
-        self.words = words
+    init(resultScreenType: ResultScreenType) {
         self.resultScreenType = resultScreenType
+        
+        switch resultScreenType {
+        case .repeatingEnded(withMistakes: false):
+            words = TranslationSession.shared.answeredPairs
+        default:
+            words = TranslationSession.shared.mistakes
+        }
     }
     
     func fillView() {
@@ -51,7 +57,12 @@ class ResultPresenter {
 
 extension ResultPresenter: ResultViewOutput {
     func didTapGreenButton() {
-        
+        switch resultScreenType {
+        case .repeatingEnded(withMistakes: true):
+            Router.shared.showMistakes()
+        default:
+            TranslationSession.shared.repeatPairs.count == TranslationSession.shared.answeredPairs.count ? Router.shared.returnToMainMenu() : Router.shared.closeResult()
+        }
     }
     
     func viewDidLoad() {

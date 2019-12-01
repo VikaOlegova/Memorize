@@ -10,15 +10,18 @@ import UIKit
 
 class RepeatPresenter {
     weak var view: RepeatViewInput!
-    let translationPairs: [TranslationPair] = [TranslationPair(originalWord: "Яблоко", translatedWord: "Apple", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "night"), rightAnswersStreakCounter: 0, nextShowDate: Date()),
-    TranslationPair(originalWord: "Ручка", translatedWord: "Pen", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "checked"), rightAnswersStreakCounter: 0, nextShowDate: Date()),
-    TranslationPair(originalWord: "Cucumber", translatedWord: "Огурец", originalLanguage: .EN, translatedLanguage: .RU, image: UIImage(named: "unchecked"), rightAnswersStreakCounter: 0, nextShowDate: Date())]
     
+    var translationPairs: [TranslationPair]
     var currentTranslationPair: TranslationPair = TranslationPair.empty
     var mistakeCounter = 0
-    var mistakes = [TranslationPair]()
     var translationCounter = 0
     var showKeyboardWorkItem: DispatchWorkItem?
+    let isMistakes: Bool
+    
+    init(isMistakes: Bool) {
+        self.isMistakes = isMistakes
+        translationPairs = isMistakes ? TranslationSession.shared.mistakes.shuffled() : TranslationSession.shared.repeatPairs
+    }
     
     func showNextQuestion() -> Bool {
         guard translationCounter < translationPairs.count else { return false}
@@ -26,7 +29,7 @@ class RepeatPresenter {
         currentTranslationPair = translationPairs[translationCounter]
         view.show(image: currentTranslationPair.image!)
         view.show(titleButton: "Показать перевод")
-        view.show(mistakeCount: mistakeCounter)
+        isMistakes ? view.hideMistakes() : view.show(mistakeCount: mistakeCounter)
         view.show(originalWord: currentTranslationPair.originalWord)
         view.show(translationsCount: translationCounter + 1, from: translationPairs.count)
         view.show(fromToLanguage: currentTranslationPair.originalLanguage.fromTo(currentTranslationPair.translatedLanguage))
@@ -42,11 +45,7 @@ class RepeatPresenter {
     }
     
     func showResultScreen() {
-        if mistakes.isEmpty {
-            Router.shared.showResult(words: translationPairs, resultScreenType: .repeatingEnded(withMistakes: false))
-        } else {
-            Router.shared.showResult(words: mistakes, resultScreenType: .repeatingEnded(withMistakes: true))
-        }
+        Router.shared.showResult(resultScreenType: isMistakes ? .mistakesCorrectionEnded : .repeatingEnded(withMistakes: !TranslationSession.shared.mistakes.isEmpty))
     }
 }
 
@@ -66,13 +65,20 @@ extension RepeatPresenter: RepeatViewOutput {
     func didEnterTranslation(_ enteredTranslation: String) {
         showKeyboardWorkItem?.cancel()
         let isCorrect = currentTranslationPair.translatedWord.lowercased() == enteredTranslation.lowercased()
-        if !isCorrect {
-            mistakeCounter += 1
-            mistakes.append(currentTranslationPair)
+        if !isMistakes {
+            TranslationSession.shared.addAnsweredPair(pair: currentTranslationPair)
+            if !isCorrect {
+                mistakeCounter += 1
+                TranslationSession.shared.addMistake(mistake: currentTranslationPair)
+            }
         }
         Router.shared.showCorrectAnswer(isCorrect: isCorrect,
                                         correctTranslation: currentTranslationPair.translatedWord) { [weak self] in
                                             guard let weakSelf = self else { return }
+                                            if weakSelf.isMistakes, !isCorrect {
+                                                weakSelf.translationCounter = 0
+                                                weakSelf.translationPairs = TranslationSession.shared.mistakes.shuffled()
+                                            }
                                             if !weakSelf.showNextQuestion() {
                                                 weakSelf.showResultScreen()
                                             }
@@ -85,5 +91,9 @@ extension RepeatPresenter: RepeatViewOutput {
     
     func didOpenKeyboard() {
         showKeyboardWorkItem?.cancel()
+    }
+    
+    func didTapRightBarButtonItem() {
+        showResultScreen()
     }
 }

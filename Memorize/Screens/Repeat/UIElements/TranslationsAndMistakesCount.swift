@@ -9,9 +9,9 @@
 import UIKit
 
 class TranslationsAndMistakesCount: UIView {
-    private let translationLabel = UILabel()
+    let translationLabel = UILabel()
     let translationCounter = UILabel()
-    private let mistakeLabel = UILabel()
+    let mistakeLabel = UILabel()
     let mistakeCounter = UILabel()
     let fromToLanguageLabel = UILabel()
     

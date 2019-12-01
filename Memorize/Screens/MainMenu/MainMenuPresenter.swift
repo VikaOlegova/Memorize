@@ -14,12 +14,17 @@ class MainMenuPresenter {
 
 extension MainMenuPresenter: MainMenuViewOutput {
     func viewDidLoad() {
+        TranslationSession.shared.load()
         view.show(allWordsCount: 100)
-        view.show(repeatWordsCount: 25)
+        view.show(repeatWordsCount: TranslationSession.shared.repeatPairs.count - TranslationSession.shared.answeredPairs.count)
+    }
+    
+    func viewWillAppear() {
+        //TranslationSession.shared.load()
     }
     
     func repeatWordsButtonTapped() {
-        Router.shared.showRepeat()
+        Router.shared.showRepeat(isMistakes: false)
     }
     
     func allWordsButtonTapped() {

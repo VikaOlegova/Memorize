@@ -35,8 +35,8 @@ class Router {
         rootNavigationController.pushViewController(AllWordsAssembly().create(), animated: true)
     }
     
-    func showRepeat() {
-        rootNavigationController.pushViewController(RepeatAssembly().create(), animated: true)
+    func showRepeat(isMistakes: Bool) {
+        rootNavigationController.pushViewController(RepeatAssembly().create(isMistakes: isMistakes), animated: true)
     }
     
     func showCreatePair() {
@@ -54,7 +54,22 @@ class Router {
         rootNavigationController.viewControllers.last?.add(subViewController: subViewController)
     }
     
-    func showResult(words: [TranslationPair], resultScreenType: ResultScreenType) {
-        rootNavigationController.pushViewController(ResultAssembly().create(words: words, resultScreenType: resultScreenType), animated: true)
+    func showResult(resultScreenType: ResultScreenType) {
+        rootNavigationController.pushViewController(ResultAssembly().create(resultScreenType: resultScreenType), animated: true)
+    }
+    
+    func closeResult() {
+        rootNavigationController.popViewController(animated: true)
+    }
+    
+    func returnToMainMenu() {
+        rootNavigationController.popToRootViewController(animated: true)
+    }
+    
+    func showMistakes() {
+        var viewControllers = rootNavigationController.viewControllers
+        viewControllers.removeLast()
+        viewControllers.append(RepeatAssembly().create(isMistakes: true))
+        rootNavigationController.setViewControllers(viewControllers, animated: true)
     }
 }

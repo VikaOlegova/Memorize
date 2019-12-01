@@ -47,6 +47,7 @@
 		3CC6552923935E1400ADC021 /* ResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6552823935E1400ADC021 /* ResultViewModel.swift */; };
 		3CC6552B23939A0300ADC021 /* ResultPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6552A23939A0300ADC021 /* ResultPresenter.swift */; };
 		3CC6552D2393A6E600ADC021 /* ResultAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6552C2393A6E600ADC021 /* ResultAssembly.swift */; };
+		3CC65531239408E700ADC021 /* TranslationSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC65530239408E700ADC021 /* TranslationSession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,7 @@
 		3CC6552823935E1400ADC021 /* ResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewModel.swift; sourceTree = "<group>"; };
 		3CC6552A23939A0300ADC021 /* ResultPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultPresenter.swift; sourceTree = "<group>"; };
 		3CC6552C2393A6E600ADC021 /* ResultAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultAssembly.swift; sourceTree = "<group>"; };
+		3CC65530239408E700ADC021 /* TranslationSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationSession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +296,7 @@
 			isa = PBXGroup;
 			children = (
 				3CC655202392075400ADC021 /* YandexTranslateService.swift */,
+				3CC65530239408E700ADC021 /* TranslationSession.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -440,6 +443,7 @@
 				3C049B50238F10E700F17697 /* TranslationPair.swift in Sources */,
 				3C049B2C238DC1E900F17697 /* TitleTextFieldView.swift in Sources */,
 				3C049B32238DCA4700F17697 /* EditPairPresenter.swift in Sources */,
+				3CC65531239408E700ADC021 /* TranslationSession.swift in Sources */,
 				3C049B572390C01200F17697 /* CorrectAnswerView.swift in Sources */,
 				3C049B5B2390EC5A00F17697 /* CorrectAnswerAssembly.swift in Sources */,
 				3CC6552723935A1B00ADC021 /* ResultCell.swift in Sources */,

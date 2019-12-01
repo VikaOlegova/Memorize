@@ -15,6 +15,7 @@ protocol MainMenuViewInput: class {
 
 protocol MainMenuViewOutput: class {
     func viewDidLoad()
+    func viewWillAppear()
     func repeatWordsButtonTapped()
     func allWordsButtonTapped()
 }
@@ -33,6 +34,11 @@ class MainMenuViewController: UIViewController {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.viewWillAppear()
     }
     
     override func viewDidLoad() {

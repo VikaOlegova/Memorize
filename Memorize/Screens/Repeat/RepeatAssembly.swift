@@ -9,8 +9,8 @@
 import UIKit
 
 class RepeatAssembly {
-    func create() -> UIViewController {
-        let presenter = RepeatPresenter()
+    func create(isMistakes: Bool) -> UIViewController {
+        let presenter = RepeatPresenter(isMistakes: isMistakes)
         let viewController = RepeatViewController(presenter: presenter)
         
         presenter.view = viewController
