@@ -21,7 +21,7 @@ protocol ResultViewOutput: class {
 
 class ResultViewController: UIViewController {
     let tableView = UITableView(frame: .zero, style: .plain)
-    let greenButton = UIButton()
+    let greenButton = BigGreenButton()
     var data = [ResultViewModel]()
     
     let presenter: ResultViewOutput

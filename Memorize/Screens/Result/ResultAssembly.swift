@@ -9,8 +9,8 @@
 import UIKit
 
 class ResultAssembly {
-    func create(translationPair: TranslationPair? = nil) -> UIViewController {
-        let presenter = ResultPresenter()
+    func create(words: [TranslationPair], resultScreenType: ResultScreenType) -> UIViewController {
+        let presenter = ResultPresenter(words: words, resultScreenType: resultScreenType)
         let viewController = ResultViewController(presenter: presenter)
         
         presenter.view = viewController

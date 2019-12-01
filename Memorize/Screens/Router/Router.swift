@@ -53,4 +53,8 @@ class Router {
                                                                didTapNextCallback: didTapNextCallback)
         rootNavigationController.viewControllers.last?.add(subViewController: subViewController)
     }
+    
+    func showResult(words: [TranslationPair], resultScreenType: ResultScreenType) {
+        rootNavigationController.pushViewController(ResultAssembly().create(words: words, resultScreenType: resultScreenType), animated: true)
+    }
 }

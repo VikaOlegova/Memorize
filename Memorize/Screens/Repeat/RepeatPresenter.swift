@@ -16,11 +16,12 @@ class RepeatPresenter {
     
     var currentTranslationPair: TranslationPair = TranslationPair.empty
     var mistakeCounter = 0
+    var mistakes = [TranslationPair]()
     var translationCounter = 0
     var showKeyboardWorkItem: DispatchWorkItem?
     
-    func showNextQuestion() {
-        guard translationCounter < translationPairs.count else { return }
+    func showNextQuestion() -> Bool {
+        guard translationCounter < translationPairs.count else { return false}
         
         currentTranslationPair = translationPairs[translationCounter]
         view.show(image: currentTranslationPair.image!)
@@ -37,12 +38,21 @@ class RepeatPresenter {
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: showKeyboardWorkItem!)
         
         translationCounter += 1
+        return true
+    }
+    
+    func showResultScreen() {
+        if mistakes.isEmpty {
+            Router.shared.showResult(words: translationPairs, resultScreenType: .repeatingEnded(withMistakes: false))
+        } else {
+            Router.shared.showResult(words: mistakes, resultScreenType: .repeatingEnded(withMistakes: true))
+        }
     }
 }
 
 extension RepeatPresenter: RepeatViewOutput {
     func viewDidLoad() {
-        showNextQuestion()
+        _ = showNextQuestion()
     }
     
     func textFieldChanged(textIsEmpty: Bool) {
@@ -58,10 +68,14 @@ extension RepeatPresenter: RepeatViewOutput {
         let isCorrect = currentTranslationPair.translatedWord.lowercased() == enteredTranslation.lowercased()
         if !isCorrect {
             mistakeCounter += 1
+            mistakes.append(currentTranslationPair)
         }
         Router.shared.showCorrectAnswer(isCorrect: isCorrect,
                                         correctTranslation: currentTranslationPair.translatedWord) { [weak self] in
-                                            self?.showNextQuestion()
+                                            guard let weakSelf = self else { return }
+                                            if !weakSelf.showNextQuestion() {
+                                                weakSelf.showResultScreen()
+                                            }
         }
     }
     

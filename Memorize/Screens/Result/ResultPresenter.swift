@@ -8,29 +8,35 @@
 
 import UIKit
 
+enum ResultScreenType {
+    case repeatingEnded(withMistakes: Bool)
+    case mistakesCorrectionEnded
+}
+
 class ResultPresenter {
     weak var view: ResultViewInput!
-    let words = [TranslationPair]()
+    let words: [TranslationPair]
+    let resultScreenType: ResultScreenType
     
-    func fillResultViewModel(image: UIImage) {
-        
+    init(words: [TranslationPair], resultScreenType: ResultScreenType) {
+        self.words = words
+        self.resultScreenType = resultScreenType
     }
     
-    func fillView(isRepeatingEnd: Bool, haveMistakes: Bool) {
+    func fillView() {
         var viewModels = [ResultViewModel]()
         let image: UIImage
         
-        if isRepeatingEnd {
-            if haveMistakes {
-                image = UIImage(named: "wrong")!
-                view.show(title: "Ошибки")
-                view.show(textButton: "Исправить ошибки")
-            } else {
-                image = UIImage(named: "right")!
-                view.show(title: "Повторение")
-                view.show(textButton: "OK")
-            }
-        } else {
+        switch resultScreenType {
+        case .repeatingEnded(withMistakes: true):
+            image = UIImage(named: "wrong")!
+            view.show(title: "Ошибки")
+            view.show(textButton: "Исправить ошибки")
+        case .repeatingEnded(withMistakes: false):
+            image = UIImage(named: "right")!
+            view.show(title: "Повторение")
+            view.show(textButton: "OK")
+        case .mistakesCorrectionEnded:
             image = UIImage(named: "right")!
             view.show(title: "Ошибки")
             view.show(textButton: "OK")
@@ -49,6 +55,6 @@ extension ResultPresenter: ResultViewOutput {
     }
     
     func viewDidLoad() {
-        fillView(isRepeatingEnd: true, haveMistakes: false)
+        fillView()
     }
 }

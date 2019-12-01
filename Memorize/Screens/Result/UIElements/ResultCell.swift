@@ -24,6 +24,11 @@ class ResultCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        wordLabel.translatesAutoresizingMaskIntoConstraints = false
+        rightImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        rightImageView.contentMode = .scaleAspectFit
+        
         contentView.addSubview(roundedBackgroundView)
         let container = roundedBackgroundView.containerView
         container.addSubview(wordLabel)
