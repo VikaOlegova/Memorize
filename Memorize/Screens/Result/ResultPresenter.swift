@@ -61,7 +61,7 @@ extension ResultPresenter: ResultViewOutput {
         case .repeatingEnded(withMistakes: true):
             Router.shared.showMistakes()
         default:
-            TranslationSession.shared.repeatPairs.count == TranslationSession.shared.answeredPairs.count ? Router.shared.returnToMainMenu() : Router.shared.closeResult()
+            TranslationSession.shared.repeatPairs.isEmpty ? Router.shared.returnToMainMenu() : Router.shared.closeResult()
         }
     }
     

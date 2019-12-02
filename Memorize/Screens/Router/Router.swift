@@ -54,8 +54,22 @@ class Router {
         rootNavigationController.viewControllers.last?.add(subViewController: subViewController)
     }
     
+    private func pushReplacingLast(with viewController: UIViewController) {
+        var viewControllers = rootNavigationController.viewControllers
+        viewControllers.removeLast()
+        viewControllers.append(viewController)
+        rootNavigationController.setViewControllers(viewControllers, animated: true)
+    }
+    
     func showResult(resultScreenType: ResultScreenType) {
-        rootNavigationController.pushViewController(ResultAssembly().create(resultScreenType: resultScreenType), animated: true)
+        let newVC = ResultAssembly().create(resultScreenType: resultScreenType)
+        
+        guard TranslationSession.shared.repeatPairs.isEmpty else {
+            rootNavigationController.pushViewController(newVC,
+                                                        animated: true)
+            return
+        }
+        pushReplacingLast(with: newVC)
     }
     
     func closeResult() {
@@ -67,9 +81,7 @@ class Router {
     }
     
     func showMistakes() {
-        var viewControllers = rootNavigationController.viewControllers
-        viewControllers.removeLast()
-        viewControllers.append(RepeatAssembly().create(isMistakes: true))
-        rootNavigationController.setViewControllers(viewControllers, animated: true)
+        let newVC = RepeatAssembly().create(isMistakes: true)
+        pushReplacingLast(with: newVC)
     }
 }

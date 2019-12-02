@@ -22,9 +22,13 @@ class TranslationSession {
         repeatPairs = [TranslationPair(originalWord: "Яблоко", translatedWord: "Apple", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "night"), rightAnswersStreakCounter: 0, nextShowDate: Date()),
                                   TranslationPair(originalWord: "Ручка", translatedWord: "Pen", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "checked"), rightAnswersStreakCounter: 0, nextShowDate: Date()),
                                   TranslationPair(originalWord: "Cucumber", translatedWord: "Огурец", originalLanguage: .EN, translatedLanguage: .RU, image: UIImage(named: "unchecked"), rightAnswersStreakCounter: 0, nextShowDate: Date()),
-                                  TranslationPair(originalWord: "Курица", translatedWord: "Chicken", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "night"), rightAnswersStreakCounter: 0, nextShowDate: Date()),
-                                  TranslationPair(originalWord: "Солнце", translatedWord: "Sun", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "checked"), rightAnswersStreakCounter: 0, nextShowDate: Date()),
-                                  TranslationPair(originalWord: "Свинья", translatedWord: "Pig", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "unchecked"), rightAnswersStreakCounter: 0, nextShowDate: Date())]
+                                  TranslationPair(originalWord: "Курица", translatedWord: "Chicken", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "night"), rightAnswersStreakCounter: 0, nextShowDate: Date())]
+//                                  TranslationPair(originalWord: "Солнце", translatedWord: "Sun", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "checked"), rightAnswersStreakCounter: 0, nextShowDate: Date()),
+//                                  TranslationPair(originalWord: "Свинья", translatedWord: "Pig", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "unchecked"), rightAnswersStreakCounter: 0, nextShowDate: Date())]
+    }
+    
+    func removePair() {
+        repeatPairs.removeFirst()
     }
     
     func addMistake(mistake: TranslationPair) {

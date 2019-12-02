@@ -29,10 +29,20 @@ class RepeatPresenter {
         currentTranslationPair = translationPairs[translationCounter]
         view.show(image: currentTranslationPair.image!)
         view.show(titleButton: "Показать перевод")
-        isMistakes ? view.hideMistakes() : view.show(mistakeCount: mistakeCounter)
         view.show(originalWord: currentTranslationPair.originalWord)
         view.show(translationsCount: translationCounter + 1, from: translationPairs.count)
         view.show(fromToLanguage: currentTranslationPair.originalLanguage.fromTo(currentTranslationPair.translatedLanguage))
+        
+        if isMistakes {
+            view.hideMistakes()
+            view.show(title: "Исправление ошибок")
+            view.showRightBarButtonItem(show: false)
+        } else {
+            view.show(mistakeCount: mistakeCounter)
+            view.show(title: "Повторение")
+            view.showRightBarButtonItem(show: true)
+        }
+        
         view.clearTextField()
         
         showKeyboardWorkItem = DispatchWorkItem(block: { [weak self] in
@@ -67,6 +77,7 @@ extension RepeatPresenter: RepeatViewOutput {
         let isCorrect = currentTranslationPair.translatedWord.lowercased() == enteredTranslation.lowercased()
         if !isMistakes {
             TranslationSession.shared.addAnsweredPair(pair: currentTranslationPair)
+            TranslationSession.shared.removePair()
             if !isCorrect {
                 mistakeCounter += 1
                 TranslationSession.shared.addMistake(mistake: currentTranslationPair)

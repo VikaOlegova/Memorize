@@ -18,6 +18,8 @@ protocol RepeatViewInput: class {
     func clearTextField()
     func showKeyboard()
     func hideMistakes()
+    func show(title: String)
+    func showRightBarButtonItem(show: Bool)
 }
 
 protocol RepeatViewOutput: class {
@@ -54,8 +56,6 @@ class RepeatViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        navigationItem.title = "Повторение"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(rightBarButtonItemTapped))
         
         translation.label.text = "Перевод"
         translation.label.textColor = .gray
@@ -192,5 +192,17 @@ extension RepeatViewController: UITextFieldDelegate {
     func hideMistakes() {
         translationsAndMistakesCount.mistakeCounter.isHidden = true
         translationsAndMistakesCount.mistakeLabel.isHidden = true
+    }
+    
+    func show(title: String) {
+        navigationItem.title = title
+    }
+    
+    func showRightBarButtonItem(show: Bool) {
+        if show {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop,
+                                                                target: self,
+                                                                action: #selector(rightBarButtonItemTapped))
+        }
     }
 }
