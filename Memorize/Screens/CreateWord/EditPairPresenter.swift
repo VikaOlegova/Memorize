@@ -22,6 +22,19 @@ class EditPairPresenter {
         toLanguage = translationPair.translatedLanguage
         isCreating = false
     }
+    
+    private func translate(word: String) {
+        view.showLoadingIndicator(true)
+        let translateService = YandexTranslateService()
+        translateService.translate(text: word, from: fromLanguage, to: toLanguage) { [weak self] results in
+            guard let weakSelf = self else { return }
+            
+            guard let translation = results.first else { return }
+            
+            weakSelf.view.show(translation: translation)
+            weakSelf.view.showLoadingIndicator(false)
+        }
+    }
 }
 
 extension EditPairPresenter: EditPairViewOutput {
@@ -44,28 +57,18 @@ extension EditPairPresenter: EditPairViewOutput {
         
     }
     
-    func translate(original: String) {
-        view.showLoadingIndicator(true)
-        let translateService = YandexTranslateService()
-        translateService.translate(text: original, from: fromLanguage, to: toLanguage) { [weak self] results in
-            guard let weakSelf = self else { return }
-            
-            var translation = ""
-            results.forEach({ (word) in
-                translation += word
-            })
-            
-            weakSelf.view.show(translation: translation)
-            weakSelf.view.showLoadingIndicator(false)
-        }
+    func didChange(originalWord: String) {
+        translate(word: originalWord)
     }
     
-    func didTapFromToButton() {
+    func didTapFromToButton(with originalWord: String) {
         if isCreating {
             let temp = fromLanguage
             fromLanguage = toLanguage
             toLanguage = temp
             view.show(languageInfo: fromLanguage.fromTo(toLanguage))
+            
+            translate(word: originalWord)
         }
     }
 }

@@ -23,8 +23,8 @@ protocol EditPairViewOutput: class {
                     translationWord: String?,
                     reverseTranslationEnabled: Bool)
     func viewDidLoad()
-    func translate(original: String)
-    func didTapFromToButton()
+    func didChange(originalWord: String)
+    func didTapFromToButton(with originalWord: String)
 }
 
 class EditPairViewController: UIViewController {
@@ -99,12 +99,8 @@ class EditPairViewController: UIViewController {
     }
     
     @objc func fromToButtonTapped() {
-        presenter.didTapFromToButton()
-        
-        guard let text = originalView.textField.text else { return }
-        if !text.isEmpty {
-            presenter.translate(original: text)
-        }
+        guard let text = originalView.textField.text, !text.isEmpty else { return }
+        presenter.didTapFromToButton(with: text)
     }
     
     @objc func saveButtonTapped() {
@@ -121,7 +117,7 @@ class EditPairViewController: UIViewController {
             return
         }
         searchWorkItem = DispatchWorkItem(block: { [weak self] in
-            self?.presenter.translate(original: currentText)
+            self?.presenter.didChange(originalWord: currentText)
         })
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: searchWorkItem)
     }
