@@ -14,6 +14,7 @@ class EditPairPresenter {
     
     func edit(translationPair: TranslationPair) {
         self.translationPair = translationPair
+        isEditing = true
     }
 }
 
@@ -25,7 +26,8 @@ extension EditPairPresenter: EditPairViewOutput {
         }
         guard let pair = translationPair else { return }
         
-        view.showWords(original: pair.originalWord, translation: pair.translatedWord, reverseTranslationCheckBox: newPair)
+        view.show(originalWord: pair.originalWord, reverseTranslationCheckBox: newPair)
+        view.show(translation: pair.translatedWord)
         view.show(image: pair.image)
         view.show(languageInfo: pair.originalLanguage.fromTo(pair.translatedLanguage))
         view.show(reverseTranslationEnabled: true)
@@ -34,5 +36,21 @@ extension EditPairPresenter: EditPairViewOutput {
     
     func saveTapped(originalWord: String?, translationWord: String?, reverseTranslationEnabled: Bool) {
         
+    }
+    
+    func translate(original: String) {
+        view.showLoadingIndicator(true)
+        let translateService = YandexTranslateService()
+        translateService.translate(text: original, from: .EN, to: .RU) { [weak self] results in
+            guard let weakSelf = self else { return }
+            
+            var translation = ""
+            results.forEach({ (word) in
+                translation += word
+            })
+            
+            weakSelf.view.show(translation: translation)
+            weakSelf.view.showLoadingIndicator(false)
+        }
     }
 }

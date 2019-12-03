@@ -9,11 +9,13 @@
 import UIKit
 
 protocol EditPairViewInput: class {
-    func showWords(original: String, translation: String, reverseTranslationCheckBox: Bool)
+    func show(originalWord: String, reverseTranslationCheckBox: Bool)
+    func show(translation: String)
     func show(image: UIImage?)
     func show(languageInfo: String)
     func show(reverseTranslationEnabled: Bool)
     func show(title: String)
+    func showLoadingIndicator(_ show: Bool)
 }
 
 protocol EditPairViewOutput: class {
@@ -21,6 +23,7 @@ protocol EditPairViewOutput: class {
                     translationWord: String?,
                     reverseTranslationEnabled: Bool )
     func viewDidLoad()
+    func translate(original: String)
 }
 
 class EditPairViewController: UIViewController {
@@ -31,6 +34,8 @@ class EditPairViewController: UIViewController {
     let translationView = TitleTextFieldView()
     let imageView = UIImageView()
     let saveButton = BigGreenButton()
+    
+    var searchWorkItem = DispatchWorkItem(block: { })
     
     let presenter: EditPairViewOutput
     
@@ -64,6 +69,7 @@ class EditPairViewController: UIViewController {
         
         originalView.label.text = "Новое слово или фраза"
         originalView.textField.placeholder = "Введите слово"
+        originalView.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         fromToButton.setTitleColor(.black, for: .normal)
         fromToButton.addTarget(self, action:#selector(fromToButtonTapped), for: .touchUpInside)
         checkBoxView.titleLabel.text = "Создать обратный перевод"
@@ -98,14 +104,32 @@ class EditPairViewController: UIViewController {
                              translationWord: translationView.textField.text,
                              reverseTranslationEnabled: checkBoxView.checkBox.isSelected)
     }
+    
+    @objc func textFieldDidChange() {
+        let currentText = originalView.textField.text ?? ""
+        searchWorkItem.cancel()
+        if currentText.isEmpty {
+            translationView.textField.text = ""
+            return
+        }
+        searchWorkItem = DispatchWorkItem(block: { [weak self] in
+            self?.presenter.translate(original: currentText)
+        })
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: searchWorkItem)
+    }
 }
 
 extension EditPairViewController: EditPairViewInput {
-    func showWords(original: String, translation: String, reverseTranslationCheckBox:  Bool) {
-        originalView.textField.text = original
-        translationView.textField.text = translation
+    func show(originalWord: String, reverseTranslationCheckBox: Bool) {
+        originalView.textField.text = originalWord
         checkBoxView.isHidden = !reverseTranslationCheckBox
         
+    }
+    
+    func show(translation: String) {
+        DispatchQueue.main.async { [weak self] in
+            self?.translationView.textField.text = translation
+        }
     }
     
     func show(image: UIImage?) {
@@ -124,5 +148,9 @@ extension EditPairViewController: EditPairViewInput {
         navigationItem.title = title
     }
     
-    
+    func showLoadingIndicator(_ show: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            show ? self?.translationView.spinner.startAnimating() : self?.translationView.spinner.stopAnimating()
+        }
+    } 
 }

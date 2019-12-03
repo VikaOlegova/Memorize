@@ -139,6 +139,20 @@ class RepeatViewController: UIViewController {
     }
 }
 
+extension RepeatViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        if !(textField.text?.isEmpty ?? true) {
+            passAnswerToPresenter()
+        }
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        presenter.didOpenKeyboard()
+    }
+}
+
 extension RepeatViewController: RepeatViewInput {
     func show(fromToLanguage: String) {
         translationsAndMistakesCount.fromToLanguageLabel.text = fromToLanguage
@@ -179,20 +193,6 @@ extension RepeatViewController: RepeatViewInput {
     
     func showKeyboard() {
         translation.textField.becomeFirstResponder()
-    }
-}
-
-extension RepeatViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        if !(textField.text?.isEmpty ?? true) {
-            passAnswerToPresenter()
-        }
-        return true
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        presenter.didOpenKeyboard()
     }
     
     func hideMistakes() {

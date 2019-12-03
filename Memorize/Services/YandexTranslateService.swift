@@ -21,11 +21,11 @@ class YandexTranslateService {
     typealias translateCompletion = ([String])->()
     
     private let apiKey = "trnsl.1.1.20191130T020917Z.e3a891e4e5659e27.eda8c5361cad7dabffa21764b560de8fc38d89b5"
-    private let baseURL = URL(string: "https://translate.yandex.net/api/v1.5/tr.json/translate")!
+    private let baseURL = "https://translate.yandex.net/api/v1.5/tr.json/translate"
     
     func translate(text: String, from: Language, to: Language, completion: @escaping translateCompletion) {
         
-        var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)!
+        var components = URLComponents(string: baseURL)!
         components.queryItems = [
             "key" : apiKey,
             "text" : text,
@@ -40,8 +40,7 @@ class YandexTranslateService {
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        let task = session.dataTask(with: request, completionHandler: { data, response, error in
-            //print("Response \(String(data: data!, encoding: .utf8)!)")
+        let task = session.dataTask(with: request, completionHandler: { data, _, _ in
             guard
                 let data = data,
                 let parsed = try? JSONDecoder().decode(ResponseData.self, from: data)
@@ -54,7 +53,4 @@ class YandexTranslateService {
         })
         task.resume()
     }
-//
-//    private func doRequest() {
-//    }
 }

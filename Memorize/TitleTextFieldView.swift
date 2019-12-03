@@ -36,7 +36,6 @@ class TitleTextFieldView: UIView {
         addSubview(spinner)
         
         label.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        label.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         label.topAnchor.constraint(equalTo: topAnchor).isActive = true
         label.heightAnchor.constraint(equalToConstant: 22).isActive = true
         
@@ -45,9 +44,10 @@ class TitleTextFieldView: UIView {
         textField.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 5).isActive = true
         textField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        spinner.leftAnchor.constraint(equalTo: textField.rightAnchor, constant: 7).isActive = true
+        spinner.leftAnchor.constraint(equalTo: label.rightAnchor, constant: 7).isActive = true
         spinner.topAnchor.constraint(equalTo: topAnchor).isActive = true
         spinner.heightAnchor.constraint(equalToConstant: 22).isActive = true
+        spinner.widthAnchor.constraint(equalToConstant: 22).isActive = true
         
         splitter.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         splitter.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
