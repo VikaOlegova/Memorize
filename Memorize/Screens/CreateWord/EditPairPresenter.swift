@@ -11,10 +11,16 @@ import UIKit
 class EditPairPresenter {
     weak var view: EditPairViewInput!
     private var translationPair: TranslationPair?
+    var isCreating = true
+    var fromLanguage: Language = .EN
+    var toLanguage: Language = .RU
+    var images = [UIImage]()
     
     func edit(translationPair: TranslationPair) {
         self.translationPair = translationPair
-        isEditing = true
+        fromLanguage = translationPair.originalLanguage
+        toLanguage = translationPair.translatedLanguage
+        isCreating = false
     }
 }
 
@@ -41,7 +47,7 @@ extension EditPairPresenter: EditPairViewOutput {
     func translate(original: String) {
         view.showLoadingIndicator(true)
         let translateService = YandexTranslateService()
-        translateService.translate(text: original, from: .EN, to: .RU) { [weak self] results in
+        translateService.translate(text: original, from: fromLanguage, to: toLanguage) { [weak self] results in
             guard let weakSelf = self else { return }
             
             var translation = ""
@@ -51,6 +57,15 @@ extension EditPairPresenter: EditPairViewOutput {
             
             weakSelf.view.show(translation: translation)
             weakSelf.view.showLoadingIndicator(false)
+        }
+    }
+    
+    func didTapFromToButton() {
+        if isCreating {
+            let temp = fromLanguage
+            fromLanguage = toLanguage
+            toLanguage = temp
+            view.show(languageInfo: fromLanguage.fromTo(toLanguage))
         }
     }
 }

@@ -21,9 +21,10 @@ protocol EditPairViewInput: class {
 protocol EditPairViewOutput: class {
     func saveTapped(originalWord: String?,
                     translationWord: String?,
-                    reverseTranslationEnabled: Bool )
+                    reverseTranslationEnabled: Bool)
     func viewDidLoad()
     func translate(original: String)
+    func didTapFromToButton()
 }
 
 class EditPairViewController: UIViewController {
@@ -35,8 +36,10 @@ class EditPairViewController: UIViewController {
     let imageView = UIImageView()
     let saveButton = BigGreenButton()
     
-    var searchWorkItem = DispatchWorkItem(block: { })
+    var fromLanguage: Language = .EN
+    var toLanguage: Language = .RU
     
+    var searchWorkItem = DispatchWorkItem(block: { })
     let presenter: EditPairViewOutput
     
     init(presenter: EditPairViewOutput) {
@@ -96,7 +99,12 @@ class EditPairViewController: UIViewController {
     }
     
     @objc func fromToButtonTapped() {
+        presenter.didTapFromToButton()
         
+        guard let text = originalView.textField.text else { return }
+        if !text.isEmpty {
+            presenter.translate(original: text)
+        }
     }
     
     @objc func saveButtonTapped() {
