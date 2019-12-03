@@ -11,6 +11,7 @@ import UIKit
 protocol MainMenuViewInput: class {
     func show(repeatWordsCount: Int)
     func show(allWordsCount: Int)
+    func showNoWordsAllert()
 }
 
 protocol MainMenuViewOutput: class {
@@ -85,6 +86,12 @@ extension MainMenuViewController: MainMenuViewInput {
     
     func show(allWordsCount: Int) {
         allWordsButton.doubleLabel.rightLabel.text = String(allWordsCount)
+    }
+    
+    func showNoWordsAllert() {
+        let alertController = UIAlertController(title: "На сегодня все!", message: nil, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 

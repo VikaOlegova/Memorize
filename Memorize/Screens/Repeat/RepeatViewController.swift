@@ -24,6 +24,7 @@ protocol RepeatViewInput: class {
 
 protocol RepeatViewOutput: class {
     func viewDidLoad()
+    func viewWillAppear()
     func textFieldChanged(textIsEmpty: Bool)
     func didEnterTranslation(_ enteredTranslation: String)
     func playAudioTapped()
@@ -100,6 +101,11 @@ class RepeatViewController: UIViewController {
         imageView.bottomAnchor.constraint(lessThanOrEqualTo: greenButton.topAnchor, constant: -10).isActive = true
         
         presenter.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.viewWillAppear()
     }
     
     func passAnswerToPresenter() {

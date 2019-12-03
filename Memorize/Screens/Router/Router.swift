@@ -64,10 +64,15 @@ class Router {
     func showResult(resultScreenType: ResultScreenType) {
         let newVC = ResultAssembly().create(resultScreenType: resultScreenType)
         
-        guard TranslationSession.shared.repeatPairs.isEmpty else {
-            rootNavigationController.pushViewController(newVC,
-                                                        animated: true)
-            return
+        switch resultScreenType {
+        case .repeatingEnded:
+            if !TranslationSession.shared.repeatPairs.isEmpty {
+                rootNavigationController.pushViewController(newVC,
+                                                            animated: true)
+                return
+            }
+        default:
+            break
         }
         pushReplacingLast(with: newVC)
     }

@@ -27,12 +27,16 @@ class TranslationSession {
 //                                  TranslationPair(originalWord: "Свинья", translatedWord: "Pig", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "unchecked"), rightAnswersStreakCounter: 0, nextShowDate: Date())]
     }
     
-    func removePair() {
+    func removeFirstPairFromRepeatPairs() {
         repeatPairs.removeFirst()
     }
     
     func addMistake(mistake: TranslationPair) {
         mistakes.append(mistake)
+    }
+    
+    func resetMistakes() {
+        mistakes.removeAll()
     }
     
     func addAnsweredPair(pair: TranslationPair) {

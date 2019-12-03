@@ -38,7 +38,6 @@ class RepeatPresenter {
             view.show(title: "Исправление ошибок")
             view.showRightBarButtonItem(show: false)
         } else {
-            view.show(mistakeCount: mistakeCounter)
             view.show(title: "Повторение")
             view.showRightBarButtonItem(show: true)
         }
@@ -77,7 +76,7 @@ extension RepeatPresenter: RepeatViewOutput {
         let isCorrect = currentTranslationPair.translatedWord.lowercased() == enteredTranslation.lowercased()
         if !isMistakes {
             TranslationSession.shared.addAnsweredPair(pair: currentTranslationPair)
-            TranslationSession.shared.removePair()
+            TranslationSession.shared.removeFirstPairFromRepeatPairs()
             if !isCorrect {
                 mistakeCounter += 1
                 TranslationSession.shared.addMistake(mistake: currentTranslationPair)
@@ -106,5 +105,12 @@ extension RepeatPresenter: RepeatViewOutput {
     
     func didTapRightBarButtonItem() {
         showResultScreen()
+    }
+    
+    func viewWillAppear() {
+        if !isMistakes {
+            mistakeCounter = TranslationSession.shared.mistakes.count
+            view.show(mistakeCount: mistakeCounter)
+        }
     }
 }

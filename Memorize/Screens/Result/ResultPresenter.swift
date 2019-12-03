@@ -24,8 +24,11 @@ class ResultPresenter {
         switch resultScreenType {
         case .repeatingEnded(withMistakes: false):
             words = TranslationSession.shared.answeredPairs
-        default:
+        case .repeatingEnded(withMistakes: true):
             words = TranslationSession.shared.mistakes
+        case .mistakesCorrectionEnded:
+            words = TranslationSession.shared.mistakes
+            TranslationSession.shared.resetMistakes()
         }
     }
     

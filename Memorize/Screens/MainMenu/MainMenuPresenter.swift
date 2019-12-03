@@ -24,7 +24,10 @@ extension MainMenuPresenter: MainMenuViewOutput {
     }
     
     func repeatWordsButtonTapped() {
-        guard !TranslationSession.shared.repeatPairs.isEmpty else { return }
+        guard !TranslationSession.shared.repeatPairs.isEmpty else {
+            view.showNoWordsAllert()
+            return
+        }
         Router.shared.showRepeat(isMistakes: false)
     }
     
