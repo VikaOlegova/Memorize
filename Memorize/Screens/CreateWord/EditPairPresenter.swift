@@ -54,19 +54,17 @@ class EditPairPresenter {
                 let cellData = weakSelf.images[index]
                 
                 self?.googleImageService.loadImage(for: imageToLoad, completion: { loadedImage in
-                    DispatchQueue.main.async {
-                        guard let weakSelf = self else { return }
-                        
-                        guard loadedImage.uiImage != nil else {
-                            guard let newIndex = weakSelf.images.firstIndex(where: { $0 === cellData }) else { return }
-                            weakSelf.images.remove(at: newIndex)
-                            weakSelf.view.removeImage(at: newIndex)
-                            return
-                        }
-                        
-                        cellData.image = loadedImage.uiImage
-                        weakSelf.view.show(images: weakSelf.images)
+                    guard let weakSelf = self else { return }
+                    
+                    guard loadedImage.uiImage != nil else {
+                        guard let newIndex = weakSelf.images.firstIndex(where: { $0 === cellData }) else { return }
+                        weakSelf.images.remove(at: newIndex)
+                        weakSelf.view.removeImage(at: newIndex)
+                        return
                     }
+                    
+                    cellData.image = loadedImage.uiImage
+                    weakSelf.view.show(images: weakSelf.images)
                 })
             }
         }
@@ -111,7 +109,9 @@ extension EditPairPresenter: EditPairViewOutput {
             toLanguage = temp
             view.show(languageInfo: fromLanguage.fromTo(toLanguage))
             
-            translate(word: originalWord)
+            if !originalWord.isEmpty {
+                translate(word: originalWord)
+            }
         }
     }
 }

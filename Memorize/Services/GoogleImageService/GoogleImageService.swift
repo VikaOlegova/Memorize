@@ -43,10 +43,10 @@ class GoogleImageService {
                            completion: @escaping (GoogleImage) -> ()) {
         networkService.loadImage(at: image.path) { loadedImage in
             guard let loadedImage = loadedImage else {
-                completion(image)
+                DispatchQueue.main.async { completion(image) }
                 return
             }
-            completion(image.with(uiImage: loadedImage))
+            DispatchQueue.main.async { completion(image.with(uiImage: loadedImage)) }
         }
     }
 }

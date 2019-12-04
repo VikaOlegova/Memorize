@@ -140,7 +140,7 @@ class EditPairViewController: UIViewController {
     }
     
     @objc func fromToButtonTapped() {
-        guard let text = originalView.textField.text, !text.isEmpty else { return }
+        guard let text = originalView.textField.text else { return }
         presenter.didTapFromToButton(with: text)
     }
     
