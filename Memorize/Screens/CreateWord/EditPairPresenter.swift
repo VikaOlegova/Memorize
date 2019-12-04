@@ -47,7 +47,10 @@ extension EditPairPresenter: EditPairViewOutput {
         
         view.show(originalWord: pair.originalWord, reverseTranslationCheckBox: newPair)
         view.show(translation: pair.translatedWord)
-        view.show(image: pair.image)
+        
+        //view.show(image: pair.image)
+        view.show(images: [UIImage(named: "night")!, UIImage(named: "checked")!, UIImage(named: "wrong")!, UIImage(named: "audio")!, UIImage(named: "unchecked")!, UIImage(named: "right")!])
+        
         view.show(languageInfo: pair.originalLanguage.fromTo(pair.translatedLanguage))
         view.show(reverseTranslationEnabled: true)
         view.show(title: newPair ? "Создать" : "Редактировать")

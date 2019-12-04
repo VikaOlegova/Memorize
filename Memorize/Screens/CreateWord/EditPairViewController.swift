@@ -11,7 +11,7 @@ import UIKit
 protocol EditPairViewInput: class {
     func show(originalWord: String, reverseTranslationCheckBox: Bool)
     func show(translation: String)
-    func show(image: UIImage?)
+    func show(images: [UIImage])
     func show(languageInfo: String)
     func show(reverseTranslationEnabled: Bool)
     func show(title: String)
@@ -33,8 +33,11 @@ class EditPairViewController: UIViewController {
     let fromToButton = UIButton()
     let checkBoxView = TitleCheckboxView()
     let translationView = TitleTextFieldView()
-    let imageView = UIImageView()
+    let collectionView: UICollectionView
+    let flowLayout: UICollectionViewFlowLayout
+    
     let saveButton = BigGreenButton()
+    var images = [CollectionVIewCellData]()
     
     var fromLanguage: Language = .EN
     var toLanguage: Language = .RU
@@ -44,6 +47,12 @@ class EditPairViewController: UIViewController {
     
     init(presenter: EditPairViewOutput) {
         self.presenter = presenter
+        
+        flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 18)
+        flowLayout.minimumLineSpacing = 18 * 2
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -67,8 +76,20 @@ class EditPairViewController: UIViewController {
         stackView.addArrangedSubview(fromToButton)
         stackView.addArrangedSubview(checkBoxView)
         stackView.addArrangedSubview(translationView)
-        stackView.addArrangedSubview(imageView)
+        
+        let collectionViewContainer = UIView()
+        collectionViewContainer.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionViewContainer.addSubview(collectionView)
+        stackView.addArrangedSubview(collectionViewContainer)
+        
         stackView.addArrangedSubview(saveButton)
+        
+        collectionView.dataSource = self
+        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
+        collectionView.alwaysBounceHorizontal = true
+        collectionView.backgroundColor = .clear
+        collectionView.isPagingEnabled = true
         
         originalView.label.text = "Новое слово или фраза"
         originalView.textField.placeholder = "Введите слово"
@@ -78,7 +99,6 @@ class EditPairViewController: UIViewController {
         checkBoxView.titleLabel.text = "Создать обратный перевод"
         translationView.label.text = "Перевод"
         translationView.textField.placeholder = "Введите перевод"
-        imageView.contentMode = .scaleAspectFit
         saveButton.setTitle("Сохранить", for: .normal)
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         
@@ -91,11 +111,27 @@ class EditPairViewController: UIViewController {
         
         fromToButton.centerXAnchor.constraint(equalTo: stackView.centerXAnchor).isActive = true
         fromToButton.heightAnchor.constraint(equalToConstant: 21).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -32).isActive = true
+        
+        collectionView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        collectionView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        collectionView.topAnchor.constraint(equalTo: collectionViewContainer.topAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: collectionViewContainer.bottomAnchor).isActive = true
         
         stackView.setCustomSpacing(8, after: fromToButton)
         
         presenter.viewDidLoad()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        flowLayout.itemSize = collectionView.frame.size
+        flowLayout.itemSize.width -= 18 * 2
+        collectionView.reloadData()
+    }
+    
+    func createCollectionView() {
+//
     }
     
     @objc func fromToButtonTapped() {
@@ -136,8 +172,8 @@ extension EditPairViewController: EditPairViewInput {
         }
     }
     
-    func show(image: UIImage?) {
-        imageView.image = image
+    func show(images: [UIImage]) {
+        self.images = images.map { return CollectionVIewCellData(image: $0)}
     }
     
     func show(languageInfo: String) {
@@ -157,4 +193,19 @@ extension EditPairViewController: EditPairViewInput {
             show ? self?.translationView.spinner.startAnimating() : self?.translationView.spinner.stopAnimating()
         }
     } 
+}
+
+extension EditPairViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return images.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
+        let data = images[indexPath.row]
+        
+        cell.displayData(data: data)
+        
+        return cell
+    }
 }

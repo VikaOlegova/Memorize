@@ -52,6 +52,8 @@
 		3CC6553623964DAA00ADC021 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6553523964DAA00ADC021 /* NetworkService.swift */; };
 		3CC6553823965EA000ADC021 /* GoogleImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6553723965EA000ADC021 /* GoogleImageService.swift */; };
 		3CC6553A2396605A00ADC021 /* GoogleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC655392396605A00ADC021 /* GoogleImage.swift */; };
+		3CC6553C239720B700ADC021 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6553B239720B700ADC021 /* CollectionViewCell.swift */; };
+		3CC6553E239720CC00ADC021 /* CollectionVIewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6553D239720CC00ADC021 /* CollectionVIewCellData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +116,8 @@
 		3CC6553523964DAA00ADC021 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		3CC6553723965EA000ADC021 /* GoogleImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleImageService.swift; sourceTree = "<group>"; };
 		3CC655392396605A00ADC021 /* GoogleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleImage.swift; sourceTree = "<group>"; };
+		3CC6553B239720B700ADC021 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		3CC6553D239720CC00ADC021 /* CollectionVIewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionVIewCellData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,6 +281,8 @@
 			children = (
 				3C049B25238CB7E400F17697 /* CheckBox.swift */,
 				3C049B51238F41EC00F17697 /* TitleCheckboxView.swift */,
+				3CC6553B239720B700ADC021 /* CollectionViewCell.swift */,
+				3CC6553D239720CC00ADC021 /* CollectionVIewCellData.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -469,6 +475,7 @@
 				3C049B572390C01200F17697 /* CorrectAnswerView.swift in Sources */,
 				3C049B5B2390EC5A00F17697 /* CorrectAnswerAssembly.swift in Sources */,
 				3CC6552723935A1B00ADC021 /* ResultCell.swift in Sources */,
+				3CC6553E239720CC00ADC021 /* CollectionVIewCellData.swift in Sources */,
 				3C049B1E238C902D00F17697 /* TranslationPairCell.swift in Sources */,
 				3CC6553823965EA000ADC021 /* GoogleImageService.swift in Sources */,
 				3C049B1A238C7B3600F17697 /* MainMenuButton.swift in Sources */,
@@ -477,6 +484,7 @@
 				3C049AF7238C714D00F17697 /* MainMenuViewController.swift in Sources */,
 				3C049B4A238E53A100F17697 /* RepeatAssembly.swift in Sources */,
 				3C049B3E238DE71300F17697 /* RepeatViewController.swift in Sources */,
+				3CC6553C239720B700ADC021 /* CollectionViewCell.swift in Sources */,
 				3C049B55238F9DC800F17697 /* CorrectAnswerViewController.swift in Sources */,
 				3C049B18238C738B00F17697 /* RoundedBackgroundView.swift in Sources */,
 				3C049AF5238C714D00F17697 /* AppDelegate.swift in Sources */,
