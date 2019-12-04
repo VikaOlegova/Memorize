@@ -9,12 +9,11 @@
 import UIKit
 
 class ImageCollectionViewCellData {
-    let image: UIImage?
-    var isLoaded: Bool {
-        return image != nil
-    }
+    var image: UIImage?
     
-    init(image: UIImage?) {
+    var isLoaded: Bool { return image != nil }
+    
+    init(image: UIImage? = nil) {
         self.image = image
     }
 }

@@ -20,40 +20,33 @@ class GoogleImageService {
     let networkService = NetworkService()
     
     func loadImageList(searchString: String,
-                       completion: @escaping ([GoogleImage]) -> ()) {
+                               completion: @escaping ([GoogleImage]) -> ()) {
         let url = GoogleImageAPI.searchPath(text: searchString)
         networkService.getData(at: url) { data in
+            print(String(data: data!, encoding: .utf8))
             guard let data = data,
-            let parsed = try? JSONDecoder().decode(ResponseData.self, from: data)
-            else {
-                completion([])
-                return
+                let parsed = try? JSONDecoder().decode(ResponseData.self, from: data)
+                else {
+                    DispatchQueue.main.async { completion([]) }
+                    return
             }
             
             let googleImages = parsed.items.compactMap { (object) -> GoogleImage? in
                 guard let url = URL(string: object.link) else { return nil }
                 return GoogleImage(path: url, uiImage: nil)
             }
-            completion(googleImages)
+            DispatchQueue.main.async { completion(googleImages) }
         }
     }
     
-    func loadUIImages(for images: [GoogleImage],
-                      completion: @escaping ([GoogleImage]) -> ()) {
-        let group = DispatchGroup()
-        var newImages: [GoogleImage] = []
-        for model in images {
-            group.enter()
-            networkService.loadImage(at: model.path) { [weak self] image in
-                defer { group.leave() }
-                guard let image = image else { return }
-                
-                newImages.append(model.with(uiImage: image))
+    func loadImage(for image: GoogleImage,
+                           completion: @escaping (GoogleImage) -> ()) {
+        networkService.loadImage(at: image.path) { loadedImage in
+            guard let loadedImage = loadedImage else {
+                completion(image)
+                return
             }
-        }
-        
-        group.notify(queue: DispatchQueue.main) {
-            completion(newImages)
+            completion(image.with(uiImage: loadedImage))
         }
     }
 }

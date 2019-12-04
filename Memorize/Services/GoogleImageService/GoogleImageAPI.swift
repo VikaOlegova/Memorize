@@ -9,7 +9,7 @@
 import Foundation
 
 class GoogleImageAPI {
-    private static let baseURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyC9qHhYm3l9vkroTGqAEOCutcQyJTSmlsQ&cx=017129964574325989326:zz71k61obkn"
+    private static let baseURL = "https://www.googleapis.com/customsearch/v1"
     
     static func searchPath(text: String) -> URL {
         guard var components = URLComponents(string: baseURL) else {
@@ -17,6 +17,8 @@ class GoogleImageAPI {
         }
         
         let params = [
+            "key" : "AIzaSyC9qHhYm3l9vkroTGqAEOCutcQyJTSmlsQ",
+            "cx" : "017129964574325989326:zz71k61obkn",
             "q" : text,
             "searchType" : "image",
         ]

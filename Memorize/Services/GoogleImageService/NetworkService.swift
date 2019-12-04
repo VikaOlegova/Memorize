@@ -10,7 +10,12 @@ import UIKit
 
 class NetworkService {
     
-    private let session = URLSession.shared
+    private let session: URLSession = {
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 20
+        sessionConfig.timeoutIntervalForResource = 60
+        return URLSession(configuration: sessionConfig)
+    }()
     
     func getData(at path: URL, completion: @escaping (Data?) -> ()) {
         let dataTask = session.dataTask(with: path) { data, _, _ in

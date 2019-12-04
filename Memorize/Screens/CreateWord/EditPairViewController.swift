@@ -11,7 +11,8 @@ import UIKit
 protocol EditPairViewInput: class {
     func show(originalWord: String, reverseTranslationCheckBox: Bool)
     func show(translation: String)
-    func show(images: [UIImage])
+    func show(images: [ImageCollectionViewCellData])
+    func removeImage(at index: Int)
     func show(languageInfo: String)
     func show(reverseTranslationEnabled: Bool)
     func show(title: String)
@@ -21,7 +22,8 @@ protocol EditPairViewInput: class {
 protocol EditPairViewOutput: class {
     func saveTapped(originalWord: String?,
                     translationWord: String?,
-                    reverseTranslationEnabled: Bool)
+                    reverseTranslationEnabled: Bool,
+                    image: UIImage?)
     func viewDidLoad()
     func didChange(originalWord: String)
     func didTapFromToButton(with originalWord: String)
@@ -37,13 +39,15 @@ class EditPairViewController: UIViewController {
     let flowLayout: UICollectionViewFlowLayout
     
     let saveButton = BigGreenButton()
-    var images = [CollectionVIewCellData]()
+    var images = [ImageCollectionViewCellData]()
     
     var fromLanguage: Language = .EN
     var toLanguage: Language = .RU
     
     var searchWorkItem = DispatchWorkItem(block: { })
     let presenter: EditPairViewOutput
+    
+    private var currentImageCell: ImageCollectionViewCellData?
     
     init(presenter: EditPairViewOutput) {
         self.presenter = presenter
@@ -85,8 +89,9 @@ class EditPairViewController: UIViewController {
         
         stackView.addArrangedSubview(saveButton)
         
+        collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
+        collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "ImageCollectionViewCell")
         collectionView.alwaysBounceHorizontal = true
         collectionView.backgroundColor = .clear
         collectionView.isPagingEnabled = true
@@ -142,7 +147,8 @@ class EditPairViewController: UIViewController {
     @objc func saveButtonTapped() {
         presenter.saveTapped(originalWord: originalView.textField.text,
                              translationWord: translationView.textField.text,
-                             reverseTranslationEnabled: checkBoxView.checkBox.isSelected)
+                             reverseTranslationEnabled: checkBoxView.checkBox.isSelected,
+                             image: currentImageCell?.image)
     }
     
     @objc func textFieldDidChange() {
@@ -172,8 +178,14 @@ extension EditPairViewController: EditPairViewInput {
         }
     }
     
-    func show(images: [UIImage]) {
-        self.images = images.map { return CollectionVIewCellData(image: $0)}
+    func show(images: [ImageCollectionViewCellData]) {
+        self.images = images
+        self.collectionView.reloadSections([0])
+    }
+    
+    func removeImage(at index: Int) {
+        images.remove(at: index)
+        collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
     }
     
     func show(languageInfo: String) {
@@ -201,11 +213,29 @@ extension EditPairViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath) as! ImageCollectionViewCell
         let data = images[indexPath.row]
         
         cell.displayData(data: data)
         
         return cell
+    }
+}
+
+extension EditPairViewController: UICollectionViewDelegate {
+    private func updateSelectedCell() {
+        let indexPaths = collectionView.indexPathsForVisibleItems
+        guard let index = indexPaths.first?.row else { return }
+        currentImageCell = images[index]
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didEndDisplaying cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
+        updateSelectedCell()
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        updateSelectedCell()
     }
 }

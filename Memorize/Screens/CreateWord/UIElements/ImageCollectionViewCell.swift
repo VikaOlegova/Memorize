@@ -1,5 +1,5 @@
 //
-//  CollectionViewCell.swift
+//  ImageCollectionViewCell.swift
 //  Memorize
 //
 //  Created by Вика on 04/12/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CollectionViewCell: UICollectionViewCell {
+class ImageCollectionViewCell: UICollectionViewCell {
     let imageView: UIImageView
     let spinner: UIActivityIndicatorView
     
@@ -39,7 +39,7 @@ class CollectionViewCell: UICollectionViewCell {
         imageView.frame = bounds;
     }
     
-    func displayData(data: CollectionVIewCellData)
+    func displayData(data: ImageCollectionViewCellData)
     {
         imageView.image = data.isLoaded ? data.image : nil
         if data.isLoaded {
