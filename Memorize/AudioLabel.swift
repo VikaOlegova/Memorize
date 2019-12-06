@@ -26,7 +26,8 @@ class AudioLabel: UIView {
         addSubview(wordLabel)
         addSubview(audioButton)
         
-        wordLabel.font = .systemFont(ofSize: 22)
+        let size: CGFloat = 22
+        wordLabel.font = .systemFont(ofSize: size)
         wordLabel.lineBreakMode = .byWordWrapping
         wordLabel.numberOfLines = 0
         
@@ -37,8 +38,8 @@ class AudioLabel: UIView {
         wordLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         
         audioButton.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        audioButton.heightAnchor.constraint(equalToConstant: 22).isActive = true
-        audioButton.widthAnchor.constraint(equalToConstant: 22).isActive = true
+        audioButton.heightAnchor.constraint(equalToConstant: size).isActive = true
+        audioButton.widthAnchor.constraint(equalToConstant: size).isActive = true
         audioButton.bottomAnchor.constraint(equalTo: wordLabel.bottomAnchor).isActive = true
         audioButton.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }

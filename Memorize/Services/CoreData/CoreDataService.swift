@@ -18,65 +18,132 @@ extension Date {
     func add(days: Int) -> Date {
         return Calendar.current.date(byAdding: .day, value: days, to: self)!
     }
+    
+    static var tomorrow: NSDate {
+        return Date().add(days: 1).dateOnly as NSDate
+    }
+}
+
+enum TranslationPairType {
+    case allPairs
+    case repeatPairs
+}
+
+private extension TranslationPair {
+    convenience init?(_ moPair: MOTranslationPair) {
+        guard
+            let originalWord = moPair.originalWord,
+            let translatedWord = moPair.translatedWord,
+            let originalLanguageString = moPair.originalLanguage,
+            let originalLanguage = Language(rawValue: originalLanguageString),
+            let translatedLanguageString = moPair.translatedLanguage,
+            let translatedLanguage = Language(rawValue: translatedLanguageString),
+            let date = moPair.nextShowDate
+            else { return nil }
+        
+        var image: UIImage?
+        if let imageData = moPair.image {
+            image = UIImage(data: imageData as Data, scale: 1.0)
+        }
+        
+        self.init(originalWord: originalWord,
+                  translatedWord: translatedWord,
+                  originalLanguage: originalLanguage,
+                  translatedLanguage: translatedLanguage,
+                  image: image,
+                  rightAnswersStreakCounter: Int(moPair.counter),
+                  nextShowDate: date as Date)
+    }
 }
 
 class CoreDataService {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    var context: NSManagedObjectContext!
+    
+    func checkExistenceOfTranslationPair(originalWord: String,
+                                         translatedWord: String,
+                                         completion: @escaping (Bool) -> ()) {
+        appDelegate.persistentContainer.performBackgroundTask { (context) in
+            let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
+            request.predicate = NSPredicate(format: "originalWord = %@ AND translatedWord = %@",
+                                            argumentArray: [originalWord, translatedWord])
+            do {
+                let count = try context.count(for: request)
+                completion(count > 0)
+            } catch {
+                print("Fetching data Failed")
+                completion(false)
+            }
+        }
+    }
     
     func saveNewTranslationPair(originalWord: String,
                                 translatedWord: String,
                                 originalLanguage: Language,
                                 translatedLanguage: Language,
-                                image: UIImage?)
-    {
-        let newPair = MOTranslationPair(context: context)
-        newPair.originalWord = originalWord
-        newPair.translatedWord = translatedWord
-        newPair.originalLanguage = originalLanguage.rawValue
-        newPair.translatedLanguage = translatedLanguage.rawValue
-        newPair.counter = 0
-        newPair.nextShowDate = Date().add(days: 1).dateOnly as NSDate
-        
-        if let image = image, let jpegData = image.jpegData(compressionQuality: 1.0) {
-            newPair.image = NSData(data: jpegData)
-        }
-        
-        print("Storing Data..")
-        do {
-            try context.save()
-        } catch {
-            print("Storing data Failed")
+                                image: UIImage?,
+                                completion: @escaping () -> ()) {
+        appDelegate.persistentContainer.performBackgroundTask { (context) in
+            defer {
+                completion()
+            }
+            
+            let newPair = MOTranslationPair(context: context)
+            newPair.originalWord = originalWord
+            newPair.translatedWord = translatedWord
+            newPair.originalLanguage = originalLanguage.rawValue
+            newPair.translatedLanguage = translatedLanguage.rawValue
+            newPair.counter = 0
+            newPair.nextShowDate = Date.tomorrow
+            
+            if let image = image,
+                let jpegData = image.jpegData(compressionQuality: 1.0) {
+                newPair.image = NSData(data: jpegData)
+            }
+            
+            print("Storing Data..")
+            do {
+                try context.save()
+            } catch {
+                print("Storing data Failed")
+            }
         }
     }
     
-    func fetchAllTranslationPairs() -> [TranslationPair]
-    {
-        print("Fetching Data..")
-        let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
-        request.returnsObjectsAsFaults = false
-        do {
-            let result = try context.fetch(request)
-            let translationPairs = result.compactMap { (data) -> TranslationPair? in
-                guard let originalWord = data.originalWord,
-                    let translatedWord = data.translatedWord,
-                    let originalLanguageString = data.originalLanguage,
-                    let translatedLanguageString = data.translatedLanguage,
-                    let date = data.nextShowDate else { return nil }
-                
-                let image: UIImage?
-                if let imageData = data.image {
-                    image = UIImage(data: imageData as Data, scale: 1.0)
-                } else {
-                    image = nil
-                }
-                
-                return TranslationPair(originalWord: originalWord, translatedWord: translatedWord, originalLanguage: Language(rawValue: originalLanguageString)!, translatedLanguage: Language(rawValue: translatedLanguageString)!, image: image, rightAnswersStreakCounter: Int(data.counter), nextShowDate: date as Date)
+    func countOfTranslationPairs(of type: TranslationPairType, completion: @escaping (Int) -> ()) {
+        appDelegate.persistentContainer.performBackgroundTask { (context) in
+            let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
+            
+            if type == .repeatPairs {
+                request.predicate = NSPredicate(format: "nextShowDate <= %@", Date().dateOnly as NSDate)
             }
-            return translationPairs
-        } catch {
-            print("Fetching data Failed")
-            return []
+            
+            do {
+                let result = try context.count(for: request)
+                completion(result)
+            } catch {
+                print("Fetching data Failed")
+                completion(0)
+            }
+        }
+    }
+
+    func fetchTranslationPairs(of type: TranslationPairType, completion: @escaping ([TranslationPair]) -> ()) {
+        appDelegate.persistentContainer.performBackgroundTask { (context) in
+            print("Fetching Data..")
+            let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
+            
+            if type == .repeatPairs {
+                request.predicate = NSPredicate(format: "nextShowDate <= %@", Date().dateOnly as NSDate)
+            }
+            
+            request.returnsObjectsAsFaults = false
+            do {
+                let pairs = try context.fetch(request)
+                completion(pairs.compactMap { TranslationPair($0) })
+            } catch {
+                print("Fetching data Failed")
+                completion([])
+            }
         }
     }
     
@@ -84,59 +151,73 @@ class CoreDataService {
                                oldTranslatedWord: String,
                                newOriginalWord: String,
                                newTranslatedWord: String,
-                               image: UIImage?) {
-        let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
-        request.predicate = NSPredicate(format: "originalWord = %@ AND translatedWord = %@", argumentArray: [oldOriginalWord, oldTranslatedWord])
-        
-        do {
-            let result = try context.fetch(request)
-            for data in result {
-                data.originalWord = newOriginalWord
-                data.translatedWord = newTranslatedWord
-                data.counter = 0
-                data.nextShowDate = Date().add(days: 1).dateOnly as NSDate
-                
-                if let image = image, let jpegData = image.jpegData(compressionQuality: 1.0) {
-                    data.image = NSData(data: jpegData)
-                }
-                
-                do {
-                    try context.save()
-                } catch {
-                    print("Storing data Failed")
-                }
+                               image: UIImage?,
+                               completion: @escaping () -> ()) {
+        appDelegate.persistentContainer.performBackgroundTask { (context) in
+            defer {
+                completion()
             }
-        } catch {
-            print("Fetching data Failed")
+            
+            let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
+            request.predicate = NSPredicate(format: "originalWord = %@ AND translatedWord = %@",
+                                            argumentArray: [oldOriginalWord, oldTranslatedWord])
+            do {
+                if let result = try context.fetch(request).first {
+                    result.originalWord = newOriginalWord
+                    result.translatedWord = newTranslatedWord
+                    result.counter = 0
+                    result.nextShowDate = Date.tomorrow
+                    
+                    if let image = image,
+                        let jpegData = image.jpegData(compressionQuality: 1.0) {
+                        result.image = NSData(data: jpegData)
+                    }
+                    
+                    do {
+                        try context.save()
+                    } catch {
+                        print("Storing data Failed")
+                    }
+                }
+            } catch {
+                print("Fetching data Failed")
+            }
         }
     }
     
-    func updateCounterAndDate(originalWord: String, translatedWord: String, isMistake: Bool) {
-        let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
-        request.predicate = NSPredicate(format: "originalWord = %@ AND translatedWord = %@", argumentArray: [originalWord, translatedWord])
-        
-        do {
-            let result = try context.fetch(request)
-            for data in result {
-                if isMistake {
-                    data.counter = 0
-                    data.nextShowDate = Date().add(days: 1).dateOnly as NSDate
-                } else {
-                    let newCounter = data.counter + 1
-                    data.counter = newCounter
-                    data.nextShowDate = Date().add(days: Int(pow(Double(3),Double(newCounter)))).dateOnly as NSDate
-                }
-                
-                do {
-                    try context.save()
-                } catch {
-                    print("Storing data Failed")
-                }
+    func updateCounterAndDate(originalWord: String,
+                              translatedWord: String,
+                              isMistake: Bool,
+                              completion: @escaping () -> ()) {
+        appDelegate.persistentContainer.performBackgroundTask { (context) in
+            defer {
+                completion()
             }
-        } catch {
-            print("Fetching data Failed")
+            
+            let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
+            request.predicate = NSPredicate(format: "originalWord = %@ AND translatedWord = %@",
+                                            argumentArray: [originalWord, translatedWord])
+            do {
+                if let result = try context.fetch(request).first {
+                    
+                    if isMistake {
+                        result.counter = 0
+                        result.nextShowDate = Date.tomorrow
+                    } else {
+                        let newCounter = result.counter + 1
+                        result.counter = newCounter
+                        result.nextShowDate = Date().add(days: Int(round(pow(Double(3), Double(newCounter))))).dateOnly as NSDate
+                    }
+                    
+                    do {
+                        try context.save()
+                    } catch {
+                        print("Storing data Failed")
+                    }
+                }
+            } catch {
+                print("Fetching data Failed")
+            }
         }
     }
-    
-    // функция получения слов для повторения
 }

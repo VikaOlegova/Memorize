@@ -98,7 +98,6 @@ class RepeatViewController: UIViewController {
         imageView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 18).isActive = true
         imageView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -18).isActive = true
         imageView.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: 18).isActive = true
-        imageView.bottomAnchor.constraint(lessThanOrEqualTo: greenButton.topAnchor, constant: -10).isActive = true
         
         presenter.viewDidLoad()
     }
@@ -176,9 +175,13 @@ extension RepeatViewController: RepeatViewInput {
         if let existing = imageHeightConstraint {
             imageView.removeConstraint(existing)
         }
+        if image.size.height < image.size.width {
+            imageHeightConstraint = imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor,
+                                                                      multiplier: image.size.height / image.size.width)
+        } else {
+            imageView.bottomAnchor.constraint(lessThanOrEqualTo: greenButton.topAnchor, constant: -10).isActive = true
+        }
         
-        imageHeightConstraint = imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor,
-                                                                  multiplier: image.size.height / image.size.width)
         imageHeightConstraint?.isActive = true
     }
     
@@ -196,8 +199,7 @@ extension RepeatViewController: RepeatViewInput {
     }
     
     func hideMistakes() {
-        translationsAndMistakesCount.mistakeCounter.isHidden = true
-        translationsAndMistakesCount.mistakeLabel.isHidden = true
+        translationsAndMistakesCount.hideMistakes()
     }
     
     func show(title: String) {

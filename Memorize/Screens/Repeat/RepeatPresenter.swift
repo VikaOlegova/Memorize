@@ -38,6 +38,7 @@ class RepeatPresenter {
             view.show(title: "Исправление ошибок")
             view.showRightBarButtonItem(show: false)
         } else {
+            view.show(mistakeCount: mistakeCounter)
             view.show(title: "Повторение")
             view.showRightBarButtonItem(show: true)
         }
@@ -104,6 +105,7 @@ extension RepeatPresenter: RepeatViewOutput {
     }
     
     func didTapRightBarButtonItem() {
+        showKeyboardWorkItem?.cancel()
         showResultScreen()
     }
     

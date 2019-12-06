@@ -54,7 +54,7 @@ class TranslationsAndMistakesCount: UIView {
         mistakeLabel.topAnchor.constraint(equalTo: translationLabel.bottomAnchor, constant: 1).isActive = true
         mistakeLabel.heightAnchor.constraint(equalToConstant: 19).isActive = true
         mistakeLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        
+      
         fromToLanguageLabel.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         fromToLanguageLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         fromToLanguageLabel.heightAnchor.constraint(equalToConstant: 19).isActive = true
@@ -62,5 +62,10 @@ class TranslationsAndMistakesCount: UIView {
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func hideMistakes() {
+        mistakeLabel.isHidden = true
+        mistakeCounter.isHidden = true
     }
 }
