@@ -97,6 +97,7 @@ class EditPairViewController: UIViewController {
         
         originalView.label.text = "Новое слово или фраза"
         originalView.textField.placeholder = "Введите слово"
+        originalView.textField.returnKeyType = .done
         originalView.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         originalView.textField.delegate = self
         fromToButton.setTitleColor(.black, for: .normal)
@@ -104,6 +105,8 @@ class EditPairViewController: UIViewController {
         checkBoxView.titleLabel.text = "Создать обратный перевод"
         translationView.label.text = "Перевод"
         translationView.textField.placeholder = "Введите перевод"
+        translationView.textField.returnKeyType = .done
+        translationView.textField.delegate = self
         saveButton.setTitle("Сохранить", for: .normal)
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         
@@ -251,5 +254,10 @@ extension EditPairViewController: UITextFieldDelegate {
         let newLength = oldLength - rangeLength + replacementLength
         
         return newLength <= 80
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

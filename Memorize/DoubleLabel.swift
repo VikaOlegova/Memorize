@@ -26,6 +26,7 @@ class DoubleLabel: UIStackView {
         translatesAutoresizingMaskIntoConstraints = false
         
         axis = .horizontal
+        spacing = 3
         rightLabel.setContentHuggingPriority(.required, for: .horizontal)
         
         addArrangedSubview(leftLabel)
