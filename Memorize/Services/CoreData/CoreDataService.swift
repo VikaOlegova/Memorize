@@ -71,8 +71,31 @@ private extension TranslationPair {
     }
 }
 
+protocol CoreDataServiceProtocol {
+    func checkExistenceOfTranslationPair(originalWord: String,
+                                         completion: @escaping (Bool) -> ())
+    func saveNewTranslationPair(originalWord: String,
+                                translatedWord: String,
+                                originalLanguage: Language,
+                                translatedLanguage: Language,
+                                image: UIImage?,
+                                completion: @escaping () -> ())
+    func countOfTranslationPairs(of type: TranslationPairType, completion: @escaping (Int) -> ())
+    func fetchTranslationPairs(of type: TranslationPairType, completion: @escaping ([TranslationPair]) -> ())
+    func updateTranslationPair(oldOriginalWord: String,
+                               newOriginalWord: String,
+                               newTranslatedWord: String,
+                               image: UIImage?,
+                               completion: @escaping () -> ())
+    func updateCounterAndDate(originalWord: String,
+                              isMistake: Bool,
+                              completion: @escaping () -> ())
+    func deleteTranslationPair(originalWord: String,
+                               completion: @escaping () -> ())
+}
+
 /// Класс для работы с кордатой
-class CoreDataService {
+class CoreDataService: CoreDataServiceProtocol {
     private let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     /// Проверяет, есть ли уже в кордате данное слово
@@ -317,38 +340,4 @@ class CoreDataService {
             }
         }
     }
-    
-//    private func perform<ObjectType>(fetchRequest: NSFetchRequest<ObjectType>,
-//                                     process: @escaping ([ObjectType])->(),
-//                                     completion: (()->())? = nil) {
-//        appDelegate.persistentContainer.performBackgroundTask { [weak self] (context) in
-//            do {
-//                let result = try context.fetch(fetchRequest)
-//                process(result)
-//                do {
-//                    if context.hasChanges {
-//                        try context.save()
-//                        self?.appDelegate.saveContext()
-//                    }
-//
-//                    DispatchQueue.main.async {
-//                        completion?()
-//                    }
-//
-//                } catch {
-//                    print("Storing data Failed")
-//
-//                    DispatchQueue.main.async {
-//                        completion?()
-//                    }
-//                }
-//            } catch {
-//                print("Fetching data Failed")
-//
-//                DispatchQueue.main.async {
-//                    completion?()
-//                }
-//            }
-//        }
-//    }
 }

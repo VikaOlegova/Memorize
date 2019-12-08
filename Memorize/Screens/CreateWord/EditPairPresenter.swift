@@ -14,8 +14,18 @@ class EditPairPresenter {
     private var isCreating = true
     private var fromLanguage: Language = .EN
     private var toLanguage: Language = .RU
-    private let googleImageService = GoogleImageService()
     private var images = [ImageCollectionViewCellData]()
+    private let coreData: CoreDataServiceProtocol
+    private let googleImageService: ImageServiceProtocol
+    private let translateService: TranslateServiceProtocol
+    
+    init(coreData: CoreDataServiceProtocol,
+         googleImageService: ImageServiceProtocol,
+         translateService: TranslateServiceProtocol) {
+        self.coreData = coreData
+        self.googleImageService = googleImageService
+        self.translateService = translateService
+    }
     
     func edit(translationPair: TranslationPair) {
         self.translationPair = translationPair
@@ -26,7 +36,6 @@ class EditPairPresenter {
     
     private func translate(word: String) {
         view.showLoadingIndicator(true)
-        let translateService = YandexTranslateService()
         translateService.translate(text: word, from: fromLanguage, to: toLanguage) { [weak self] results in
             guard let weakSelf = self else { return }
             
@@ -75,13 +84,12 @@ class EditPairPresenter {
                                      translatedLanguage: Language,
                                      image: UIImage?,
                                      completion: @escaping (_ saved: Bool)->()) {
-        let coreData = CoreDataService()
         coreData.checkExistenceOfTranslationPair(originalWord: originalWord) { [weak self] isExisting in
             if isExisting {
                 self?.view.showAlert(title: "Такое слово уже существует!")
                 completion(false)
             } else {
-                coreData.saveNewTranslationPair(originalWord: originalWord,
+                self?.coreData.saveNewTranslationPair(originalWord: originalWord,
                                                 translatedWord: translatedWord,
                                                 originalLanguage: originalLanguage,
                                                 translatedLanguage: translatedLanguage,
@@ -96,7 +104,6 @@ class EditPairPresenter {
                                        image: UIImage?,
                                        completion: @escaping ()->()) {
         guard let pair = translationPair else { return }
-        let coreData = CoreDataService()
         coreData.updateTranslationPair(oldOriginalWord: pair.originalWord,
                                        newOriginalWord: originalWord,
                                        newTranslatedWord: translatedWord,

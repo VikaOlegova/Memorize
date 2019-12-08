@@ -21,9 +21,10 @@ class RepeatPresenter {
     private let isMistakes: Bool
     private let synthesizer = AVSpeechSynthesizer()
     
-    private let coreData = CoreDataService()
+    private let coreData: CoreDataServiceProtocol
     
-    init(isMistakes: Bool) {
+    init(coreData: CoreDataServiceProtocol, isMistakes: Bool) {
+        self.coreData = coreData
         self.isMistakes = isMistakes
         translationPairs = isMistakes ? RepeatingSession.shared.mistakes.shuffled() : RepeatingSession.shared.repeatPairs
     }

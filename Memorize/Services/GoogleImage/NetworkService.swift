@@ -8,7 +8,12 @@
 
 import UIKit
 
-class NetworkService {
+protocol NetworkServiceProtocol {
+    func getData(at path: URL, completion: @escaping (Data?) -> ())
+    func loadImage(at path: URL, completion: @escaping (UIImage?) -> ())
+}
+
+class NetworkService: NetworkServiceProtocol {
     
     private let session: URLSession = {
         let sessionConfig = URLSessionConfiguration.default

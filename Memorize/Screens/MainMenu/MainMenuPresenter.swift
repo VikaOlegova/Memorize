@@ -11,13 +11,17 @@ import Foundation
 class MainMenuPresenter {
     weak var view: MainMenuViewInput!
     private var repeatWordsCount = 0
+    private let coreData: CoreDataServiceProtocol
+    
+    init(coreData: CoreDataServiceProtocol) {
+        self.coreData = coreData
+    }
 }
 
 extension MainMenuPresenter: MainMenuViewOutput {
     func viewDidLoad() { }
     
     func viewWillAppear() {
-        let coreData = CoreDataService()
         coreData.countOfTranslationPairs(of: .allPairs) { [weak self] allWordsCount in
             self?.view.show(allWordsCount: allWordsCount)
         }

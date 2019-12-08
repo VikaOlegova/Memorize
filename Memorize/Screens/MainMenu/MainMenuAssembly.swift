@@ -10,7 +10,8 @@ import UIKit
 
 class MainMenuAssembly {
     func create() -> UIViewController {
-        let presenter = MainMenuPresenter()
+        let coreData = CoreDataService()
+        let presenter = MainMenuPresenter(coreData: coreData)
         let viewController = MainMenuViewController(presenter: presenter)
         
         presenter.view = viewController

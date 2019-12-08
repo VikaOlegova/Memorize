@@ -11,9 +11,13 @@ import UIKit
 class AllWordsPresenter {
     weak var view: AllWordsViewInput!
     private var translationPairs = [TranslationPair]()
+    private let coreData: CoreDataServiceProtocol
+    
+    init(coreData: CoreDataServiceProtocol) {
+        self.coreData = coreData
+    }
     
     private func fillAllTranslationPairs() {
-        let coreData = CoreDataService()
         coreData.fetchTranslationPairs(of: .allPairs) { [weak self] in
             self?.translationPairs = $0
             self?.view.showPlaceholder(isHidden: !$0.isEmpty)
@@ -34,7 +38,6 @@ class AllWordsPresenter {
 
 extension AllWordsPresenter: AllWordsViewOutput {
     func didDelete(pair: TranslationPairViewModel, allPairsCount: Int) {
-        let coreData = CoreDataService()
         coreData.deleteTranslationPair(originalWord: pair.firstWord) { }
         
         view.showPlaceholder(isHidden: allPairsCount != 0)

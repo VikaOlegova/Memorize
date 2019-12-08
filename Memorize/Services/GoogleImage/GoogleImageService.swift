@@ -8,7 +8,14 @@
 
 import Foundation
 
-class GoogleImageService {
+protocol ImageServiceProtocol {
+    func loadImageList(searchString: String,
+                       completion: @escaping ([GoogleImage]) -> ())
+    func loadImage(for image: GoogleImage,
+                   completion: @escaping (GoogleImage) -> ())
+}
+
+class GoogleImageService: ImageServiceProtocol {
     private struct ResponseData: Decodable {
         let items: [ResponseItem]
     }
@@ -17,10 +24,14 @@ class GoogleImageService {
         let link: String
     }
     
-    private let networkService = NetworkService()
+    private let networkService: NetworkServiceProtocol
+    
+    init(networkService: NetworkServiceProtocol) {
+        self.networkService = networkService
+    }
     
     func loadImageList(searchString: String,
-                               completion: @escaping ([GoogleImage]) -> ()) {
+                       completion: @escaping ([GoogleImage]) -> ()) {
 //        completion([])
 //        return
         
