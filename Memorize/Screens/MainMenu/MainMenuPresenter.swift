@@ -38,6 +38,7 @@ extension MainMenuPresenter: MainMenuViewOutput {
         }
         view.enableInteraction(false)
         RepeatingSession.shared.resetMistakes()
+        RepeatingSession.shared.resetAnsweredPairs()
         RepeatingSession.shared.load { [weak self] in
             Router.shared.showRepeat(isMistakes: false)
             self?.view.enableInteraction(true)

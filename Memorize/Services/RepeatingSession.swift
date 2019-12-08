@@ -47,6 +47,11 @@ class RepeatingSession {
         mistakes.removeAll()
     }
     
+    /// Очищает массив отвеченных слов
+    func resetAnsweredPairs() {
+        answeredPairs.removeAll()
+    }
+    
     /// Добавляет в массив отвеченных слов указанное слово
     ///
     /// - Parameter pair: слово для добавления
