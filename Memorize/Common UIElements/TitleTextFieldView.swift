@@ -8,7 +8,9 @@
 
 import UIKit
 
+/// Вьюха, содержащая textField, сплиттер под ним, заголовок textField и спиннер рядом
 class TitleTextFieldView: UIView {
+    /// заголовок textField
     let label = UILabel()
     let textField = UITextField()
     let spinner = UIActivityIndicatorView(style: .gray)

@@ -11,6 +11,7 @@ import AVFoundation
 
 /// Презентер экрана результата для введенного слова при повторении\исправлении ошибок
 class CorrectAnswerPresenter {
+    /// Слабая ссылка на вью экрана результата для введенного слова при повторении\исправлении ошибок
     weak var view: CorrectAnswerPopupViewInput!
     private let isCorrect: Bool
     private let correctTranslation: String

@@ -19,7 +19,7 @@ enum ResultScreenType {
 
 /// Презентер экрана результата
 class ResultPresenter {
-    /// Слабая ссылка на вью
+    /// Слабая ссылка на вью экрана результата
     weak var view: ResultViewInput!
     private let words: [TranslationPair]
     private let resultScreenType: ResultScreenType

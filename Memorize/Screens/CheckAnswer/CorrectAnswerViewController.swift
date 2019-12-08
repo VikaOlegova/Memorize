@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// Протокол входных данных для экрана с правильным отвтеом
+/// Протокол входных данных для экрана с оценкой правильности ответа
 protocol CorrectAnswerPopupViewInput: class {
     /// Настройка содержимой информации во вью в зависимости от правильности ответа
     ///
@@ -21,9 +21,9 @@ protocol CorrectAnswerPopupViewInput: class {
     func show(correctTranslation: String)
 }
 
-/// Протокол выходных данных с экрана с правильным отвтеом
+/// Протокол выходных данных с экрана с оценкой правильности ответа
 protocol CorrectAnswerPopupViewOutput: class {
-    /// Экран загрузился
+    /// Событие на загрузку экрана
     func viewDidLoad()
     
     /// Событие нажатия на аудиокнопку

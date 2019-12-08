@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Большая зеленая кнопка, расположенная внизу экрана
 class BigGreenButton: UIButton {
     convenience init() {
         self.init(frame: .zero)

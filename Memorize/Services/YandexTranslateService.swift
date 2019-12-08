@@ -8,11 +8,20 @@
 
 import Foundation
 
+/// Интерфейс для работы с Yandex Translate API
 protocol TranslateServiceProtocol {
+    /// Переводит указанный текст на указанный язык
+    ///
+    /// - Parameters:
+    ///   - text: текст для перевода
+    ///   - from: язык текста
+    ///   - to: язык, на который нужно перевести
+    ///   - completion: сообщает о конце выполнения функции
+    /// - Returns: массив переводов
     func translate(text: String, from: Language, to: Language, completion: @escaping ([String])->())
 }
 
-/// Класс для работы с Яндекс переводчиком
+/// Класс для работы с Yandex Translate API
 class YandexTranslateService: TranslateServiceProtocol {
     
     private struct ResponseData: Decodable {
@@ -26,13 +35,6 @@ class YandexTranslateService: TranslateServiceProtocol {
     private let apiKey = "trnsl.1.1.20191130T020917Z.e3a891e4e5659e27.eda8c5361cad7dabffa21764b560de8fc38d89b5"
     private let baseURL = "https://translate.yandex.net/api/v1.5/tr.json/translate"
     
-    /// Переводит указанный текст на указанный язык
-    ///
-    /// - Parameters:
-    ///   - text: текст для перевода
-    ///   - from: язык текста
-    ///   - to: язык, на который нужно перевести
-    ///   - completion: при выполнении функции возвращает переведенный текст при успехе или пустой массив при ошибке
     func translate(text: String, from: Language, to: Language, completion: @escaping ([String])->()) {
         
         var components = URLComponents(string: baseURL)!

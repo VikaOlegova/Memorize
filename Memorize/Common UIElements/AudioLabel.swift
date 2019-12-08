@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Текст с аудиокнопкой рядом
 class AudioLabel: UIView {
     let wordLabel = UILabel()
     let audioButton = UIButton()

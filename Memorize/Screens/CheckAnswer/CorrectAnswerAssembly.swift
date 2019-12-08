@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// Собирает все зависимости для экрана с корректным ответом
+/// Собирает все зависимости для экрана с оценкой правильности ответа
 class CorrectAnswerAssembly {
     func create(isCorrect: Bool,
                 correctTranslation: String,

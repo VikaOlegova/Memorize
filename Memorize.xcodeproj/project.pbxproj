@@ -165,17 +165,13 @@
 		3C049AF3238C714D00F17697 /* Memorize */ = {
 			isa = PBXGroup;
 			children = (
+				3C8E7455239CBA9600AD21C6 /* Common UIElements */,
 				3CC6551F2392074100ADC021 /* Services */,
 				3C049B2D238DC9D200F17697 /* Screens */,
 				3C049AF4238C714D00F17697 /* AppDelegate.swift */,
 				3C049AFE238C715000F17697 /* Assets.xcassets */,
 				3C049B00238C715000F17697 /* LaunchScreen.storyboard */,
-				3C049B21238C972C00F17697 /* DoubleLabel.swift */,
-				3C049B42238E4A9600F17697 /* AudioLabel.swift */,
 				3C049B03238C715000F17697 /* Info.plist */,
-				3C049B17238C738B00F17697 /* RoundedBackgroundView.swift */,
-				3C049B27238CBF1C00F17697 /* BigGreenButton.swift */,
-				3C049B2B238DC1E900F17697 /* TitleTextFieldView.swift */,
 				3C049B4F238F10E700F17697 /* TranslationPair.swift */,
 			);
 			path = Memorize;
@@ -309,6 +305,18 @@
 				3C049B562390C01200F17697 /* CorrectAnswerView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		3C8E7455239CBA9600AD21C6 /* Common UIElements */ = {
+			isa = PBXGroup;
+			children = (
+				3C049B2B238DC1E900F17697 /* TitleTextFieldView.swift */,
+				3C049B27238CBF1C00F17697 /* BigGreenButton.swift */,
+				3C049B42238E4A9600F17697 /* AudioLabel.swift */,
+				3C049B21238C972C00F17697 /* DoubleLabel.swift */,
+				3C049B17238C738B00F17697 /* RoundedBackgroundView.swift */,
+			);
+			path = "Common UIElements";
 			sourceTree = "<group>";
 		};
 		3CC6551F2392074100ADC021 /* Services */ = {

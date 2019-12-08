@@ -8,11 +8,26 @@
 
 import UIKit
 
+/// Интерфейс для работы с сетью
 protocol NetworkServiceProtocol {
+    /// Получает по запросу данные в формате json, содержащие ссылки на изображения
+    ///
+    /// - Parameters:
+    ///   - path: ссылка запроса
+    ///   - completion: сообщает о конце выполнения функции
+    /// - Returns: опциональные полученные данные
     func getData(at path: URL, completion: @escaping (Data?) -> ())
+    
+    /// Зыгружает по ссылке изображение
+    ///
+    /// - Parameters:
+    ///   - path: ссылка на изображение
+    ///   - completion: сообщает о конце выполнения функции
+    /// - Returns: опциональное загруженное изображение
     func loadImage(at path: URL, completion: @escaping (UIImage?) -> ())
 }
 
+/// Класс для работы с сетью
 class NetworkService: NetworkServiceProtocol {
     
     private let session: URLSession = {

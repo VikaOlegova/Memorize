@@ -71,25 +71,78 @@ private extension TranslationPair {
     }
 }
 
+/// Интерфейс для работы с кордатой
 protocol CoreDataServiceProtocol {
+    /// Проверяет, есть ли уже в кордате данное слово
+    ///
+    /// - Parameters:
+    ///   - originalWord: данное слово
+    ///   - completion: сообщает о конце выполнения функции
+    /// - Returns: true, если такое слово есть, или false, если его нет
     func checkExistenceOfTranslationPair(originalWord: String,
                                          completion: @escaping (Bool) -> ())
+    
+    /// Сохраняет в кордату слово
+    ///
+    /// - Parameters:
+    ///   - originalWord: слово
+    ///   - translatedWord: его перевод
+    ///   - originalLanguage: язык слова
+    ///   - translatedLanguage: язык его перевода
+    ///   - image: картинка к слову
+    ///   - completion: сообщает о конце выполнения функции
     func saveNewTranslationPair(originalWord: String,
                                 translatedWord: String,
                                 originalLanguage: Language,
                                 translatedLanguage: Language,
                                 image: UIImage?,
                                 completion: @escaping () -> ())
+    
+    /// Возвращает количество пар слов указанного типа из кордаты
+    ///
+    /// - Parameters:
+    ///   - type: тип пар слов
+    ///   - completion: сообщает о конце выполнения функции
+    /// - Returns: кол-во таких пар
     func countOfTranslationPairs(of type: TranslationPairType, completion: @escaping (Int) -> ())
+    
+    /// Возвращает массив пар слов указанного типа из кордаты
+    ///
+    /// - Parameters:
+    ///   - type: тип пар слов
+    ///   - completion: сообщает о конце выполнения функции
+    /// - Returns: массив пар слов указанного типа
     func fetchTranslationPairs(of type: TranslationPairType, completion: @escaping ([TranslationPair]) -> ())
+    
+    /// Обновляет пару слов в кордате после редактирования
+    ///
+    /// - Parameters:
+    ///   - oldOriginalWord: слово в кордате
+    ///   - newOriginalWord: новое значение слова
+    ///   - newTranslatedWord: новое значение перевода слова
+    ///   - image: новая картинка
+    ///   - completion: сообщает о конце выполнения функции
     func updateTranslationPair(oldOriginalWord: String,
                                newOriginalWord: String,
                                newTranslatedWord: String,
                                image: UIImage?,
                                completion: @escaping () -> ())
+    
+    /// Обновляет дату следующего показа и счетчик правильных ответов подряд слова в кордате при повторении
+    ///
+    /// - Parameters:
+    ///   - originalWord: само слово
+    ///   - isMistake: была ли допущена ошибка
+    ///   - completion: сообщает о конце выполнения функции
     func updateCounterAndDate(originalWord: String,
                               isMistake: Bool,
                               completion: @escaping () -> ())
+    
+    /// Удаляет указанное слово из кордаты
+    ///
+    /// - Parameters:
+    ///   - originalWord: само слово
+    ///   - completion: сообщает о конце выполнения функции
     func deleteTranslationPair(originalWord: String,
                                completion: @escaping () -> ())
 }
@@ -98,11 +151,6 @@ protocol CoreDataServiceProtocol {
 class CoreDataService: CoreDataServiceProtocol {
     private let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    /// Проверяет, есть ли уже в кордате данное слово
-    ///
-    /// - Parameters:
-    ///   - originalWord: данное слово
-    ///   - completion: при выполнении функции возвращает true, если такое слово есть, или false, если его нет
     func checkExistenceOfTranslationPair(originalWord: String,
                                          completion: @escaping (Bool) -> ()) {
         appDelegate.persistentContainer.performBackgroundTask { (context) in
@@ -122,15 +170,6 @@ class CoreDataService: CoreDataServiceProtocol {
         }
     }
     
-    /// Сохраняет в кордату слово
-    ///
-    /// - Parameters:
-    ///   - originalWord: слово
-    ///   - translatedWord: его перевод
-    ///   - originalLanguage: язык слова
-    ///   - translatedLanguage: язык его перевода
-    ///   - image: картинка к слову
-    ///   - completion: оповещает о конце выполнения функции
     func saveNewTranslationPair(originalWord: String,
                                 translatedWord: String,
                                 originalLanguage: Language,
@@ -165,12 +204,7 @@ class CoreDataService: CoreDataServiceProtocol {
             }
         }
     }
-    
-    /// Возвращает количество пар слов указанного типа из кордаты
-    ///
-    /// - Parameters:
-    ///   - type: тип пар слов
-    ///   - completion: при выполнении функции возвращает кол-во таких пар
+ 
     func countOfTranslationPairs(of type: TranslationPairType, completion: @escaping (Int) -> ()) {
         appDelegate.persistentContainer.performBackgroundTask { (context) in
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
@@ -193,11 +227,6 @@ class CoreDataService: CoreDataServiceProtocol {
         }
     }
 
-    /// Возвращает массив пар слов указанного типа из кордаты
-    ///
-    /// - Parameters:
-    ///   - type: тип пар слов
-    ///   - completion: при выполнении функции возвращает массив пар слов
     func fetchTranslationPairs(of type: TranslationPairType, completion: @escaping ([TranslationPair]) -> ()) {
         appDelegate.persistentContainer.performBackgroundTask { (context) in
             print("Fetching Data..")
@@ -223,14 +252,6 @@ class CoreDataService: CoreDataServiceProtocol {
         }
     }
     
-    /// Обновляет пару слов в кордате после редактирования
-    ///
-    /// - Parameters:
-    ///   - oldOriginalWord: слово в кордате
-    ///   - newOriginalWord: новое значение слова
-    ///   - newTranslatedWord: новое значение перевода слова
-    ///   - image: новая картинка к новому слову
-    ///   - completion: оповещает о конце выполнения функции
     func updateTranslationPair(oldOriginalWord: String,
                                newOriginalWord: String,
                                newTranslatedWord: String,
@@ -269,12 +290,6 @@ class CoreDataService: CoreDataServiceProtocol {
         }
     }
     
-    /// Обновляет дату следующего показа и счетчик правильных ответов подряд слова в кордате при повторении
-    ///
-    /// - Parameters:
-    ///   - originalWord: само слово
-    ///   - isMistake: была ли допущена ошибка
-    ///   - completion: оповещает о конце выполнения функции
     func updateCounterAndDate(originalWord: String,
                               isMistake: Bool,
                               completion: @escaping () -> ()) {
@@ -310,12 +325,7 @@ class CoreDataService: CoreDataServiceProtocol {
             }
         }
     }
-    
-    /// Удаляет указанное слово из кордаты
-    ///
-    /// - Parameters:
-    ///   - originalWord: само слово
-    ///   - completion: оповещает о конце выполнения функции
+
     func deleteTranslationPair(originalWord: String,
                                completion: @escaping () -> ()) {
         appDelegate.persistentContainer.performBackgroundTask { (context) in

@@ -8,13 +8,28 @@
 
 import Foundation
 
+/// Интерфейс для получения изображений и ссылок на них
 protocol ImageServiceProtocol {
+    /// Загружает все найденные ссылки на изображения по заданному слову и создает объекты GoogleImage со ссылкой на изображение
+    ///
+    /// - Parameters:
+    ///   - searchString: заданное слово для поиска изображений
+    ///   - completion: сообщает о конце выполнения функции
+    /// - Returns: массив объектов GoogleImage, в которых заполнено только полем path
     func loadImageList(searchString: String,
                        completion: @escaping ([GoogleImage]) -> ())
+    
+    /// Загружает изображение по ссылке, хранимой в поле path объекта GoogleImage, и заполняет поле uiImage этого объекта
+    ///
+    /// - Parameters:
+    ///   - image: объект GoogleImage с заполненным полем path
+    ///   - completion: сообщает о конце выполнения функции
+    /// - Returns: массив объектов GoogleImage, в которых заполнено полем uiImage
     func loadImage(for image: GoogleImage,
                    completion: @escaping (GoogleImage) -> ())
 }
 
+/// Класс для получения изображений и ссылок на них
 class GoogleImageService: ImageServiceProtocol {
     private struct ResponseData: Decodable {
         let items: [ResponseItem]

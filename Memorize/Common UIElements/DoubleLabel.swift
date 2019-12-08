@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Двусторонний лейбл (слева и справа от экрана)
 class DoubleLabel: UIStackView {
     let leftLabel = UILabel()
     let rightLabel = UILabel()

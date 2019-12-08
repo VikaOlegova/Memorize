@@ -31,7 +31,7 @@ protocol ResultViewOutput: class {
     /// Событие нажатия на кнопку
     func didTapGreenButton()
     
-    /// Вьюха загрузилась
+    /// Событие на загрузку экрана
     func viewDidLoad()
 }
 

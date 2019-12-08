@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// Вьюха, содержащая корректный ответ и правильность ответа
+/// Вьюха, содержащая корректный перевод и оценку правильности ответа
 class CorrectAnswerView: UIView {
     let colorView = UIView()
     let titleLabel = UILabel()

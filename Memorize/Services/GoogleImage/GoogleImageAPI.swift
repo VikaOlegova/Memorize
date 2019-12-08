@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Класс, формирующий ссылку для запроса картинок к Google API
 class GoogleImageAPI {
     private static let baseURL = "https://www.googleapis.com/customsearch/v1"
     
