@@ -15,7 +15,6 @@ class EditPairPresenter {
     var fromLanguage: Language = .EN
     var toLanguage: Language = .RU
     let googleImageService = GoogleImageService()
-    
     var images = [ImageCollectionViewCellData]()
     
     func edit(translationPair: TranslationPair) {
@@ -69,6 +68,43 @@ class EditPairPresenter {
             }
         }
     }
+    
+    private func saveTranslationPair(originalWord: String,
+                                     translatedWord: String,
+                                     originalLanguage: Language,
+                                     translatedLanguage: Language,
+                                     image: UIImage?,
+                                     completion: @escaping (_ saved: Bool)->()) {
+        let coreData = CoreDataService()
+        coreData.checkExistenceOfTranslationPair(originalWord: originalWord,
+                                                 translatedWord: translatedWord) { [weak self] isExisting in
+            if isExisting {
+                self?.view.showAlert(title: "Такая пара уже существует!")
+                completion(false)
+            } else {
+                coreData.saveNewTranslationPair(originalWord: originalWord,
+                                                translatedWord: translatedWord,
+                                                originalLanguage: originalLanguage,
+                                                translatedLanguage: translatedLanguage,
+                                                image: image,
+                                                completion: { completion(true) })
+            }
+        }
+    }
+    
+    private func updateTranslationPair(originalWord: String,
+                                       translatedWord: String,
+                                       image: UIImage?,
+                                       completion: @escaping ()->()) {
+        guard let pair = translationPair else { return }
+        let coreData = CoreDataService()
+        coreData.updateTranslationPair(oldOriginalWord: pair.originalWord,
+                                       oldTranslatedWord: pair.translatedWord,
+                                       newOriginalWord: originalWord,
+                                       newTranslatedWord: translatedWord,
+                                       image: image,
+                                       completion: completion)
+    }
 }
 
 extension EditPairPresenter: EditPairViewOutput {
@@ -91,10 +127,44 @@ extension EditPairPresenter: EditPairViewOutput {
     }
     
     func saveTapped(originalWord: String?,
-                    translationWord: String?,
+                    translatedWord: String?,
                     reverseTranslationEnabled: Bool,
                     image: UIImage?) {
+        guard let originalWord = originalWord, let translatedWord = translatedWord else {
+            view.showAlert(title: "Вы заполнили не все обязательные поля!")
+            return
+        }
         
+        view.enableGreenButton(enable: false)
+        let completion = { [weak self] (goBack: Bool) in
+            self?.view.enableGreenButton(enable: true)
+            if goBack {
+                Router.shared.returnBack()
+            }
+        }
+        
+        if isCreating {
+            saveTranslationPair(originalWord: originalWord,
+                                translatedWord: translatedWord,
+                                originalLanguage: fromLanguage,
+                                translatedLanguage: toLanguage,
+                                image: image,
+                                completion: { completion(!reverseTranslationEnabled && $0) })
+            
+            if reverseTranslationEnabled {
+                saveTranslationPair(originalWord: translatedWord,
+                                    translatedWord: originalWord,
+                                    originalLanguage: toLanguage,
+                                    translatedLanguage: fromLanguage,
+                                    image: image,
+                                    completion: { completion($0) })
+            }
+        } else {
+            updateTranslationPair(originalWord: originalWord,
+                                  translatedWord: translatedWord,
+                                  image: image,
+                                  completion: { completion(true) })
+        }
     }
     
     func didChange(originalWord: String) {

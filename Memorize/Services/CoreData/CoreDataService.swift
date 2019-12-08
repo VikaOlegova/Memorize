@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import  CoreData
+import CoreData
 
 extension Date {
     var dateOnly: Date {
@@ -57,21 +57,25 @@ private extension TranslationPair {
 }
 
 class CoreDataService {
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     func checkExistenceOfTranslationPair(originalWord: String,
                                          translatedWord: String,
                                          completion: @escaping (Bool) -> ()) {
         appDelegate.persistentContainer.performBackgroundTask { (context) in
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
-            request.predicate = NSPredicate(format: "originalWord = %@ AND translatedWord = %@",
+            request.predicate = NSPredicate(format: "originalWord =[c] %@ AND translatedWord =[c] %@",
                                             argumentArray: [originalWord, translatedWord])
             do {
                 let count = try context.count(for: request)
-                completion(count > 0)
+                DispatchQueue.main.async {
+                    completion(count > 0)
+                }
             } catch {
                 print("Fetching data Failed")
-                completion(false)
+                DispatchQueue.main.async {
+                    completion(false)
+                }
             }
         }
     }
@@ -84,7 +88,9 @@ class CoreDataService {
                                 completion: @escaping () -> ()) {
         appDelegate.persistentContainer.performBackgroundTask { (context) in
             defer {
-                completion()
+                DispatchQueue.main.async {
+                    completion()
+                }
             }
             
             let newPair = MOTranslationPair(context: context)
@@ -119,10 +125,14 @@ class CoreDataService {
             
             do {
                 let result = try context.count(for: request)
-                completion(result)
+                DispatchQueue.main.async {
+                    completion(result)
+                }
             } catch {
                 print("Fetching data Failed")
-                completion(0)
+                DispatchQueue.main.async {
+                    completion(0)
+                }
             }
         }
     }
@@ -139,10 +149,15 @@ class CoreDataService {
             request.returnsObjectsAsFaults = false
             do {
                 let pairs = try context.fetch(request)
-                completion(pairs.compactMap { TranslationPair($0) })
+                let convertedPairs = pairs.compactMap { TranslationPair($0) }
+                DispatchQueue.main.async {
+                    completion(convertedPairs)
+                }
             } catch {
                 print("Fetching data Failed")
-                completion([])
+                DispatchQueue.main.async {
+                    completion([])
+                }
             }
         }
     }
@@ -155,7 +170,9 @@ class CoreDataService {
                                completion: @escaping () -> ()) {
         appDelegate.persistentContainer.performBackgroundTask { (context) in
             defer {
-                completion()
+                DispatchQueue.main.async {
+                    completion()
+                }
             }
             
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
@@ -191,7 +208,9 @@ class CoreDataService {
                               completion: @escaping () -> ()) {
         appDelegate.persistentContainer.performBackgroundTask { (context) in
             defer {
-                completion()
+                DispatchQueue.main.async {
+                    completion()
+                }
             }
             
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()

@@ -17,11 +17,13 @@ protocol EditPairViewInput: class {
     func show(reverseTranslationEnabled: Bool)
     func show(title: String)
     func showLoadingIndicator(_ show: Bool)
+    func showAlert(title: String)
+    func enableGreenButton(enable: Bool)
 }
 
 protocol EditPairViewOutput: class {
     func saveTapped(originalWord: String?,
-                    translationWord: String?,
+                    translatedWord: String?,
                     reverseTranslationEnabled: Bool,
                     image: UIImage?)
     func viewDidLoad()
@@ -40,9 +42,6 @@ class EditPairViewController: UIViewController {
     
     let saveButton = BigGreenButton()
     var images = [ImageCollectionViewCellData]()
-    
-    var fromLanguage: Language = .EN
-    var toLanguage: Language = .RU
     
     var searchWorkItem = DispatchWorkItem(block: { })
     let presenter: EditPairViewOutput
@@ -135,10 +134,6 @@ class EditPairViewController: UIViewController {
         collectionView.reloadData()
     }
     
-    func createCollectionView() {
-//
-    }
-    
     @objc func fromToButtonTapped() {
         guard let text = originalView.textField.text else { return }
         presenter.didTapFromToButton(with: text)
@@ -146,7 +141,7 @@ class EditPairViewController: UIViewController {
     
     @objc func saveButtonTapped() {
         presenter.saveTapped(originalWord: originalView.textField.text,
-                             translationWord: translationView.textField.text,
+                             translatedWord: translationView.textField.text,
                              reverseTranslationEnabled: checkBoxView.checkBox.isSelected,
                              image: currentImageCell?.image)
     }
@@ -169,13 +164,10 @@ extension EditPairViewController: EditPairViewInput {
     func show(originalWord: String, reverseTranslationCheckBox: Bool) {
         originalView.textField.text = originalWord
         checkBoxView.isHidden = !reverseTranslationCheckBox
-        
     }
     
     func show(translation: String) {
-        DispatchQueue.main.async { [weak self] in
-            self?.translationView.textField.text = translation
-        }
+        translationView.textField.text = translation
     }
     
     func show(images: [ImageCollectionViewCellData]) {
@@ -201,10 +193,18 @@ extension EditPairViewController: EditPairViewInput {
     }
     
     func showLoadingIndicator(_ show: Bool) {
-        DispatchQueue.main.async { [weak self] in
-            show ? self?.translationView.spinner.startAnimating() : self?.translationView.spinner.stopAnimating()
-        }
-    } 
+        show ? translationView.spinner.startAnimating() : translationView.spinner.stopAnimating()
+    }
+    
+    func showAlert(title: String) {
+        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func enableGreenButton(enable: Bool) {
+        saveButton.isEnabled = enable
+    }
 }
 
 extension EditPairViewController: UICollectionViewDataSource {

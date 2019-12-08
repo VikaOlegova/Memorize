@@ -10,18 +10,32 @@ import UIKit
 
 class AllWordsPresenter {
     weak var view: AllWordsViewInput!
-    let translationPairs: [TranslationPair] = [TranslationPair(originalWord: "Яблоко", translatedWord: "Apple", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "night"), rightAnswersStreakCounter: 0, nextShowDate: Date()),
-                                               TranslationPair(originalWord: "Ручка", translatedWord: "Pen", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "checked"), rightAnswersStreakCounter: 0, nextShowDate: Date()),
-                                               TranslationPair(originalWord: "Cucumber", translatedWord: "Огурец", originalLanguage: .EN, translatedLanguage: .RU, image: UIImage(named: "unchecked"), rightAnswersStreakCounter: 0, nextShowDate: Date())]
+    var translationPairs = [TranslationPair]()
+    
+    private func fillAllTranslationPairs() {
+        let coreData = CoreDataService()
+        coreData.fetchTranslationPairs(of: .allPairs) { [weak self] in
+            self?.translationPairs = $0
+            self?.showAllPairs()
+        }
+    }
+    
+    private func showAllPairs() {
+        let translationPairViewModels = translationPairs.map {
+            return TranslationPairViewModel(firstWord: $0.originalWord,
+                                     firstWordLanguage: $0.originalLanguage.rawValue,
+                                     secondWord: $0.translatedWord,
+                                     secondWordLanguage: $0.translatedLanguage.rawValue)
+        }
+        view.show(allWords: translationPairViewModels)
+    }
 }
 
 extension AllWordsPresenter: AllWordsViewOutput {
-    func viewDidLoad() {
-        var translationPairViewModels = [TranslationPairViewModel]()
-        for pair in translationPairs {
-            translationPairViewModels.append(TranslationPairViewModel(firstWord: pair.originalWord, secondWord: pair.translatedWord))
-        }
-        view.show(allWords: translationPairViewModels)
+    func viewDidLoad() { }
+    
+    func viewWillAppear() {
+        fillAllTranslationPairs()
     }
     
     func addButtonTapped() {

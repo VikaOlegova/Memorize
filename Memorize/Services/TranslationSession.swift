@@ -17,14 +17,12 @@ class TranslationSession {
     
     private init() { }
     
-    func load() {
-        // загружает из кор даты
-        repeatPairs = [TranslationPair(originalWord: "Яблоко", translatedWord: "Apple", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "night"), rightAnswersStreakCounter: 0, nextShowDate: Date()),
-                                  TranslationPair(originalWord: "Ручка", translatedWord: "Pen", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "checked"), rightAnswersStreakCounter: 0, nextShowDate: Date()),
-                                  TranslationPair(originalWord: "Cucumber", translatedWord: "Огурец", originalLanguage: .EN, translatedLanguage: .RU, image: UIImage(named: "unchecked"), rightAnswersStreakCounter: 0, nextShowDate: Date()),
-                                  TranslationPair(originalWord: "Курица", translatedWord: "Chicken", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "night"), rightAnswersStreakCounter: 0, nextShowDate: Date())]
-//                                  TranslationPair(originalWord: "Солнце", translatedWord: "Sun", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "checked"), rightAnswersStreakCounter: 0, nextShowDate: Date()),
-//                                  TranslationPair(originalWord: "Свинья", translatedWord: "Pig", originalLanguage: .RU, translatedLanguage: .EN, image: UIImage(named: "unchecked"), rightAnswersStreakCounter: 0, nextShowDate: Date())]
+    func load(completion: @escaping () -> ()) {
+        let coreData = CoreDataService()
+        coreData.fetchTranslationPairs(of: .repeatPairs, completion: { [weak self] in
+            self?.repeatPairs = $0
+            completion()
+        })
     }
     
     func removeFirstPairFromRepeatPairs() {

@@ -7,17 +7,22 @@
 //
 
 import UIKit
+import AVFoundation
 
 class CorrectAnswerPresenter {
     weak var view: CorrectAnswerPopupViewInput!
     let isCorrect: Bool
     let correctTranslation: String
+    let correctTranslationLanguage: Language
     let didTapNextCallback: (() -> ())
     
-    init(isCorrect: Bool, correctTranslation: String, didTapNextCallback: @escaping ()->()) {
+    init(isCorrect: Bool, correctTranslation: String,
+         correctTranslationLanguage: Language,
+         didTapNextCallback: @escaping ()->()) {
         self.isCorrect = isCorrect
         self.correctTranslation = correctTranslation
         self.didTapNextCallback = didTapNextCallback
+        self.correctTranslationLanguage = correctTranslationLanguage
     }
 }
 
@@ -28,7 +33,19 @@ extension CorrectAnswerPresenter: CorrectAnswerPopupViewOutput {
     }
     
     func playAudioTapped() {
+        let utterance = AVSpeechUtterance(string: correctTranslation)
+        var language = ""
+        switch correctTranslationLanguage {
+        case .RU:
+            language = "ru-RU"
+        case .EN:
+            language = "en-US"
+        }
+        utterance.voice = AVSpeechSynthesisVoice(language: language)
+        utterance.rate = 0.3
         
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.speak(utterance)
     }
     
     func nextButtonTapped() {

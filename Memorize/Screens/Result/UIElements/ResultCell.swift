@@ -28,6 +28,8 @@ class ResultCell: UITableViewCell {
         rightImageView.translatesAutoresizingMaskIntoConstraints = false
         
         rightImageView.contentMode = .scaleAspectFit
+        wordLabel.lineBreakMode = .byWordWrapping
+        wordLabel.numberOfLines = 0
         
         contentView.addSubview(roundedBackgroundView)
         let container = roundedBackgroundView.containerView

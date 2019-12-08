@@ -18,8 +18,8 @@ class TranslationPairCell: UITableViewCell {
             guard let model = viewModel else { return }
             topLabels.leftLabel.text = model.firstWord
             bottomLabels.leftLabel.text = model.secondWord
-            topLabels.rightLabel.text = "RU"
-            bottomLabels.rightLabel.text = "EN"
+            topLabels.rightLabel.text = model.firstWordLanguage
+            bottomLabels.rightLabel.text = model.secondWordLanguage
         }
     }
     

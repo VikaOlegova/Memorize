@@ -14,6 +14,7 @@ protocol AllWordsViewInput: class {
 
 protocol AllWordsViewOutput: class {
     func viewDidLoad()
+    func viewWillAppear()
     func addButtonTapped()
     func cellTapped(with pair: TranslationPairViewModel)
 }
@@ -61,6 +62,11 @@ class AllWordsViewController: UIViewController {
         tableView.reloadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.viewWillAppear()
+    }
+    
     @objc func addButtonTapped() {
         presenter.addButtonTapped()
     }
@@ -88,5 +94,6 @@ extension AllWordsViewController: UITableViewDelegate {
 extension AllWordsViewController: AllWordsViewInput {
     func show(allWords: [TranslationPairViewModel]) {
         data = allWords
+        tableView.reloadData()
     }
 }

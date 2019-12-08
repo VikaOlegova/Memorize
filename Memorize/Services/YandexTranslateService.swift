@@ -34,7 +34,9 @@ class YandexTranslateService {
             .map { URLQueryItem(name: $0.key, value: $0.value) }
         
         guard let url = components.url else {
-            completion([])
+            DispatchQueue.main.async {
+                completion([])
+            }
             return
         }
         
@@ -45,11 +47,14 @@ class YandexTranslateService {
                 let data = data,
                 let parsed = try? JSONDecoder().decode(ResponseData.self, from: data)
                 else {
-                    completion([])
+                    DispatchQueue.main.async {
+                        completion([])
+                    }
                     return
             }
-            
-            completion(parsed.text)
+            DispatchQueue.main.async {
+                completion(parsed.text)
+            }
         })
         task.resume()
     }

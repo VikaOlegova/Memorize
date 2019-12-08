@@ -10,25 +10,35 @@ import Foundation
 
 class MainMenuPresenter {
     weak var view: MainMenuViewInput!
+    var repeatWordsCount = 0
 }
 
 extension MainMenuPresenter: MainMenuViewOutput {
     func viewDidLoad() {
-        TranslationSession.shared.load()
-        view.show(allWordsCount: 100)
+        
     }
     
     func viewWillAppear() {
-        //TranslationSession.shared.load()
-        view.show(repeatWordsCount: TranslationSession.shared.repeatPairs.count)
+        let coreData = CoreDataService()
+        coreData.countOfTranslationPairs(of: .allPairs) { [weak self] allWordsCount in
+            self?.view.show(allWordsCount: allWordsCount)
+        }
+        coreData.countOfTranslationPairs(of: .repeatPairs) { [weak self] repeatWordsCount in
+            self?.repeatWordsCount = repeatWordsCount
+            self?.view.show(repeatWordsCount: repeatWordsCount)
+        }
     }
     
     func repeatWordsButtonTapped() {
-        guard !TranslationSession.shared.repeatPairs.isEmpty else {
+        guard repeatWordsCount != 0 else {
             view.showNoWordsAllert()
             return
         }
-        Router.shared.showRepeat(isMistakes: false)
+        view.enableInteraction(false)
+        TranslationSession.shared.load { [weak self] in
+            Router.shared.showRepeat(isMistakes: false)
+            self?.view.enableInteraction(true)
+        }
     }
     
     func allWordsButtonTapped() {

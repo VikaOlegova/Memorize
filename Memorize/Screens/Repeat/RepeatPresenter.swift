@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class RepeatPresenter {
     weak var view: RepeatViewInput!
@@ -18,6 +19,8 @@ class RepeatPresenter {
     var showKeyboardWorkItem: DispatchWorkItem?
     let isMistakes: Bool
     
+    let coreData = CoreDataService()
+    
     init(isMistakes: Bool) {
         self.isMistakes = isMistakes
         translationPairs = isMistakes ? TranslationSession.shared.mistakes.shuffled() : TranslationSession.shared.repeatPairs
@@ -27,7 +30,7 @@ class RepeatPresenter {
         guard translationCounter < translationPairs.count else { return false}
         
         currentTranslationPair = translationPairs[translationCounter]
-        view.show(image: currentTranslationPair.image!)
+        view.show(image: currentTranslationPair.image)
         view.show(titleButton: "Показать перевод")
         view.show(originalWord: currentTranslationPair.originalWord)
         view.show(translationsCount: translationCounter + 1, from: translationPairs.count)
@@ -74,17 +77,21 @@ extension RepeatPresenter: RepeatViewOutput {
     
     func didEnterTranslation(_ enteredTranslation: String) {
         showKeyboardWorkItem?.cancel()
-        let isCorrect = currentTranslationPair.translatedWord.lowercased() == enteredTranslation.lowercased()
+        let isCorrect = currentTranslationPair.translatedWord.lowercased().replacingOccurrences(of: "ё", with: "е") == enteredTranslation.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "ё", with: "е")
         if !isMistakes {
             TranslationSession.shared.addAnsweredPair(pair: currentTranslationPair)
             TranslationSession.shared.removeFirstPairFromRepeatPairs()
+            coreData.updateCounterAndDate(originalWord: currentTranslationPair.originalWord,
+                                          translatedWord: currentTranslationPair.translatedWord,
+                                          isMistake: !isCorrect) { }
             if !isCorrect {
                 mistakeCounter += 1
                 TranslationSession.shared.addMistake(mistake: currentTranslationPair)
             }
         }
         Router.shared.showCorrectAnswer(isCorrect: isCorrect,
-                                        correctTranslation: currentTranslationPair.translatedWord) { [weak self] in
+                                        correctTranslation: currentTranslationPair.translatedWord,
+                                        correctTranslationLanguage: currentTranslationPair.translatedLanguage) { [weak self] in
                                             guard let weakSelf = self else { return }
                                             if weakSelf.isMistakes, !isCorrect {
                                                 weakSelf.translationCounter = 0
@@ -97,7 +104,19 @@ extension RepeatPresenter: RepeatViewOutput {
     }
     
     func playAudioTapped() {
+        let utterance = AVSpeechUtterance(string: currentTranslationPair.originalWord)
+        var language = ""
+        switch currentTranslationPair.originalLanguage {
+        case .RU:
+            language = "ru-RU"
+        case .EN:
+            language = "en-US"
+        }
+        utterance.voice = AVSpeechSynthesisVoice(language: language)
+        utterance.rate = 0.3
         
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.speak(utterance)
     }
     
     func didOpenKeyboard() {

@@ -47,9 +47,13 @@ class Router {
         rootNavigationController.pushViewController(EditPairAssembly().create(translationPair: translationPair), animated: true)
     }
     
-    func showCorrectAnswer(isCorrect: Bool, correctTranslation: String, didTapNextCallback: @escaping ()->()) {
+    func showCorrectAnswer(isCorrect: Bool,
+                           correctTranslation: String,
+                           correctTranslationLanguage: Language,
+                           didTapNextCallback: @escaping ()->()) {
         let subViewController = CorrectAnswerAssembly().create(isCorrect: isCorrect,
                                                                correctTranslation: correctTranslation,
+                                                               correctTranslationLanguage: correctTranslationLanguage,
                                                                didTapNextCallback: didTapNextCallback)
         rootNavigationController.viewControllers.last?.add(subViewController: subViewController)
     }
@@ -88,5 +92,9 @@ class Router {
     func showMistakes() {
         let newVC = RepeatAssembly().create(isMistakes: true)
         pushReplacingLast(with: newVC)
+    }
+    
+    func returnBack() {
+        rootNavigationController.popViewController(animated: true)
     }
 }

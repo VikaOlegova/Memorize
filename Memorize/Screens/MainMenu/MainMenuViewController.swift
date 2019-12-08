@@ -12,6 +12,7 @@ protocol MainMenuViewInput: class {
     func show(repeatWordsCount: Int)
     func show(allWordsCount: Int)
     func showNoWordsAllert()
+    func enableInteraction(_ enable: Bool)
 }
 
 protocol MainMenuViewOutput: class {
@@ -80,6 +81,10 @@ class MainMenuViewController: UIViewController {
 }
 
 extension MainMenuViewController: MainMenuViewInput {
+    func enableInteraction(_ enable: Bool) {
+        view.isUserInteractionEnabled = enable
+    }
+    
     func show(repeatWordsCount: Int) {
         repeatWordsButton.doubleLabel.rightLabel.text = String(repeatWordsCount)
     }

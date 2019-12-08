@@ -13,7 +13,7 @@ protocol RepeatViewInput: class {
     func show(translationsCount: Int, from allCount: Int)
     func show(fromToLanguage: String)
     func show(originalWord: String)
-    func show(image: UIImage)
+    func show(image: UIImage?)
     func show(titleButton: String)
     func clearTextField()
     func showKeyboard()
@@ -169,13 +169,13 @@ extension RepeatViewController: RepeatViewInput {
         audioQuestion.wordLabel.text = originalWord
     }
     
-    func show(image: UIImage) {
+    func show(image: UIImage?) {
         imageView.image = image
         
         if let existing = imageHeightConstraint {
             imageView.removeConstraint(existing)
         }
-        if image.size.height < image.size.width {
+        if let image = image, image.size.height < image.size.width {
             imageHeightConstraint = imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor,
                                                                       multiplier: image.size.height / image.size.width)
         } else {

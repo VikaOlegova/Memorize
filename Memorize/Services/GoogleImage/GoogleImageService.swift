@@ -21,6 +21,9 @@ class GoogleImageService {
     
     func loadImageList(searchString: String,
                                completion: @escaping ([GoogleImage]) -> ()) {
+        completion([])
+        return
+        
         let url = GoogleImageAPI.searchPath(text: searchString)
         networkService.getData(at: url) { data in
             print(String(data: data!, encoding: .utf8))
