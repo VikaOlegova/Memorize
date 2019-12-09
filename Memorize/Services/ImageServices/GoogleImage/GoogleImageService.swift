@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Класс для получения изображений и ссылок на них
+/// Класс для получения изображений и ссылок на них c гугла
 class GoogleImageService: ImageServiceProtocol {
     private struct ResponseData: Decodable {
         let items: [ResponseItem]

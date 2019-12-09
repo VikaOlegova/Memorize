@@ -12,6 +12,10 @@ import Foundation
 class GoogleImageAPI {
     private static let baseURL = "https://www.googleapis.com/customsearch/v1"
     
+    /// Формирует ссылку для запроса картинок к Google API
+    ///
+    /// - Parameter text: текст для поиска изображений
+    /// - Returns: ссылка запроса
     static func searchPath(text: String) -> URL {
         guard var components = URLComponents(string: baseURL) else {
             return URL(string: baseURL)!

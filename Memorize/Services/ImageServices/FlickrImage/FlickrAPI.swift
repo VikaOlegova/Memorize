@@ -8,11 +8,16 @@
 
 import Foundation
 
+/// Класс, формирующий ссылку для запроса картинок к Flickr API
 class FlickrAPI {
     
     private static let apiKey = "dab4052df3cc23ed39745a8cca163e0a"
     private static let baseUrl = "https://www.flickr.com/services/rest/"
     
+    /// Формирует ссылку для запроса картинок к Flickr API
+    ///
+    /// - Parameter text: текст для поиска изображений
+    /// - Returns: ссылка запроса
     static func searchPath(text: String) -> URL {
         guard var components = URLComponents(string: baseUrl) else {
             return URL(string: baseUrl)!

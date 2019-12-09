@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Класс для получения изображений и ссылок на них c фликра
 class FlickrService: ImageServiceProtocol {
     private struct ResponseData: Decodable {
         let photos: ResponsePhoto
