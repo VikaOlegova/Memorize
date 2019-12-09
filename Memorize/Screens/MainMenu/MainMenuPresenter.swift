@@ -11,7 +11,7 @@ import Foundation
 /// Презентер экрана главного меню
 class MainMenuPresenter {
     /// Слабая ссылка на вью экрана главного меню
-    weak var view: MainMenuViewInput!
+    weak var view: MainMenuViewInput?
     private var repeatWordsCount = 0
     private let coreData: CoreDataServiceProtocol
     
@@ -26,26 +26,26 @@ extension MainMenuPresenter: MainMenuViewOutput {
     /// Загружает и отображает количество всех слов и слов для повторения
     func viewWillAppear() {
         coreData.countOfTranslationPairs(of: .allPairs) { [weak self] allWordsCount in
-            self?.view.show(allWordsCount: allWordsCount)
+            self?.view?.show(allWordsCount: allWordsCount)
         }
         coreData.countOfTranslationPairs(of: .repeatPairs) { [weak self] repeatWordsCount in
             self?.repeatWordsCount = repeatWordsCount
-            self?.view.show(repeatWordsCount: repeatWordsCount)
+            self?.view?.show(repeatWordsCount: repeatWordsCount)
         }
     }
     
     /// Направляет на экран повторения, предварительно загрузив слова, или показывает алерт, если слов нет
     func repeatWordsButtonTapped() {
         guard repeatWordsCount != 0 else {
-            view.showNoWordsAlert()
+            view?.showNoWordsAlert()
             return
         }
-        view.enableInteraction(false)
+        view?.enableInteraction(false)
         RepeatingSession.shared.resetMistakes()
         RepeatingSession.shared.resetAnsweredPairs()
         RepeatingSession.shared.load { [weak self] in
             Router.shared.showRepeat(isMistakes: false)
-            self?.view.enableInteraction(true)
+            self?.view?.enableInteraction(true)
         }
     }
     

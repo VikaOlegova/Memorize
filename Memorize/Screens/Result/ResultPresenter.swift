@@ -20,7 +20,7 @@ enum ResultScreenType {
 /// Презентер экрана результата
 class ResultPresenter {
     /// Слабая ссылка на вью экрана результата
-    weak var view: ResultViewInput!
+    weak var view: ResultViewInput?
     private let words: [TranslationPair]
     private let resultScreenType: ResultScreenType
     
@@ -45,22 +45,22 @@ class ResultPresenter {
         switch resultScreenType {
         case .repeatingEnded(withMistakes: true):
             image = UIImage(named: "wrong")!
-            view.show(title: "Ошибки")
-            view.show(textButton: "Исправить ошибки")
+            view?.show(title: "Ошибки")
+            view?.show(textButton: "Исправить ошибки")
         case .repeatingEnded(withMistakes: false):
             image = UIImage(named: "right")!
-            view.show(title: "Повторение")
-            view.show(textButton: "OK")
+            view?.show(title: "Повторение")
+            view?.show(textButton: "OK")
         case .mistakesCorrectionEnded:
             image = UIImage(named: "right")!
-            view.show(title: "Ошибки")
-            view.show(textButton: "OK")
+            view?.show(title: "Ошибки")
+            view?.show(textButton: "OK")
         }
             
         words.forEach { (word) in
             viewModels.append(ResultViewModel(word: word.originalWord, image: image))
         }
-        view.show(allWords: viewModels)
+        view?.show(allWords: viewModels)
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  GoogleImage.swift
+//  ImageWithPath.swift
 //  Memorize
 //
 //  Created by Вика on 03/12/2019.
@@ -9,7 +9,7 @@
 import UIKit
 
 /// Структура, содержащая изображение и ссылку, по которой это изображение было получено
-struct GoogleImage {
+struct ImageWithPath {
     /// Ссылка на изображение
     let path: URL
     /// Изображение, полученное по ссылке
@@ -19,8 +19,8 @@ struct GoogleImage {
     ///
     /// - Parameter uiImage: изображение
     /// - Returns: объект GoogleImage с заполненным полем uiImage
-    func with(uiImage: UIImage) -> GoogleImage {
-        return GoogleImage(path: path,
+    func with(uiImage: UIImage) -> ImageWithPath {
+        return ImageWithPath(path: path,
                            uiImage: uiImage)
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 /// Презентер экрана всех слов
 class AllWordsPresenter {
     /// Слабая ссылка на вью экрана всех слов
-    weak var view: AllWordsViewInput!
+    weak var view: AllWordsViewInput?
     private var translationPairs = [TranslationPair]()
     private let coreData: CoreDataServiceProtocol
     
@@ -22,7 +22,7 @@ class AllWordsPresenter {
     private func fillAllTranslationPairs() {
         coreData.fetchTranslationPairs(of: .allPairs) { [weak self] in
             self?.translationPairs = $0
-            self?.view.showPlaceholder(isHidden: !$0.isEmpty)
+            self?.view?.showPlaceholder(isHidden: !$0.isEmpty)
             self?.showAllPairs()
         }
     }
@@ -34,7 +34,7 @@ class AllWordsPresenter {
                                      translatedWord: $0.translatedWord,
                                      translatedWordLanguage: $0.translatedLanguage.rawValue)
         }
-        view.show(allWords: translationPairViewModels)
+        view?.show(allWords: translationPairViewModels)
     }
     
     private func goToCreateScreen() {
@@ -47,7 +47,7 @@ extension AllWordsPresenter: AllWordsViewOutput {
     func didDelete(pair: TranslationPairViewModel, allPairsCount: Int) {
         coreData.deleteTranslationPair(originalWord: pair.originalWord) { }
         
-        view.showPlaceholder(isHidden: allPairsCount != 0)
+        view?.showPlaceholder(isHidden: allPairsCount != 0)
     }
     
     func viewDidLoad() { }

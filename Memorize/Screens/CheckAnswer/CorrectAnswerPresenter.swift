@@ -12,7 +12,7 @@ import AVFoundation
 /// Презентер экрана результата для введенного слова при повторении\исправлении ошибок
 class CorrectAnswerPresenter {
     /// Слабая ссылка на вью экрана результата для введенного слова при повторении\исправлении ошибок
-    weak var view: CorrectAnswerPopupViewInput!
+    weak var view: CorrectAnswerPopupViewInput?
     private let isCorrect: Bool
     private let correctTranslation: String
     private let correctTranslationLanguage: Language
@@ -31,8 +31,8 @@ class CorrectAnswerPresenter {
 
 extension CorrectAnswerPresenter: CorrectAnswerPopupViewOutput {
     func viewDidLoad() {
-        view.setupUI(forCorrectAnswer: isCorrect)
-        view.show(correctTranslation: correctTranslation)
+        view?.setupUI(forCorrectAnswer: isCorrect)
+        view?.show(correctTranslation: correctTranslation)
     }
     
     /// Воспроизводит чтение корректного перевода

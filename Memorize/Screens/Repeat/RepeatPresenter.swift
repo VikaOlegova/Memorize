@@ -12,7 +12,7 @@ import AVFoundation
 /// Презентер экрана повторения\заучивания ошибок
 class RepeatPresenter {
     /// Слабая ссылка на вью экрана повторения\заучивания ошибок
-    weak var view: RepeatViewInput!
+    weak var view: RepeatViewInput?
     
     private var translationPairs: [TranslationPair]
     private var currentTranslationPair: TranslationPair = TranslationPair.empty
@@ -34,26 +34,26 @@ class RepeatPresenter {
         guard translationCounter < translationPairs.count else { return false}
         
         currentTranslationPair = translationPairs[translationCounter]
-        view.show(image: currentTranslationPair.image)
-        view.show(titleButton: "Показать перевод")
-        view.show(originalWord: currentTranslationPair.originalWord)
-        view.show(translationsCount: translationCounter + 1, from: translationPairs.count)
-        view.show(fromToLanguage: currentTranslationPair.originalLanguage.fromTo(currentTranslationPair.translatedLanguage))
+        view?.show(image: currentTranslationPair.image)
+        view?.show(titleButton: "Показать перевод")
+        view?.show(originalWord: currentTranslationPair.originalWord)
+        view?.show(translationsCount: translationCounter + 1, from: translationPairs.count)
+        view?.show(fromToLanguage: currentTranslationPair.originalLanguage.fromTo(currentTranslationPair.translatedLanguage))
         
         if isMistakes {
-            view.hideMistakes()
-            view.show(title: "Исправление ошибок")
-            view.showRightBarButtonItem(show: false)
+            view?.hideMistakes()
+            view?.show(title: "Исправление ошибок")
+            view?.showRightBarButtonItem(show: false)
         } else {
-            view.show(mistakeCount: mistakeCounter)
-            view.show(title: "Повторение")
-            view.showRightBarButtonItem(show: true)
+            view?.show(mistakeCount: mistakeCounter)
+            view?.show(title: "Повторение")
+            view?.showRightBarButtonItem(show: true)
         }
         
-        view.clearTextField()
+        view?.clearTextField()
         
         showKeyboardWorkItem = DispatchWorkItem(block: { [weak self] in
-            self?.view.showKeyboard()
+            self?.view?.showKeyboard()
         })
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: showKeyboardWorkItem!)
         
@@ -75,9 +75,9 @@ extension RepeatPresenter: RepeatViewOutput {
     /// Меняет текст зеленой кнопки
     func textFieldChanged(textIsEmpty: Bool) {
         if textIsEmpty {
-            view.show(titleButton: "Показать перевод")
+            view?.show(titleButton: "Показать перевод")
         } else {
-            view.show(titleButton: "OK")
+            view?.show(titleButton: "OK")
         }
     }
     
@@ -146,7 +146,7 @@ extension RepeatPresenter: RepeatViewOutput {
     func viewWillAppear() {
         if !isMistakes {
             mistakeCounter = RepeatingSession.shared.mistakes.count
-            view.show(mistakeCount: mistakeCounter)
+            view?.show(mistakeCount: mistakeCounter)
         }
     }
 }

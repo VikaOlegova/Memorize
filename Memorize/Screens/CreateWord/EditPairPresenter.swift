@@ -11,21 +11,21 @@ import UIKit
 /// Презентер экрана создания\редактирования слова
 class EditPairPresenter {
     /// Слабая ссылка на вью экрана создания\редактирования слова
-    weak var view: EditPairViewInput!
+    weak var view: EditPairViewInput?
     private var translationPair: TranslationPair?
     private var isCreating = true
     private var fromLanguage: Language = .EN
     private var toLanguage: Language = .RU
     private var images = [ImageCollectionViewCellData]()
     private let coreData: CoreDataServiceProtocol
-    private let googleImageService: ImageServiceProtocol
+    private let imageService: ImageServiceProtocol
     private let translateService: TranslateServiceProtocol
     
     init(coreData: CoreDataServiceProtocol,
-         googleImageService: ImageServiceProtocol,
+         imageService: ImageServiceProtocol,
          translateService: TranslateServiceProtocol) {
         self.coreData = coreData
-        self.googleImageService = googleImageService
+        self.imageService = imageService
         self.translateService = translateService
     }
     
@@ -40,44 +40,36 @@ class EditPairPresenter {
     }
     
     private func translate(word: String) {
-        view.showLoadingIndicator(true)
+        view?.showLoadingIndicator(true)
         translateService.translate(text: word, from: fromLanguage, to: toLanguage) { [weak self] results in
-            guard let weakSelf = self else { return }
+            guard let weakSelf = self, let translation = results.first else { return }
             
-            guard let translation = results.first else { return }
-            
-            weakSelf.view.show(translation: translation)
-            weakSelf.view.showLoadingIndicator(false)
+            weakSelf.view?.show(translation: translation)
+            weakSelf.view?.showLoadingIndicator(false)
         }
     }
     
     private func reloadImages(text: String) {
         images = Array(repeating: (), count: 10).map { ImageCollectionViewCellData.loading }
-        view.show(images: images)
+        view?.show(images: images)
         
-        googleImageService.loadImageList(searchString: text) { [weak self] imagesToLoad in
-            guard let weakSelf = self else { return }
-            
-            weakSelf.images = Array(repeating: (), count: imagesToLoad.count).map { ImageCollectionViewCellData.loading }
-            weakSelf.view.show(images: weakSelf.images)
+        imageService.loadImageList(searchString: text) { [weak self] imagesToLoad in
+            self?.images = Array(repeating: (), count: imagesToLoad.count).map { ImageCollectionViewCellData.loading }
+            self?.view?.show(images: self?.images ?? [])
             
             for (index, imageToLoad) in imagesToLoad.enumerated() {
-                guard let weakSelf = self else { return }
+                let cellData = self?.images[index]
                 
-                let cellData = weakSelf.images[index]
-                
-                self?.googleImageService.loadImage(for: imageToLoad, completion: { loadedImage in
-                    guard let weakSelf = self else { return }
-                    
+                self?.imageService.loadImage(for: imageToLoad, completion: { loadedImage in
                     guard loadedImage.uiImage != nil else {
-                        guard let newIndex = weakSelf.images.firstIndex(where: { $0 === cellData }) else { return }
-                        weakSelf.images.remove(at: newIndex)
-                        weakSelf.view.removeImage(at: newIndex)
+                        guard let newIndex = self?.images.firstIndex(where: { $0 === cellData }) else { return }
+                        self?.images.remove(at: newIndex)
+                        self?.view?.removeImage(at: newIndex)
                         return
                     }
                     
-                    cellData.image = loadedImage.uiImage
-                    weakSelf.view.show(images: weakSelf.images)
+                    cellData?.image = loadedImage.uiImage
+                    self?.view?.show(images: self?.images ?? [])
                 })
             }
         }
@@ -91,7 +83,7 @@ class EditPairPresenter {
                                      completion: @escaping (_ saved: Bool)->()) {
         coreData.checkExistenceOfTranslationPair(originalWord: originalWord) { [weak self] isExisting in
             if isExisting {
-                self?.view.showAlert(title: "Такое слово уже существует!")
+                self?.view?.showAlert(title: "Такое слово уже существует!")
                 completion(false)
             } else {
                 self?.coreData.saveNewTranslationPair(originalWord: originalWord,
@@ -126,14 +118,14 @@ extension EditPairPresenter: EditPairViewOutput {
         guard let pair = translationPair else { return }
         
         if !isCreating, let image = pair.image {
-            view.show(images: [ImageCollectionViewCellData(image: image)])
+            view?.show(images: [ImageCollectionViewCellData(image: image)])
         }
         
-        view.show(originalWord: pair.originalWord, reverseTranslationCheckBox: isCreating)
-        view.show(translation: pair.translatedWord)
-        view.show(languageInfo: pair.originalLanguage.fromTo(pair.translatedLanguage))
-        view.show(reverseTranslationEnabled: true)
-        view.show(title: isCreating ? "Создать" : "Редактировать")
+        view?.show(originalWord: pair.originalWord, reverseTranslationCheckBox: isCreating)
+        view?.show(translation: pair.translatedWord)
+        view?.show(languageInfo: pair.originalLanguage.fromTo(pair.translatedLanguage))
+        view?.show(reverseTranslationEnabled: true)
+        view?.show(title: isCreating ? "Создать" : "Редактировать")
     }
     
     /// Сохраняет новое слово или изменения в старом
@@ -145,13 +137,13 @@ extension EditPairPresenter: EditPairViewOutput {
                 let translatedWord = translatedWord,
                 !originalWord.isEmpty,
                 !translatedWord.isEmpty else {
-            view.showAlert(title: "Вы заполнили не все обязательные поля!")
+            view?.showAlert(title: "Вы заполнили не все обязательные поля!")
             return
         }
         
-        view.enableGreenButton(enable: false)
+        view?.enableGreenButton(enable: false)
         let completion = { [weak self] (goBack: Bool) in
-            self?.view.enableGreenButton(enable: true)
+            self?.view?.enableGreenButton(enable: true)
             if goBack {
                 Router.shared.returnBack()
             }
@@ -196,7 +188,7 @@ extension EditPairPresenter: EditPairViewOutput {
             let temp = fromLanguage
             fromLanguage = toLanguage
             toLanguage = temp
-            view.show(languageInfo: fromLanguage.fromTo(toLanguage))
+            view?.show(languageInfo: fromLanguage.fromTo(toLanguage))
             
             if !originalWord.isEmpty {
                 translate(word: originalWord)

@@ -13,10 +13,10 @@ class EditPairAssembly {
     func create(translationPair: TranslationPair? = nil) -> UIViewController {
         let coreData = CoreDataService()
         let networkService = NetworkService()
-        let googleImageService = GoogleImageService(networkService: networkService)
+        let imageService = FacadeImageService(networkService: networkService)        
         let yandexTranslateService = YandexTranslateService()
         let presenter = EditPairPresenter(coreData: coreData,
-                                          googleImageService: googleImageService,
+                                          imageService: imageService,
                                           translateService: yandexTranslateService)
         let viewController = EditPairViewController(presenter: presenter)
         

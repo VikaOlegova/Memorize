@@ -40,6 +40,9 @@
 		3C049B572390C01200F17697 /* CorrectAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B562390C01200F17697 /* CorrectAnswerView.swift */; };
 		3C049B592390EC4B00F17697 /* CorrectAnswerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B582390EC4B00F17697 /* CorrectAnswerPresenter.swift */; };
 		3C049B5B2390EC5A00F17697 /* CorrectAnswerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B5A2390EC5A00F17697 /* CorrectAnswerAssembly.swift */; };
+		3C8E7459239E8F3500AD21C6 /* FlickrAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E7458239E8F3500AD21C6 /* FlickrAPI.swift */; };
+		3C8E745B239E941500AD21C6 /* FlickrService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E745A239E941500AD21C6 /* FlickrService.swift */; };
+		3C8E745D239EAE4900AD21C6 /* FacadeImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E745C239EAE4900AD21C6 /* FacadeImageService.swift */; };
 		3CC655212392075400ADC021 /* YandexTranslateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC655202392075400ADC021 /* YandexTranslateService.swift */; };
 		3CC655242393592B00ADC021 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC655232393592B00ADC021 /* ResultViewController.swift */; };
 		3CC6552723935A1B00ADC021 /* ResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6552623935A1B00ADC021 /* ResultCell.swift */; };
@@ -50,7 +53,7 @@
 		3CC65533239642B800ADC021 /* GoogleImageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC65532239642B800ADC021 /* GoogleImageAPI.swift */; };
 		3CC6553623964DAA00ADC021 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6553523964DAA00ADC021 /* NetworkService.swift */; };
 		3CC6553823965EA000ADC021 /* GoogleImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6553723965EA000ADC021 /* GoogleImageService.swift */; };
-		3CC6553A2396605A00ADC021 /* GoogleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC655392396605A00ADC021 /* GoogleImage.swift */; };
+		3CC6553A2396605A00ADC021 /* ImageWithPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC655392396605A00ADC021 /* ImageWithPath.swift */; };
 		3CC6553C239720B700ADC021 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6553B239720B700ADC021 /* ImageCollectionViewCell.swift */; };
 		3CC6553E239720CC00ADC021 /* ImageCollectionViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6553D239720CC00ADC021 /* ImageCollectionViewCellData.swift */; };
 		3CC655422398720100ADC021 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3CC655402398720100ADC021 /* Model.xcdatamodeld */; };
@@ -107,6 +110,9 @@
 		3C049B562390C01200F17697 /* CorrectAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectAnswerView.swift; sourceTree = "<group>"; };
 		3C049B582390EC4B00F17697 /* CorrectAnswerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectAnswerPresenter.swift; sourceTree = "<group>"; };
 		3C049B5A2390EC5A00F17697 /* CorrectAnswerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectAnswerAssembly.swift; sourceTree = "<group>"; };
+		3C8E7458239E8F3500AD21C6 /* FlickrAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrAPI.swift; sourceTree = "<group>"; };
+		3C8E745A239E941500AD21C6 /* FlickrService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrService.swift; sourceTree = "<group>"; };
+		3C8E745C239EAE4900AD21C6 /* FacadeImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacadeImageService.swift; sourceTree = "<group>"; };
 		3CC655202392075400ADC021 /* YandexTranslateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YandexTranslateService.swift; sourceTree = "<group>"; };
 		3CC655232393592B00ADC021 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		3CC6552623935A1B00ADC021 /* ResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCell.swift; sourceTree = "<group>"; };
@@ -117,7 +123,7 @@
 		3CC65532239642B800ADC021 /* GoogleImageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleImageAPI.swift; sourceTree = "<group>"; };
 		3CC6553523964DAA00ADC021 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		3CC6553723965EA000ADC021 /* GoogleImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleImageService.swift; sourceTree = "<group>"; };
-		3CC655392396605A00ADC021 /* GoogleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleImage.swift; sourceTree = "<group>"; };
+		3CC655392396605A00ADC021 /* ImageWithPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWithPath.swift; sourceTree = "<group>"; };
 		3CC6553B239720B700ADC021 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		3CC6553D239720CC00ADC021 /* ImageCollectionViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCellData.swift; sourceTree = "<group>"; };
 		3CC655412398720100ADC021 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -319,11 +325,32 @@
 			path = "Common UIElements";
 			sourceTree = "<group>";
 		};
+		3C8E7456239E8E1200AD21C6 /* ImageServices */ = {
+			isa = PBXGroup;
+			children = (
+				3CC6553523964DAA00ADC021 /* NetworkService.swift */,
+				3CC655392396605A00ADC021 /* ImageWithPath.swift */,
+				3C8E745C239EAE4900AD21C6 /* FacadeImageService.swift */,
+				3C8E7457239E8F0B00AD21C6 /* FlickrImage */,
+				3CC6553423964CFD00ADC021 /* GoogleImage */,
+			);
+			path = ImageServices;
+			sourceTree = "<group>";
+		};
+		3C8E7457239E8F0B00AD21C6 /* FlickrImage */ = {
+			isa = PBXGroup;
+			children = (
+				3C8E7458239E8F3500AD21C6 /* FlickrAPI.swift */,
+				3C8E745A239E941500AD21C6 /* FlickrService.swift */,
+			);
+			path = FlickrImage;
+			sourceTree = "<group>";
+		};
 		3CC6551F2392074100ADC021 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				3C8E7456239E8E1200AD21C6 /* ImageServices */,
 				3CC6553F239870FB00ADC021 /* CoreData */,
-				3CC6553423964CFD00ADC021 /* GoogleImage */,
 				3CC655202392075400ADC021 /* YandexTranslateService.swift */,
 				3CC65530239408E700ADC021 /* RepeatingSession.swift */,
 			);
@@ -354,9 +381,7 @@
 			isa = PBXGroup;
 			children = (
 				3CC65532239642B800ADC021 /* GoogleImageAPI.swift */,
-				3CC6553523964DAA00ADC021 /* NetworkService.swift */,
 				3CC6553723965EA000ADC021 /* GoogleImageService.swift */,
-				3CC655392396605A00ADC021 /* GoogleImage.swift */,
 			);
 			path = GoogleImage;
 			sourceTree = "<group>";
@@ -473,6 +498,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C049B24238CAA7A00F17697 /* EditPairViewController.swift in Sources */,
+				3C8E745D239EAE4900AD21C6 /* FacadeImageService.swift in Sources */,
 				3CC6552923935E1400ADC021 /* ResultViewModel.swift in Sources */,
 				3C049B20238C919800F17697 /* TranslationPairViewModel.swift in Sources */,
 				3C049B28238CBF1C00F17697 /* BigGreenButton.swift in Sources */,
@@ -495,6 +521,7 @@
 				3C049B50238F10E700F17697 /* TranslationPair.swift in Sources */,
 				3C049B2C238DC1E900F17697 /* TitleTextFieldView.swift in Sources */,
 				3CC655452398724700ADC021 /* MOTranslationPair+CoreDataClass.swift in Sources */,
+				3C8E7459239E8F3500AD21C6 /* FlickrAPI.swift in Sources */,
 				3C049B32238DCA4700F17697 /* EditPairPresenter.swift in Sources */,
 				3CC65531239408E700ADC021 /* RepeatingSession.swift in Sources */,
 				3CC655482398734600ADC021 /* CoreDataService.swift in Sources */,
@@ -508,12 +535,13 @@
 				3C049B1A238C7B3600F17697 /* MainMenuButton.swift in Sources */,
 				3CC655422398720100ADC021 /* Model.xcdatamodeld in Sources */,
 				3C049B34238DD36E00F17697 /* EditPairAssembly.swift in Sources */,
-				3CC6553A2396605A00ADC021 /* GoogleImage.swift in Sources */,
+				3CC6553A2396605A00ADC021 /* ImageWithPath.swift in Sources */,
 				3C049AF7238C714D00F17697 /* MainMenuViewController.swift in Sources */,
 				3C049B4A238E53A100F17697 /* RepeatAssembly.swift in Sources */,
 				3C049B3E238DE71300F17697 /* RepeatViewController.swift in Sources */,
 				3CC6553C239720B700ADC021 /* ImageCollectionViewCell.swift in Sources */,
 				3C049B55238F9DC800F17697 /* CorrectAnswerViewController.swift in Sources */,
+				3C8E745B239E941500AD21C6 /* FlickrService.swift in Sources */,
 				3C049B18238C738B00F17697 /* RoundedBackgroundView.swift in Sources */,
 				3C049AF5238C714D00F17697 /* AppDelegate.swift in Sources */,
 				3CC655212392075400ADC021 /* YandexTranslateService.swift in Sources */,
