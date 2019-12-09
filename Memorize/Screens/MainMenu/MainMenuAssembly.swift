@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Собирает все зависимости для экрана главного меню
 class MainMenuAssembly {
     func create() -> UIViewController {
         let coreData = CoreDataService()

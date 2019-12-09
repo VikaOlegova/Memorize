@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Ячейка коллекшн вью с экрана создания\редактирования слова
 class ImageCollectionViewCell: UICollectionViewCell {
     private let imageView: UIImageView
     private let spinner: UIActivityIndicatorView
@@ -39,6 +40,9 @@ class ImageCollectionViewCell: UICollectionViewCell {
         imageView.frame = bounds;
     }
     
+    /// Отображает либо картинку, либо спиннер
+    ///
+    /// - Parameter data: объект даты ячейки
     func displayData(data: ImageCollectionViewCellData)
     {
         imageView.image = data.isLoaded ? data.image : nil

@@ -8,20 +8,43 @@
 
 import UIKit
 
+/// Протокол входных данных для экрана главного меню
 protocol MainMenuViewInput: class {
+    /// Показывает кол-во слов для повторения
+    ///
+    /// - Parameter repeatWordsCount: кол-во слов для повторения
     func show(repeatWordsCount: Int)
+    
+    /// Показывает кол-во всех слов
+    ///
+    /// - Parameter allWordsCount: кол-во всех слов
     func show(allWordsCount: Int)
-    func showNoWordsAllert()
+    
+    /// Показывает алерт, когда нет слов для повторения
+    func showNoWordsAlert()
+    
+    /// Делает доступными\недоступными элементы на вью
+    ///
+    /// - Parameter enable: доступны или нет
     func enableInteraction(_ enable: Bool)
 }
 
+/// Протокол выходных данных для экрана главного меню
 protocol MainMenuViewOutput: class {
+    /// Событие на загрузку экрана главного меню
     func viewDidLoad()
+    
+    /// Событие на предпоявление экрана
     func viewWillAppear()
+    
+    /// Событие на нажатие кнопки Повторить
     func repeatWordsButtonTapped()
+    
+    /// Событие на нажатие кнопки Все переводы
     func allWordsButtonTapped()
 }
 
+/// Экран главного меню
 class MainMenuViewController: UIViewController {
     private let repeatWordsButton = MainMenuButton()
     private let allWordsButton = MainMenuButton()
@@ -93,7 +116,7 @@ extension MainMenuViewController: MainMenuViewInput {
         allWordsButton.doubleLabel.rightLabel.text = String(allWordsCount)
     }
     
-    func showNoWordsAllert() {
+    func showNoWordsAlert() {
         let alertController = UIAlertController(title: "На сегодня все!", message: nil, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
         self.present(alertController, animated: true, completion: nil)

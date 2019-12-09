@@ -8,7 +8,9 @@
 
 import UIKit
 
+/// Презентер экрана создания\редактирования слова
 class EditPairPresenter {
+    /// Слабая ссылка на вью экрана создания\редактирования слова
     weak var view: EditPairViewInput!
     private var translationPair: TranslationPair?
     private var isCreating = true
@@ -27,6 +29,9 @@ class EditPairPresenter {
         self.translateService = translateService
     }
     
+    /// Заполняет данные о пришедшем слове для редактирования
+    ///
+    /// - Parameter translationPair: слово для редактирования
     func edit(translationPair: TranslationPair) {
         self.translationPair = translationPair
         fromLanguage = translationPair.originalLanguage
@@ -113,9 +118,9 @@ class EditPairPresenter {
 }
 
 extension EditPairPresenter: EditPairViewOutput {
+    /// Заполняет вьюху данными
     func viewDidLoad() {
-        let newPair = translationPair == nil
-        if newPair {
+        if isCreating {
             translationPair = .empty
         }
         guard let pair = translationPair else { return }
@@ -124,21 +129,22 @@ extension EditPairPresenter: EditPairViewOutput {
             view.show(images: [ImageCollectionViewCellData(image: image)])
         }
         
-        view.show(originalWord: pair.originalWord, reverseTranslationCheckBox: newPair)
+        view.show(originalWord: pair.originalWord, reverseTranslationCheckBox: isCreating)
         view.show(translation: pair.translatedWord)
         view.show(languageInfo: pair.originalLanguage.fromTo(pair.translatedLanguage))
         view.show(reverseTranslationEnabled: true)
-        view.show(title: newPair ? "Создать" : "Редактировать")
+        view.show(title: isCreating ? "Создать" : "Редактировать")
     }
     
+    /// Сохраняет новое слово или изменения в старом
     func saveTapped(originalWord: String?,
                     translatedWord: String?,
                     reverseTranslationEnabled: Bool,
                     image: UIImage?) {
         guard let originalWord = originalWord,
-            let translatedWord = translatedWord,
-            !originalWord.isEmpty,
-            !translatedWord.isEmpty else {
+                let translatedWord = translatedWord,
+                !originalWord.isEmpty,
+                !translatedWord.isEmpty else {
             view.showAlert(title: "Вы заполнили не все обязательные поля!")
             return
         }
@@ -178,11 +184,13 @@ extension EditPairPresenter: EditPairViewOutput {
         }
     }
     
+    /// Переводит слово и обновляет изображение по слову
     func didChange(originalWord: String) {
         translate(word: originalWord)
         reloadImages(text: originalWord)
     }
     
+    /// Изменяет направление перевода и обновляет перевод слова
     func didTapFromToButton(with originalWord: String) {
         if isCreating {
             let temp = fromLanguage

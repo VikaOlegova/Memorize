@@ -8,7 +8,9 @@
 
 import UIKit
 
+/// Вьюха с бледно-серым фоном
 class RoundedBackgroundView: UIView {
+    /// контейнер для расположения других ui элементов на бледно-сером фоне
     let containerView = UIView()
     
     convenience init() {

@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Собирает все зависимости для экрана всех слов
 class AllWordsAssembly {
     func create() -> UIViewController {
         let coreData = CoreDataService()

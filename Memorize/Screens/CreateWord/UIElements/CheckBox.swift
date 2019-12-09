@@ -30,6 +30,7 @@ class CheckBox: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// Меняет состояние сheckBox
     @objc func checkBoxTapped() {
         isSelected = !isSelected
     }

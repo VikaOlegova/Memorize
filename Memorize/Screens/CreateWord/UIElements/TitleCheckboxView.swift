@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Вьюха с чекбоксом и текстом к нему, которые находятся на одной строке и выравнены по центру
 class TitleCheckboxView: UIView {
     let checkBox = CheckBox()
     let titleLabel = UILabel()

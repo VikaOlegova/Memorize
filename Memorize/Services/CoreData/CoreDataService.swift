@@ -52,8 +52,7 @@ private extension TranslationPair {
             let originalLanguageString = moPair.originalLanguage,
             let originalLanguage = Language(rawValue: originalLanguageString),
             let translatedLanguageString = moPair.translatedLanguage,
-            let translatedLanguage = Language(rawValue: translatedLanguageString),
-            let date = moPair.nextShowDate
+            let translatedLanguage = Language(rawValue: translatedLanguageString)
             else { return nil }
         
         var image: UIImage?
@@ -65,9 +64,7 @@ private extension TranslationPair {
                   translatedWord: translatedWord,
                   originalLanguage: originalLanguage,
                   translatedLanguage: translatedLanguage,
-                  image: image,
-                  rightAnswersStreakCounter: Int(moPair.counter),
-                  nextShowDate: date as Date)
+                  image: image)
     }
 }
 

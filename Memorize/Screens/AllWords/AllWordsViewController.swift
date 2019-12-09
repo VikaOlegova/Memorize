@@ -8,17 +8,43 @@
 
 import UIKit
 
+/// Протокол входных данных для экрана всех слов
 protocol AllWordsViewInput: class {
+    /// Показывает все слова
+    ///
+    /// - Parameter allWords: массив всех слов, а точнее, массив моделей данных всех слов
     func show(allWords: [TranslationPairViewModel])
+    
+    /// Показать оповещение, что нет ни одного слова
+    ///
+    /// - Parameter isHidden: скрыть оповещение или нет
     func showPlaceholder(isHidden: Bool)
 }
 
+/// Протокол выходных данных с экрана всех слов
 protocol AllWordsViewOutput: class {
+    /// Событие на загрузку экрана всех слов
     func viewDidLoad()
+    
+    /// Событие на предпоявляение экрана всех слов
     func viewWillAppear()
+    
+    /// Событие на нажатие кнопки в правой части навигейшн бара
     func addButtonTapped()
+    
+    /// Событие на нажатие по ячейке таблицы
+    ///
+    /// - Parameter pair: слово, содержащееся в ячейке
     func cellTapped(with pair: TranslationPairViewModel)
+    
+    /// Событие на удаление ячейки
+    ///
+    /// - Parameters:
+    ///   - pair: удаляемое слово
+    ///   - allPairsCount: количество всех слов после удаления
     func didDelete(pair: TranslationPairViewModel, allPairsCount: Int)
+    
+    /// Событие на нажатие кнопки Создать, когда в таблице нет слов
     func createButtonTapped()
 }
 

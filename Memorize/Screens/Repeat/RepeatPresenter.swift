@@ -11,6 +11,7 @@ import AVFoundation
 
 /// Презентер экрана повторения\заучивания ошибок
 class RepeatPresenter {
+    /// Слабая ссылка на вью экрана повторения\заучивания ошибок
     weak var view: RepeatViewInput!
     
     private var translationPairs: [TranslationPair]
@@ -66,11 +67,12 @@ class RepeatPresenter {
 }
 
 extension RepeatPresenter: RepeatViewOutput {
+    /// Показывает вопрос
     func viewDidLoad() {
         _ = showNextQuestion()
     }
     
-    /// Меняет текст кнопки
+    /// Меняет текст зеленой кнопки
     func textFieldChanged(textIsEmpty: Bool) {
         if textIsEmpty {
             view.show(titleButton: "Показать перевод")
@@ -108,7 +110,7 @@ extension RepeatPresenter: RepeatViewOutput {
         }
     }
     
-    /// Воспроизводит слово для перевода
+    /// Воспроизводит слово, которое нужно перевести
     func playAudioTapped() {
         guard !synthesizer.isSpeaking else {
             synthesizer.stopSpeaking(at: .immediate)

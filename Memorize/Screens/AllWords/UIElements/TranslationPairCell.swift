@@ -8,18 +8,20 @@
 
 import UIKit
 
+/// Ячейка таблицы экрана всех слов
 class TranslationPairCell: UITableViewCell {
     private let roundedBackgroundView = RoundedBackgroundView()
     private let topLabels = DoubleLabel(multiline: true)
     private let bottomLabels = DoubleLabel(multiline: true)
     
+    /// Модель данных для ячейки
     var viewModel: TranslationPairViewModel? {
         didSet {
             guard let model = viewModel else { return }
-            topLabels.leftLabel.text = model.firstWord
-            bottomLabels.leftLabel.text = model.secondWord
-            topLabels.rightLabel.text = model.firstWordLanguage
-            bottomLabels.rightLabel.text = model.secondWordLanguage
+            topLabels.leftLabel.text = model.originalWord
+            bottomLabels.leftLabel.text = model.translatedWord
+            topLabels.rightLabel.text = model.originalWordLanguage
+            bottomLabels.rightLabel.text = model.translatedWordLanguage
         }
     }
     

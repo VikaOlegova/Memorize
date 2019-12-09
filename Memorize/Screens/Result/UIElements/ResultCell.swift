@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// Класс ячейки таблицы с экрана результата
+/// Ячейка таблицы экрана результата
 class ResultCell: UITableViewCell {
     private let roundedBackgroundView = RoundedBackgroundView()
     private let wordLabel = UILabel()

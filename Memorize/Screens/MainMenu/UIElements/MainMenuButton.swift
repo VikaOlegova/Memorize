@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Кнопка с бледно-серым фоном с двусторонним лейблом
 class MainMenuButton: UIButton {
     private let roundedBackgroundView = RoundedBackgroundView()
     let doubleLabel = DoubleLabel()

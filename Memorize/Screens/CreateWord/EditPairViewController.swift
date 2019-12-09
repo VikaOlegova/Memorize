@@ -8,29 +8,90 @@
 
 import UIKit
 
+/// Протокол входных данных для экрана создания\редактирования слова
 protocol EditPairViewInput: class {
+    /// Показывает слово и говорит, нужно ли отображать чекбокс для создания обратной пары
+    ///
+    /// - Parameters:
+    ///   - originalWord: слово
+    ///   - reverseTranslationCheckBox: нужно ли отображать чекбокс для создания обратной пары
     func show(originalWord: String, reverseTranslationCheckBox: Bool)
+    
+    /// Показывает перевод слова
+    ///
+    /// - Parameter translation: перевод
     func show(translation: String)
+    
+    /// Показывает изображения к слову
+    ///
+    /// - Parameter images: массив изображений, а точнее, массив объеков данных для ячейки
     func show(images: [ImageCollectionViewCellData])
+    
+    /// Удаляет изображение из коллекшн вью и локального массива со всеми изображениями
+    ///
+    /// - Parameter index: индекс удаляемого изображения
     func removeImage(at index: Int)
+    
+    /// Показывает информацию о языке слова и его перевода
+    ///
+    /// - Parameter languageInfo: информация о языке слова и его перевода
     func show(languageInfo: String)
+    
+    /// Показывает состояние чекбокса (отмечен или нет)
+    ///
+    /// - Parameter reverseTranslationEnabled: состояние чекбокса (отмечен или нет)
     func show(reverseTranslationEnabled: Bool)
+    
+    /// Показывает заголовок экрана
+    ///
+    /// - Parameter title: заголовок экрана
     func show(title: String)
+    
+    /// Показывает спиннер загрузки перевода слова
+    ///
+    /// - Parameter show: показать спиннер или нет
     func showLoadingIndicator(_ show: Bool)
+    
+    /// Показывает алерт
+    ///
+    /// - Parameter title: заголовок алерта
     func showAlert(title: String)
+    
+    /// Делает доступной или недоступной зеленую кнопку
+    ///
+    /// - Parameter enable: доступна или нет
     func enableGreenButton(enable: Bool)
 }
 
+/// Протокол выходных данных с экрана создания\редактирования слова
 protocol EditPairViewOutput: class {
+    /// Событие на нажатие кнопки Сохранить
+    ///
+    /// - Parameters:
+    ///   - originalWord: новое слово
+    ///   - translatedWord: новый перевод
+    ///   - reverseTranslationEnabled: создавать ли обратную пару
+    ///   - image: новое изображение к слову
     func saveTapped(originalWord: String?,
                     translatedWord: String?,
                     reverseTranslationEnabled: Bool,
                     image: UIImage?)
+    
+    /// Событие на загрузку экрана
     func viewDidLoad()
+    
+    /// Событие на изменение слова
+    ///
+    /// - Parameter originalWord: измененное слово
     func didChange(originalWord: String)
+    
+    /// Событие на нажатие кнопки с информацией о языке слова и его перевода
+    ///
+    /// - Parameter originalWord: слово
     func didTapFromToButton(with originalWord: String)
 }
 
+/// Экран создания\редактирования слова
 class EditPairViewController: UIViewController {
     private let stackView = UIStackView()
     private let originalView = TitleTextFieldView()

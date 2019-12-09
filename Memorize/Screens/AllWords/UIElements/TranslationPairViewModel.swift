@@ -8,16 +8,24 @@
 
 import Foundation
 
+/// Модель данных для ячейки таблицы экрана со всеми словами
 class TranslationPairViewModel {
-    let firstWord: String
-    let firstWordLanguage: String
-    let secondWord: String
-    let secondWordLanguage: String
+    /// Слово
+    let originalWord: String
     
-    init(firstWord: String, firstWordLanguage: String, secondWord: String, secondWordLanguage: String) {
-        self.firstWord = firstWord
-        self.firstWordLanguage = firstWordLanguage
-        self.secondWord = secondWord
-        self.secondWordLanguage = secondWordLanguage
+    /// Язык слова
+    let originalWordLanguage: String
+    
+    /// Перевод слова
+    let translatedWord: String
+    
+    /// Язык перевода слова
+    let translatedWordLanguage: String
+    
+    init(originalWord: String, originalWordLanguage: String, translatedWord: String, translatedWordLanguage: String) {
+        self.originalWord = originalWord
+        self.originalWordLanguage = originalWordLanguage
+        self.translatedWord = translatedWord
+        self.translatedWordLanguage = translatedWordLanguage
     }
 }

@@ -12,7 +12,7 @@ import UIKit
 class TranslationsAndMistakesCount: UIView {
     private let translationLabel = UILabel()
     let translationCounter = UILabel()
-    private let mistakeLabel = UILabel()
+    let mistakeLabel = UILabel()
     let mistakeCounter = UILabel()
     let fromToLanguageLabel = UILabel()
     
@@ -63,11 +63,5 @@ class TranslationsAndMistakesCount: UIView {
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    /// Скрыть информацию об ошибках для режима заучивания ошибок
-    func hideMistakes() {
-        mistakeLabel.isHidden = true
-        mistakeCounter.isHidden = true
     }
 }

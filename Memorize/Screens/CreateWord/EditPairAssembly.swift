@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Собирает все зависимости для экрана создания\редактирования слова
 class EditPairAssembly {
     func create(translationPair: TranslationPair? = nil) -> UIViewController {
         let coreData = CoreDataService()

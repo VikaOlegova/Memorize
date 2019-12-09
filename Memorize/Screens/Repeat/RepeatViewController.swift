@@ -64,7 +64,10 @@ protocol RepeatViewInput: class {
 
 /// Протокол выходных данных с экрана повторения\заучивания ошибок
 protocol RepeatViewOutput: class {
+    /// Событие на загрузку экрана
     func viewDidLoad()
+    
+    /// Событие на предпоявление экрана
     func viewWillAppear()
     
     /// Событие на изменение текста в поле ввода
@@ -262,7 +265,8 @@ extension RepeatViewController: RepeatViewInput {
     }
     
     func hideMistakes() {
-        translationsAndMistakesCount.hideMistakes()
+        translationsAndMistakesCount.mistakeLabel.isHidden = true
+        translationsAndMistakesCount.mistakeCounter.isHidden = true
     }
     
     func show(title: String) {
