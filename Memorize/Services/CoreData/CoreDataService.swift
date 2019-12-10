@@ -9,6 +9,23 @@
 import UIKit
 import CoreData
 
+extension String {
+    var trimmed: String {
+        return self.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    private var myComparable: String {
+        return self
+            .lowercased()
+            .replacingOccurrences(of: "ё", with: "е")
+            .trimmed
+    }
+    
+    func isAlmostEqual(to other: String) -> Bool {
+        return self.myComparable == other.myComparable
+    }
+}
+
 extension Date {
     /// Возвращает текущую дату со времаенем 0:00
     var dateOnly: Date {
@@ -152,7 +169,7 @@ class CoreDataService: CoreDataServiceProtocol {
                                          completion: @escaping (Bool) -> ()) {
         appDelegate.persistentContainer.performBackgroundTask { (context) in
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
-            request.predicate = NSPredicate(format: "originalWord =[c] %@", originalWord)
+            request.predicate = NSPredicate(format: "originalWord =[c] %@", originalWord.trimmed)
             do {
                 let count = try context.count(for: request)
                 DispatchQueue.main.async {
@@ -181,8 +198,8 @@ class CoreDataService: CoreDataServiceProtocol {
             }
             
             let newPair = MOTranslationPair(context: context)
-            newPair.originalWord = originalWord
-            newPair.translatedWord = translatedWord
+            newPair.originalWord = originalWord.trimmed
+            newPair.translatedWord = translatedWord.trimmed
             newPair.originalLanguage = originalLanguage.rawValue
             newPair.translatedLanguage = translatedLanguage.rawValue
             newPair.counter = 0
@@ -262,11 +279,11 @@ class CoreDataService: CoreDataServiceProtocol {
             }
             
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
-            request.predicate = NSPredicate(format: "originalWord = %@", oldOriginalWord)
+            request.predicate = NSPredicate(format: "originalWord =[c] %@", oldOriginalWord.trimmed)
             do {
                 if let result = try context.fetch(request).first {
-                    result.originalWord = newOriginalWord
-                    result.translatedWord = newTranslatedWord
+                    result.originalWord = newOriginalWord.trimmed
+                    result.translatedWord = newTranslatedWord.trimmed
                     result.counter = 0
                     result.nextShowDate = Date.today
                     
@@ -298,7 +315,7 @@ class CoreDataService: CoreDataServiceProtocol {
             }
             
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
-            request.predicate = NSPredicate(format: "originalWord = %@", originalWord)
+            request.predicate = NSPredicate(format: "originalWord =[c] %@", originalWord.trimmed)
             do {
                 if let result = try context.fetch(request).first {
                     
@@ -332,7 +349,7 @@ class CoreDataService: CoreDataServiceProtocol {
                 }
             }
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
-            request.predicate = NSPredicate(format: "originalWord = %@", originalWord)
+            request.predicate = NSPredicate(format: "originalWord =[c] %@", originalWord.trimmed)
             do {
                 if let result = try context.fetch(request).first {
                     context.delete(result)

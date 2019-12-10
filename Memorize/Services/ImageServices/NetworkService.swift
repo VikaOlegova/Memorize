@@ -38,7 +38,10 @@ class NetworkService: NetworkServiceProtocol {
     }()
     
     func getData(at path: URL, completion: @escaping (Data?) -> ()) {
-        let dataTask = session.dataTask(with: path) { data, _, _ in
+        let dataTask = session.dataTask(with: path) { data, response, error in
+            if let err = error {
+                print(err)
+            }
             completion(data)
         }
         dataTask.resume()

@@ -88,7 +88,7 @@ extension RepeatPresenter: RepeatViewOutput {
     func didEnterTranslation(_ enteredTranslation: String) {
         showKeyboardWorkItem?.cancel()
         synthesizer.stopSpeaking(at: .immediate)
-        let isCorrect = currentTranslationPair.translatedWord.lowercased().replacingOccurrences(of: "ё", with: "е") == enteredTranslation.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "ё", with: "е")
+        let isCorrect = currentTranslationPair.translatedWord.isAlmostEqual(to: enteredTranslation)
         if !isMistakes {
             RepeatingSession.shared.addAnsweredPair(pair: currentTranslationPair)
             RepeatingSession.shared.removeFirstPairFromRepeatPairs()

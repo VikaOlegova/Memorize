@@ -233,6 +233,11 @@ extension EditPairViewController: EditPairViewInput {
     func show(images: [ImageCollectionViewCellData]) {
         self.images = images
         self.collectionView.reloadSections([0])
+        
+        guard !self.images.isEmpty else { return }
+        UIView.animate(withDuration: 0.25, animations: {
+            self.collectionView.contentOffset = .zero
+        })
     }
     
     func removeImage(at index: Int) {
@@ -299,7 +304,6 @@ extension EditPairViewController: UITextFieldDelegate {
         let oldLength = textField.text?.count ?? 0
         let replacementLength = string.count
         let rangeLength = range.length
-        print(rangeLength)
         
         let newLength = oldLength - rangeLength + replacementLength
         

@@ -42,10 +42,10 @@ class EditPairPresenter {
     private func translate(word: String) {
         view?.showLoadingIndicator(true)
         translateService.translate(text: word, from: fromLanguage, to: toLanguage) { [weak self] results in
-            guard let weakSelf = self, let translation = results.first else { return }
+            self?.view?.showLoadingIndicator(false)
             
-            weakSelf.view?.show(translation: translation)
-            weakSelf.view?.showLoadingIndicator(false)
+            guard let translation = results.first else { return }
+            self?.view?.show(translation: translation)
         }
     }
     
