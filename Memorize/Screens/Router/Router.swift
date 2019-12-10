@@ -118,7 +118,24 @@ class Router {
     }
     
     /// Возвращает на предыдущий экран
-    func returnBack() {
+    func returnBack(completion: (()->())? = nil) {
+        CATransaction.begin()
+        CATransaction.setCompletionBlock {
+            completion?()
+        }
         rootNavigationController.popViewController(animated: true)
+        
+        CATransaction.commit()
+    }
+    
+    /// Показывает алерт
+    ///
+    /// - Parameter title: заголвок алерта
+    func showAlert(title: String, completion: (() -> ())? = nil) {
+        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "ОК", style: .default, handler: { _ in
+            completion?()
+        }))
+        rootNavigationController.topViewController?.present(alertController, animated: true, completion: nil)
     }
 }

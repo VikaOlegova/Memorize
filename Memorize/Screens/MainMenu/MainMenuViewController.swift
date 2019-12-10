@@ -20,9 +20,6 @@ protocol MainMenuViewInput: class {
     /// - Parameter allWordsCount: кол-во всех слов
     func show(allWordsCount: Int)
     
-    /// Показывает алерт, когда нет слов для повторения
-    func showNoWordsAlert()
-    
     /// Делает доступными\недоступными элементы на вью
     ///
     /// - Parameter enable: доступны или нет
@@ -114,12 +111,6 @@ extension MainMenuViewController: MainMenuViewInput {
     
     func show(allWordsCount: Int) {
         allWordsButton.doubleLabel.rightLabel.text = String(allWordsCount)
-    }
-    
-    func showNoWordsAlert() {
-        let alertController = UIAlertController(title: "На сегодня все!", message: nil, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
-        self.present(alertController, animated: true, completion: nil)
     }
 }
 

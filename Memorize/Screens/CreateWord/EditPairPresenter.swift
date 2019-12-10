@@ -83,7 +83,6 @@ class EditPairPresenter {
                                      completion: @escaping (_ saved: Bool)->()) {
         coreData.checkExistenceOfTranslationPair(originalWord: originalWord) { [weak self] isExisting in
             if isExisting {
-                self?.view?.showAlert(title: "Такое слово уже существует!")
                 completion(false)
             } else {
                 self?.coreData.saveNewTranslationPair(originalWord: originalWord,
@@ -137,14 +136,31 @@ extension EditPairPresenter: EditPairViewOutput {
                 let translatedWord = translatedWord,
                 !originalWord.isEmpty,
                 !translatedWord.isEmpty else {
-            view?.showAlert(title: "Вы заполнили не все обязательные поля!")
+            Router.shared.showAlert(title: "Вы заполнили не все обязательные поля!")
+            return
+        }
+        guard originalWord != translatedWord else {
+            Router.shared.showAlert(title: "Слово и его перевод не могут быть одинаковыми!")
             return
         }
         
+        enum Result {
+            case firstFailed
+            case secondFailed
+            case success
+        }
+        
         view?.enableGreenButton(enable: false)
-        let completion = { [weak self] (goBack: Bool) in
+        let completion = { [weak self] (result: Result) in
             self?.view?.enableGreenButton(enable: true)
-            if goBack {
+            switch result {
+            case .firstFailed:
+                Router.shared.showAlert(title: "Такое слово уже существует!")
+            case .secondFailed:
+                Router.shared.returnBack(completion: {
+                    Router.shared.showAlert(title: "Обратное слово уже существует! Сохранилась только оригинальная пара!")
+                })
+            case .success:
                 Router.shared.returnBack()
             }
         }
@@ -158,7 +174,7 @@ extension EditPairPresenter: EditPairViewOutput {
                                 completion: { [weak self] saved in
                                     guard let weakSelf = self else { return }
                                     guard reverseTranslationEnabled, saved else {
-                                        completion(saved)
+                                        completion(saved ? .success : .firstFailed)
                                         return
                                     }
                                     weakSelf.saveTranslationPair(originalWord: translatedWord,
@@ -166,13 +182,15 @@ extension EditPairPresenter: EditPairViewOutput {
                                                         originalLanguage: weakSelf.toLanguage,
                                                         translatedLanguage: weakSelf.fromLanguage,
                                                         image: image,
-                                                        completion: completion)
+                                                        completion: { saved in
+                                                            completion(saved ? .success : .secondFailed)
+                                    })
             })
         } else {
             updateTranslationPair(originalWord: originalWord,
                                   translatedWord: translatedWord,
                                   image: image,
-                                  completion: { completion(true) })
+                                  completion: { completion(.success) })
         }
     }
     

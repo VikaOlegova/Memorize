@@ -52,11 +52,6 @@ protocol EditPairViewInput: class {
     /// - Parameter show: показать спиннер или нет
     func showLoadingIndicator(_ show: Bool)
     
-    /// Показывает алерт
-    ///
-    /// - Parameter title: заголовок алерта
-    func showAlert(title: String)
-    
     /// Делает доступной или недоступной зеленую кнопку
     ///
     /// - Parameter enable: доступна или нет
@@ -259,12 +254,6 @@ extension EditPairViewController: EditPairViewInput {
     
     func showLoadingIndicator(_ show: Bool) {
         show ? translationView.spinner.startAnimating() : translationView.spinner.stopAnimating()
-    }
-    
-    func showAlert(title: String) {
-        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
-        self.present(alertController, animated: true, completion: nil)
     }
     
     func enableGreenButton(enable: Bool) {

@@ -13,6 +13,7 @@ class MainMenuPresenter {
     /// Слабая ссылка на вью экрана главного меню
     weak var view: MainMenuViewInput?
     private var repeatWordsCount = 0
+    private var allWordsCount = 0
     private let coreData: CoreDataServiceProtocol
     
     init(coreData: CoreDataServiceProtocol) {
@@ -26,6 +27,7 @@ extension MainMenuPresenter: MainMenuViewOutput {
     /// Загружает и отображает количество всех слов и слов для повторения
     func viewWillAppear() {
         coreData.countOfTranslationPairs(of: .allPairs) { [weak self] allWordsCount in
+            self?.allWordsCount = allWordsCount
             self?.view?.show(allWordsCount: allWordsCount)
         }
         coreData.countOfTranslationPairs(of: .repeatPairs) { [weak self] repeatWordsCount in
@@ -37,7 +39,13 @@ extension MainMenuPresenter: MainMenuViewOutput {
     /// Направляет на экран повторения, предварительно загрузив слова, или показывает алерт, если слов нет
     func repeatWordsButtonTapped() {
         guard repeatWordsCount != 0 else {
-            view?.showNoWordsAlert()
+            guard allWordsCount != 0 else {
+                Router.shared.showAlert(title: "Сначала добавьте слова;)", completion: {
+                    Router.shared.showCreatePair()
+                })
+                return
+            }
+            Router.shared.showAlert(title: "На сегодня все!")
             return
         }
         view?.enableInteraction(false)
