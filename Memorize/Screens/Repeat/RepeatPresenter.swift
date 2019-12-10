@@ -27,6 +27,9 @@ class RepeatPresenter {
     init(coreData: CoreDataServiceProtocol, isMistakes: Bool) {
         self.coreData = coreData
         self.isMistakes = isMistakes
+        if !isMistakes {
+            RepeatingSession.shared.shuffleRepeatPairs()
+        }
         translationPairs = isMistakes ? RepeatingSession.shared.mistakes.shuffled() : RepeatingSession.shared.repeatPairs
     }
     

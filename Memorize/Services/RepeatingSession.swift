@@ -35,6 +35,11 @@ class RepeatingSession {
         repeatPairs.removeFirst()
     }
     
+    /// Перемешивает пары слов для повторения
+    func shuffleRepeatPairs() {
+        repeatPairs.shuffle()
+    }
+    
     /// Добавляет слово в массив ошибок
     ///
     /// - Parameter mistake: слово, в котором была допущена ошибка

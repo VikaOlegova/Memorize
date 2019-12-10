@@ -30,7 +30,7 @@ class FlickrAPI {
             "extras" : "url_m",
             "format" : "json",
             "nojsoncallback" : "1",
-            "per_page" : String(10)
+            "per_page" : String(15)
         ]
         
         components.queryItems = params.map{ URLQueryItem(name: $0.key, value: $0.value) }

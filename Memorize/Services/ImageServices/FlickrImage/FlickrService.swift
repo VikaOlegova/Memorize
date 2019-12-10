@@ -19,7 +19,7 @@ class FlickrService: ImageServiceProtocol {
     }
     
     private struct ResponseURL: Decodable {
-        let url_m: String
+        let url_m: String?
     }
     
     private let networkService: NetworkServiceProtocol
@@ -39,7 +39,11 @@ class FlickrService: ImageServiceProtocol {
             }
 
             let flickrImages = parsed.photos.photo.compactMap{ (object) -> ImageWithPath? in
-                guard let url = URL(string: object.url_m) else { return nil }
+                guard
+                    let urlString = object.url_m,
+                    let url = URL(string: urlString)
+                    else { return nil }
+                
                 return ImageWithPath(path: url, uiImage: nil)
             }
             DispatchQueue.main.async { completion(flickrImages) }
