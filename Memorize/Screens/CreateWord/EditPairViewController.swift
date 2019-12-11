@@ -25,7 +25,14 @@ protocol EditPairViewInput: class {
     /// Показывает изображения к слову
     ///
     /// - Parameter images: массив изображений, а точнее, массив объеков данных для ячейки
-    func show(images: [ImageCollectionViewCellData])
+    func show(images: [ImageCollectionViewCellData], scrollToFirst: Bool)
+    
+    /// Показывает одно конкретное изображение по индексу к слову
+    ///
+    /// - Parameters:
+    ///   - image: данные ячейки с картинкой
+    ///   - index: индекс картинки (ячейки)
+    func show(image: ImageCollectionViewCellData, at index: Int)
     
     /// Удаляет изображение из коллекшн вью и локального массива со всеми изображениями
     ///
@@ -230,11 +237,16 @@ extension EditPairViewController: EditPairViewInput {
         translationView.textField.text = translation
     }
     
-    func show(images: [ImageCollectionViewCellData]) {
+    func show(image: ImageCollectionViewCellData, at index: Int) {
+        self.images[index] = image
+        self.collectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
+    }
+    
+    func show(images: [ImageCollectionViewCellData], scrollToFirst: Bool) {
         self.images = images
         self.collectionView.reloadSections([0])
         
-        guard !self.images.isEmpty else { return }
+        guard !self.images.isEmpty, scrollToFirst else { return }
         UIView.animate(withDuration: 0.25, animations: {
             self.collectionView.contentOffset = .zero
         })

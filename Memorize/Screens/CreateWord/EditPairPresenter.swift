@@ -54,25 +54,28 @@ class EditPairPresenter {
     
     private func reloadImages(text: String) {
         images = Array(repeating: (), count: 10).map { ImageCollectionViewCellData.loading }
-        view?.show(images: images)
+        view?.show(images: images, scrollToFirst: true)
         
         imageService.loadImageList(searchString: text) { [weak self] imagesToLoad in
             self?.images = Array(repeating: (), count: imagesToLoad.count).map { ImageCollectionViewCellData.loading }
-            self?.view?.show(images: self?.images ?? [])
+            self?.view?.show(images: self?.images ?? [], scrollToFirst: false)
             
             for (index, imageToLoad) in imagesToLoad.enumerated() {
                 let cellData = self?.images[index]
                 
                 self?.imageService.loadImage(for: imageToLoad, completion: { loadedImage in
-                    guard loadedImage.uiImage != nil else {
-                        guard let newIndex = self?.images.firstIndex(where: { $0 === cellData }) else { return }
-                        self?.images.remove(at: newIndex)
-                        self?.view?.removeImage(at: newIndex)
-                        return
+                    guard let newIndex = self?.images.firstIndex(where: { $0 === cellData }) else { return }
+                    
+                    guard loadedImage.uiImage != nil,
+                        let data = cellData
+                        else {
+                            self?.images.remove(at: newIndex)
+                            self?.view?.removeImage(at: newIndex)
+                            return
                     }
                     
                     cellData?.image = loadedImage.uiImage
-                    self?.view?.show(images: self?.images ?? [])
+                    self?.view?.show(image: data, at: newIndex)
                 })
             }
         }
@@ -120,7 +123,7 @@ extension EditPairPresenter: EditPairViewOutput {
         guard let pair = translationPair else { return }
         
         if !isCreating, let image = pair.image {
-            view?.show(images: [ImageCollectionViewCellData(image: image)])
+            view?.show(images: [ImageCollectionViewCellData(image: image)], scrollToFirst: false)
         }
         
         view?.show(originalWord: pair.originalWord, reverseTranslationCheckBox: isCreating)
