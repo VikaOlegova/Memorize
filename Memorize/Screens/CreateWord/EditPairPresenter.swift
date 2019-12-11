@@ -106,6 +106,7 @@ class EditPairPresenter {
                                        image: UIImage?,
                                        completion: @escaping (_ saved: Bool)->()) {
         guard let pair = translationPair else {
+            completion(false)
             return
         }
         coreData.checkExistenceOfTranslationPair(originalWord: originalWord) { [weak self] isExisting in
