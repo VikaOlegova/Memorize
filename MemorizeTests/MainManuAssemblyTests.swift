@@ -26,15 +26,16 @@ class MainMenuAssemblyTests: XCTestCase {
     
     func testThatAssemblyCreatesMainMenuScreen() {
         // act
-        let view = assembly.create() as! MainMenuViewController
+        let view = assembly.create() as? MainMenuViewController
         
         // assert
-        let presenter = view.presenter as! MainMenuPresenter
-        let coreData = presenter.coreData as! CoreDataService
+        let presenter = view?.presenter as? MainMenuPresenter
+        let coreData = presenter?.coreData as? CoreDataService
         
+        XCTAssertNotNil(view)
         XCTAssertNotNil(presenter)
         XCTAssertNotNil(coreData)
         
-        XCTAssertTrue(presenter.view === view)
+        XCTAssertTrue(presenter?.view === view)
     }
 }

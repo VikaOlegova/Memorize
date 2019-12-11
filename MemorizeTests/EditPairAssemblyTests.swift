@@ -29,15 +29,16 @@ class EditPairAssemblyTests: XCTestCase {
         let pair = TranslationPair(originalWord: "Cat", translatedWord: "Кот", originalLanguage: .EN, translatedLanguage: .RU)
         
         // act
-        let view = assembly.create(translationPair: pair) as! EditPairViewController
+        let view = assembly.create(translationPair: pair) as? EditPairViewController
         
         // assert
-        let presenter = view.presenter as! EditPairPresenter
-        let coreData = presenter.coreData as! CoreDataService
-        let imageService = presenter.imageService as! FacadeImageService
-        let networkService = imageService.networkService as! NetworkService
-        let yandexTranslateService = presenter.translateService as! YandexTranslateService
+        let presenter = view?.presenter as? EditPairPresenter
+        let coreData = presenter?.coreData as? CoreDataService
+        let imageService = presenter?.imageService as? FacadeImageService
+        let networkService = imageService?.networkService as? NetworkService
+        let yandexTranslateService = presenter?.translateService as? YandexTranslateService
         
+        XCTAssertNotNil(view)
         XCTAssertNotNil(presenter)
         XCTAssertNotNil(coreData)
         XCTAssertNotNil(imageService)
@@ -45,8 +46,8 @@ class EditPairAssemblyTests: XCTestCase {
         XCTAssertNotNil(yandexTranslateService)
         XCTAssertNotNil(pair)
         
-        XCTAssertTrue(presenter.view === view)
-        XCTAssertEqual(presenter.translationPair, pair)
+        XCTAssertTrue(presenter?.view === view)
+        XCTAssertEqual(presenter?.translationPair, pair)
     }
     
     func testThatAssemblyCreatesCreatePairScreen() {
@@ -54,15 +55,16 @@ class EditPairAssemblyTests: XCTestCase {
         let pair: TranslationPair? = nil
         
         // act
-        let view = assembly.create(translationPair: pair) as! EditPairViewController
+        let view = assembly.create(translationPair: pair) as? EditPairViewController
         
         // assert
-        let presenter = view.presenter as! EditPairPresenter
-        let coreData = presenter.coreData as! CoreDataService
-        let imageService = presenter.imageService as! FacadeImageService
-        let networkService = imageService.networkService as! NetworkService
-        let yandexTranslateService = presenter.translateService as! YandexTranslateService
+        let presenter = view?.presenter as? EditPairPresenter
+        let coreData = presenter?.coreData as? CoreDataService
+        let imageService = presenter?.imageService as? FacadeImageService
+        let networkService = imageService?.networkService as? NetworkService
+        let yandexTranslateService = presenter?.translateService as? YandexTranslateService
         
+        XCTAssertNotNil(view)
         XCTAssertNotNil(presenter)
         XCTAssertNotNil(coreData)
         XCTAssertNotNil(imageService)
@@ -70,7 +72,7 @@ class EditPairAssemblyTests: XCTestCase {
         XCTAssertNotNil(yandexTranslateService)
         XCTAssertNil(pair)
         
-        XCTAssertTrue(presenter.view === view)
-        XCTAssertEqual(presenter.translationPair, pair)
+        XCTAssertTrue(presenter?.view === view)
+        XCTAssertEqual(presenter?.translationPair, pair)
     }
 }

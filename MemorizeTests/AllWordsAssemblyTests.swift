@@ -26,15 +26,16 @@ class AllWordsAssemblyTests: XCTestCase {
     
     func testThatAssemblyCreatesAllWordsScreen() {
         // act
-        let view = assembly.create() as! AllWordsViewController
+        let view = assembly.create() as? AllWordsViewController
         
         // assert
-        let presenter = view.presenter as! AllWordsPresenter
-        let coreData = presenter.coreData as! CoreDataService
+        let presenter = view?.presenter as? AllWordsPresenter
+        let coreData = presenter?.coreData as? CoreDataService
         
+        XCTAssertNotNil(view)
         XCTAssertNotNil(presenter)
         XCTAssertNotNil(coreData)
         
-        XCTAssertTrue(presenter.view === view)
+        XCTAssertTrue(presenter?.view === view)
     }
 }

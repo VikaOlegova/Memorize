@@ -29,14 +29,15 @@ class CorrectAnswerAssemblyTests: XCTestCase {
         let view = assembly.create(isCorrect: true,
                                    correctTranslation: "Cat",
                                    correctTranslationLanguage: .EN,
-                                   didTapNextCallback: { }) as! CorrectAnswerViewController
+                                   didTapNextCallback: { }) as? CorrectAnswerViewController
         
         // assert
-        let presenter = view.presenter as! CorrectAnswerPresenter
+        let presenter = view?.presenter as? CorrectAnswerPresenter
         
+        XCTAssertNotNil(view)
         XCTAssertNotNil(presenter)
         
-        XCTAssertTrue(presenter.view === view)
+        XCTAssertTrue(presenter?.view === view)
     }
     
     func testThatAssemblyCreatesScreenForIncorrectAnswer() {
@@ -44,14 +45,15 @@ class CorrectAnswerAssemblyTests: XCTestCase {
         let view = assembly.create(isCorrect: false,
                                    correctTranslation: "Cat",
                                    correctTranslationLanguage: .EN,
-                                   didTapNextCallback: { }) as! CorrectAnswerViewController
+                                   didTapNextCallback: { }) as? CorrectAnswerViewController
         
         // assert
-        let presenter = view.presenter as! CorrectAnswerPresenter
+        let presenter = view?.presenter as? CorrectAnswerPresenter
         
+        XCTAssertNotNil(view)
         XCTAssertNotNil(presenter)
         
-        XCTAssertTrue(presenter.view === view)
+        XCTAssertTrue(presenter?.view === view)
     }
 }
 

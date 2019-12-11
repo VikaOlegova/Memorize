@@ -26,37 +26,40 @@ class ResultAssemblyTests: XCTestCase {
     
     func testThatAssemblyCreatesResultScreenOfMistakesCorrection() {
         // act
-        let view = assembly.create(resultScreenType: .mistakesCorrectionEnded) as! ResultViewController
+        let view = assembly.create(resultScreenType: .mistakesCorrectionEnded) as? ResultViewController
         
         // assert
-        let presenter = view.presenter as! ResultPresenter
+        let presenter = view?.presenter as? ResultPresenter
         
+        XCTAssertNotNil(view)
         XCTAssertNotNil(presenter)
         
-        XCTAssertTrue(presenter.view === view)
+        XCTAssertTrue(presenter?.view === view)
     }
     
     func testThatAssemblyCreatesResultScreenOfRepeatingWithMistakes() {
         // act
-        let view = assembly.create(resultScreenType: .repeatingEnded(withMistakes: true)) as! ResultViewController
+        let view = assembly.create(resultScreenType: .repeatingEnded(withMistakes: true)) as? ResultViewController
         
         // assert
-        let presenter = view.presenter as! ResultPresenter
+        let presenter = view?.presenter as? ResultPresenter
         
+        XCTAssertNotNil(view)
         XCTAssertNotNil(presenter)
         
-        XCTAssertTrue(presenter.view === view)
+        XCTAssertTrue(presenter?.view === view)
     }
     
     func testThatAssemblyCreatesResultScreenOfRepeatingWithoutMistakes() {
         // act
-        let view = assembly.create(resultScreenType: .repeatingEnded(withMistakes: false)) as! ResultViewController
+        let view = assembly.create(resultScreenType: .repeatingEnded(withMistakes: false)) as? ResultViewController
         
         // assert
-        let presenter = view.presenter as! ResultPresenter
+        let presenter = view?.presenter as? ResultPresenter
         
+        XCTAssertNotNil(view)
         XCTAssertNotNil(presenter)
         
-        XCTAssertTrue(presenter.view === view)
+        XCTAssertTrue(presenter?.view === view)
     }
 }

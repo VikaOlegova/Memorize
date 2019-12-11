@@ -26,30 +26,32 @@ class RepeatAssemblyTests: XCTestCase {
     
     func testThatAssemblyCreatesRepeatScreen() {
         // act
-        let view = assembly.create(isMistakes: false) as! RepeatViewController
+        let view = assembly.create(isMistakes: false) as? RepeatViewController
         
         // assert
-        let presenter = view.presenter as! RepeatPresenter
-        let coreData = presenter.coreData as! CoreDataService
+        let presenter = view?.presenter as? RepeatPresenter
+        let coreData = presenter?.coreData as? CoreDataService
         
+        XCTAssertNotNil(view)
         XCTAssertNotNil(presenter)
         XCTAssertNotNil(coreData)
         
-        XCTAssertTrue(presenter.view === view)
+        XCTAssertTrue(presenter?.view === view)
     }
     
     func testThatAssemblyCreatesErrorCorrectionScreen() {
         // act
-        let view = assembly.create(isMistakes: true) as! RepeatViewController
+        let view = assembly.create(isMistakes: true) as? RepeatViewController
         
         // assert
-        let presenter = view.presenter as! RepeatPresenter
-        let coreData = presenter.coreData as! CoreDataService
+        let presenter = view?.presenter as? RepeatPresenter
+        let coreData = presenter?.coreData as? CoreDataService
         
+        XCTAssertNotNil(view)
         XCTAssertNotNil(presenter)
         XCTAssertNotNil(coreData)
         
-        XCTAssertTrue(presenter.view === view)
+        XCTAssertTrue(presenter?.view === view)
     }
 }
 
