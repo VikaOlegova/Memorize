@@ -14,6 +14,7 @@ class CorrectAnswerPresenter {
     let isCorrect: Bool
     let correctTranslation: String
     let correctTranslationLanguage: Language
+    let synthesizer = AVSpeechSynthesizer()
     let didTapNextCallback: (() -> ())
     
     init(isCorrect: Bool, correctTranslation: String,
@@ -33,22 +34,26 @@ extension CorrectAnswerPresenter: CorrectAnswerPopupViewOutput {
     }
     
     func playAudioTapped() {
-        let utterance = AVSpeechUtterance(string: correctTranslation)
-        var language = ""
-        switch correctTranslationLanguage {
-        case .RU:
-            language = "ru-RU"
-        case .EN:
-            language = "en-US"
+        if synthesizer.isSpeaking {
+            synthesizer.stopSpeaking(at: .immediate)
+        } else {
+            let utterance = AVSpeechUtterance(string: correctTranslation)
+            var language = ""
+            switch correctTranslationLanguage {
+            case .RU:
+                language = "ru-RU"
+            case .EN:
+                language = "en-US"
+            }
+            utterance.voice = AVSpeechSynthesisVoice(language: language)
+            utterance.rate = 0.3
+            
+            synthesizer.speak(utterance)
         }
-        utterance.voice = AVSpeechSynthesisVoice(language: language)
-        utterance.rate = 0.3
-        
-        let synthesizer = AVSpeechSynthesizer()
-        synthesizer.speak(utterance)
     }
     
     func nextButtonTapped() {
+        synthesizer.stopSpeaking(at: .immediate)
         didTapNextCallback()
     }
 }

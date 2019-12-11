@@ -18,6 +18,7 @@ class RepeatPresenter {
     var translationCounter = 0
     var showKeyboardWorkItem: DispatchWorkItem?
     let isMistakes: Bool
+    let synthesizer = AVSpeechSynthesizer()
     
     let coreData = CoreDataService()
     
@@ -77,6 +78,7 @@ extension RepeatPresenter: RepeatViewOutput {
     
     func didEnterTranslation(_ enteredTranslation: String) {
         showKeyboardWorkItem?.cancel()
+        synthesizer.stopSpeaking(at: .immediate)
         let isCorrect = currentTranslationPair.translatedWord.lowercased().replacingOccurrences(of: "ё", with: "е") == enteredTranslation.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "ё", with: "е")
         if !isMistakes {
             TranslationSession.shared.addAnsweredPair(pair: currentTranslationPair)
@@ -104,19 +106,22 @@ extension RepeatPresenter: RepeatViewOutput {
     }
     
     func playAudioTapped() {
-        let utterance = AVSpeechUtterance(string: currentTranslationPair.originalWord)
-        var language = ""
-        switch currentTranslationPair.originalLanguage {
-        case .RU:
-            language = "ru-RU"
-        case .EN:
-            language = "en-US"
+        if synthesizer.isSpeaking {
+            synthesizer.stopSpeaking(at: .immediate)
+        } else {
+            let utterance = AVSpeechUtterance(string: currentTranslationPair.originalWord)
+            var language = ""
+            switch currentTranslationPair.originalLanguage {
+            case .RU:
+                language = "ru-RU"
+            case .EN:
+                language = "en-US"
+            }
+            utterance.voice = AVSpeechSynthesisVoice(language: language)
+            utterance.rate = 0.3
+            
+            synthesizer.speak(utterance)
         }
-        utterance.voice = AVSpeechSynthesisVoice(language: language)
-        utterance.rate = 0.3
-        
-        let synthesizer = AVSpeechSynthesizer()
-        synthesizer.speak(utterance)
     }
     
     func didOpenKeyboard() {
@@ -125,6 +130,7 @@ extension RepeatPresenter: RepeatViewOutput {
     
     func didTapRightBarButtonItem() {
         showKeyboardWorkItem?.cancel()
+        synthesizer.stopSpeaking(at: .immediate)
         showResultScreen()
     }
     

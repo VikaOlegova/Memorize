@@ -41,14 +41,15 @@ class ResultCell: UITableViewCell {
         roundedBackgroundView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 7).isActive = true
         roundedBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -7).isActive = true
         
-        rightImageView.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -10).isActive = true
-        rightImageView.topAnchor.constraint(equalTo: container.topAnchor, constant: 12).isActive = true
-        rightImageView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -12).isActive = true
-        
         wordLabel.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 12).isActive = true
         wordLabel.rightAnchor.constraint(equalTo: rightImageView.leftAnchor, constant: -5).isActive = true
         wordLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 12).isActive = true
         wordLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -12).isActive = true
+        
+        rightImageView.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -10).isActive = true
+        rightImageView.centerYAnchor.constraint(equalTo: wordLabel.centerYAnchor).isActive = true
+        rightImageView.heightAnchor.constraint(equalToConstant: 17).isActive = true
+        rightImageView.widthAnchor.constraint(equalToConstant: 17).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
