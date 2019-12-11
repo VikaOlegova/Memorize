@@ -104,14 +104,22 @@ class EditPairPresenter {
     private func updateTranslationPair(originalWord: String,
                                        translatedWord: String,
                                        image: UIImage?,
-                                       completion: @escaping ()->()) {
-        guard let pair = translationPair else { return }
-        coreData.updateTranslationPair(oldOriginalWord: pair.originalWord,
-                                       newOriginalWord: originalWord,
-                                       newTranslatedWord: translatedWord,
-                                       image: image,
-                                       completion: completion)
+                                       completion: @escaping (_ saved: Bool)->()) {
+        guard let pair = translationPair else {
+            return
+        }
+        coreData.checkExistenceOfTranslationPair(originalWord: originalWord) { [weak self] isExisting in
+                if isExisting {
+                    completion(false)
+                } else {
+                    self?.coreData.updateTranslationPair(oldOriginalWord: pair.originalWord,
+                                                   newOriginalWord: originalWord,
+                                                   newTranslatedWord: translatedWord,
+                                                   image: image,
+                                                   completion: { completion(true) })
+            }
     }
+}
 }
 
 extension EditPairPresenter: EditPairViewOutput {
@@ -196,7 +204,9 @@ extension EditPairPresenter: EditPairViewOutput {
             updateTranslationPair(originalWord: originalWord,
                                   translatedWord: translatedWord,
                                   image: image,
-                                  completion: { completion(.success) })
+                                  completion: { saved in
+                                    completion(saved ? .success: .firstFailed)
+            })
         }
     }
     
@@ -220,3 +230,5 @@ extension EditPairPresenter: EditPairViewOutput {
         }
     }
 }
+
+
