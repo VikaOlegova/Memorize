@@ -163,11 +163,13 @@ protocol CoreDataServiceProtocol {
 
 /// Класс для работы с кордатой
 class CoreDataService: CoreDataServiceProtocol {
-    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var persistentContainer: NSPersistentContainer {
+        return AppDelegate.shared.persistentContainer
+    }
     
     func checkExistenceOfTranslationPair(originalWord: String,
                                          completion: @escaping (Bool) -> ()) {
-        appDelegate.persistentContainer.performBackgroundTask { (context) in
+        persistentContainer.performBackgroundTask { (context) in
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
             request.predicate = NSPredicate(format: "originalWord =[c] %@", originalWord.trimmed)
             do {
@@ -190,7 +192,7 @@ class CoreDataService: CoreDataServiceProtocol {
                                 translatedLanguage: Language,
                                 image: UIImage?,
                                 completion: @escaping () -> ()) {
-        appDelegate.persistentContainer.performBackgroundTask { (context) in
+        persistentContainer.performBackgroundTask { (context) in
             defer {
                 DispatchQueue.main.async {
                     completion()
@@ -220,7 +222,7 @@ class CoreDataService: CoreDataServiceProtocol {
     }
  
     func countOfTranslationPairs(of type: TranslationPairType, completion: @escaping (Int) -> ()) {
-        appDelegate.persistentContainer.performBackgroundTask { (context) in
+        persistentContainer.performBackgroundTask { (context) in
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
             
             if type == .repeatPairs {
@@ -242,7 +244,7 @@ class CoreDataService: CoreDataServiceProtocol {
     }
 
     func fetchTranslationPairs(of type: TranslationPairType, completion: @escaping ([TranslationPair]) -> ()) {
-        appDelegate.persistentContainer.performBackgroundTask { (context) in
+        persistentContainer.performBackgroundTask { (context) in
             print("Fetching Data..")
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
             
@@ -271,7 +273,7 @@ class CoreDataService: CoreDataServiceProtocol {
                                newTranslatedWord: String,
                                image: UIImage?,
                                completion: @escaping () -> ()) {
-        appDelegate.persistentContainer.performBackgroundTask { (context) in
+        persistentContainer.performBackgroundTask { (context) in
             defer {
                 DispatchQueue.main.async {
                     completion()
@@ -307,7 +309,7 @@ class CoreDataService: CoreDataServiceProtocol {
     func updateCounterAndDate(originalWord: String,
                               isMistake: Bool,
                               completion: @escaping () -> ()) {
-        appDelegate.persistentContainer.performBackgroundTask { (context) in
+        persistentContainer.performBackgroundTask { (context) in
             defer {
                 DispatchQueue.main.async {
                     completion()
@@ -342,7 +344,7 @@ class CoreDataService: CoreDataServiceProtocol {
 
     func deleteTranslationPair(originalWord: String,
                                completion: @escaping () -> ()) {
-        appDelegate.persistentContainer.performBackgroundTask { (context) in
+        persistentContainer.performBackgroundTask { (context) in
             defer {
                 DispatchQueue.main.async {
                     completion()
