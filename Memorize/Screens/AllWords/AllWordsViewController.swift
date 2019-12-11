@@ -17,6 +17,7 @@ protocol AllWordsViewOutput: class {
     func viewWillAppear()
     func addButtonTapped()
     func cellTapped(with pair: TranslationPairViewModel)
+    func didDelete(pair: TranslationPairViewModel)
 }
 
 class AllWordsViewController: UIViewController {
@@ -88,6 +89,15 @@ extension AllWordsViewController: UITableViewDataSource {
 extension AllWordsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.cellTapped(with: data[indexPath.row])
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        presenter.didDelete(pair: data[indexPath.row])
+        data.remove(at: indexPath.row)
     }
 }
 

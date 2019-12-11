@@ -239,4 +239,26 @@ class CoreDataService {
             }
         }
     }
+    
+    func deleteTranslationPair(originalWord: String,
+                               translatedWord: String,
+                               completion: @escaping () -> ()) {
+        appDelegate.persistentContainer.performBackgroundTask { (context) in
+                defer {
+                    DispatchQueue.main.async {
+                        completion()
+                    }
+                }
+            let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
+            request.predicate = NSPredicate(format: "originalWord = %@ AND translatedWord = %@",
+                                            argumentArray: [originalWord, translatedWord])
+            do {
+                if let result = try context.fetch(request).first {
+                    context.delete(result)
+                }
+            } catch {
+                print("Fetching data Failed")
+            }
+        }
+    }
 }

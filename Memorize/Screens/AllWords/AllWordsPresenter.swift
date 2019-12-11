@@ -32,6 +32,10 @@ class AllWordsPresenter {
 }
 
 extension AllWordsPresenter: AllWordsViewOutput {
+    func didDelete(pair: TranslationPairViewModel) {
+        
+    }
+    
     func viewDidLoad() { }
     
     func viewWillAppear() {

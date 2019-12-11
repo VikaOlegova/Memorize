@@ -106,22 +106,22 @@ extension RepeatPresenter: RepeatViewOutput {
     }
     
     func playAudioTapped() {
-        if synthesizer.isSpeaking {
+        guard !synthesizer.isSpeaking else {
             synthesizer.stopSpeaking(at: .immediate)
-        } else {
-            let utterance = AVSpeechUtterance(string: currentTranslationPair.originalWord)
-            var language = ""
-            switch currentTranslationPair.originalLanguage {
-            case .RU:
-                language = "ru-RU"
-            case .EN:
-                language = "en-US"
-            }
-            utterance.voice = AVSpeechSynthesisVoice(language: language)
-            utterance.rate = 0.3
-            
-            synthesizer.speak(utterance)
+            return
         }
+        let utterance = AVSpeechUtterance(string: currentTranslationPair.originalWord)
+        var language = ""
+        switch currentTranslationPair.originalLanguage {
+        case .RU:
+            language = "ru-RU"
+        case .EN:
+            language = "en-US"
+        }
+        utterance.voice = AVSpeechSynthesisVoice(language: language)
+        utterance.rate = 0.3
+        
+        synthesizer.speak(utterance)
     }
     
     func didOpenKeyboard() {
