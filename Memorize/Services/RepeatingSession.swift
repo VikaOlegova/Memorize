@@ -8,8 +8,43 @@
 
 import UIKit
 
+/// Протокол сессии для повторения
+protocol RepeatingSessionProtocol: class {
+    
+    var mistakes: [TranslationPair] { get }
+    var repeatPairs: [TranslationPair] { get }
+    var answeredPairs: [TranslationPair] { get }
+    
+    /// Загружает из кордаты слова для повторения
+    ///
+    /// - Parameter completion: оповещает о конце выполнения функции
+    func load(completion: @escaping () -> ())
+    
+    /// Удаляет первое слово из массива слов для повторения
+    func removeFirstPairFromRepeatPairs()
+    
+    /// Перемешивает пары слов для повторения
+    func shuffleRepeatPairs()
+    
+    /// Добавляет слово в массив ошибок
+    ///
+    /// - Parameter mistake: слово, в котором была допущена ошибка
+    func addMistake(mistake: TranslationPair)
+    
+    /// Очищает массив ошибок
+    func resetMistakes()
+    
+    /// Очищает массив отвеченных слов
+    func resetAnsweredPairs()
+    
+    /// Добавляет в массив отвеченных слов указанное слово
+    ///
+    /// - Parameter pair: слово для добавления
+    func addAnsweredPair(pair: TranslationPair)
+}
+
 /// Класс сессии для повторения
-class RepeatingSession {
+class RepeatingSession: RepeatingSessionProtocol {
     /// singleton
     static let shared = RepeatingSession()
     

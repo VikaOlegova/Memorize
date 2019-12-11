@@ -8,6 +8,61 @@
 
 import UIKit
 
+protocol RouterProtocol: class {
+    /// Показывает экран главного меню
+    func start() -> UINavigationController
+    
+    /// Показывает экран со всеми созданными слова
+    func showAllWords()
+    
+    /// Показывает экран повторения или экран исправления ошибок в зависимости от передаваемого параметра
+    ///
+    /// - Parameter isMistakes: true, если экран для исправления ошибок, false, если для повторения
+    func showRepeat(isMistakes: Bool)
+    
+    /// Показывает экран создания слова
+    func showCreatePair()
+    
+    /// Показывает экран редактирования слова
+    ///
+    /// - Parameter translationPair: слово для редактирования
+    func showEdit(translationPair: TranslationPair)
+    
+    /// Показывает экран с оценкой правильности ответа
+    ///
+    /// - Parameters:
+    ///   - isCorrect: был введен корректный перевод или нет
+    ///   - correctTranslation: корректный перевод
+    ///   - correctTranslationLanguage: язык перевода
+    ///   - didTapNextCallback: оповещает о нажатии на кнопку Далее
+    func showCorrectAnswer(isCorrect: Bool,
+                           correctTranslation: String,
+                           correctTranslationLanguage: Language,
+                           didTapNextCallback: @escaping ()->())
+    
+    /// Показывает экран результата повторения или исправления ошибок в зависимости от параметра
+    ///
+    /// - Parameter resultScreenType: тип экрана результата: конец повторения с ошибками или без или конец исправления ошибок
+    func showResult(resultScreenType: ResultScreenType)
+    
+    /// Закрывает экран результата
+    func closeResult()
+    
+    /// Возвращает на главное меню
+    func returnToMainMenu()
+    
+    /// Показывает экран исправления ошибок
+    func showMistakes()
+    
+    /// Возвращает на предыдущий экран
+    func returnBack(completion: (()->())?)
+    
+    /// Показывает алерт
+    ///
+    /// - Parameter title: заголвок алерта
+    func showAlert(title: String, completion: (() -> ())?)
+}
+
 private extension UIViewController {
     func add(subViewController: UIViewController) {
         subViewController.view.frame = view.bounds
@@ -20,7 +75,7 @@ private extension UIViewController {
 }
 
 /// Класс, управляющий переходами между экранами
-class Router {
+class Router: RouterProtocol {
     static let shared = Router()
     
     private let rootNavigationController = UINavigationController()

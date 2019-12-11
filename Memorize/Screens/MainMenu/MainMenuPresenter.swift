@@ -12,12 +12,18 @@ import Foundation
 class MainMenuPresenter {
     /// Слабая ссылка на вью экрана главного меню
     weak var view: MainMenuViewInput?
-    private var repeatWordsCount = 0
-    private var allWordsCount = 0
+    var repeatWordsCount = 0
+    var allWordsCount = 0
     private let coreData: CoreDataServiceProtocol
+    private weak var router: RouterProtocol?
+    private weak var session: RepeatingSessionProtocol?
     
-    init(coreData: CoreDataServiceProtocol) {
+    init(coreData: CoreDataServiceProtocol,
+         router: RouterProtocol,
+         session: RepeatingSessionProtocol) {
         self.coreData = coreData
+        self.router = router
+        self.session = session
     }
 }
 
@@ -40,25 +46,25 @@ extension MainMenuPresenter: MainMenuViewOutput {
     func repeatWordsButtonTapped() {
         guard repeatWordsCount != 0 else {
             guard allWordsCount != 0 else {
-                Router.shared.showAlert(title: "Сначала добавьте слова;)", completion: {
-                    Router.shared.showCreatePair()
+                router?.showAlert(title: "Сначала добавьте слова;)", completion: { [weak self] in
+                    self?.router?.showCreatePair()
                 })
                 return
             }
-            Router.shared.showAlert(title: "На сегодня все!")
+            router?.showAlert(title: "На сегодня все!", completion: nil)
             return
         }
         view?.enableInteraction(false)
-        RepeatingSession.shared.resetMistakes()
-        RepeatingSession.shared.resetAnsweredPairs()
-        RepeatingSession.shared.load { [weak self] in
-            Router.shared.showRepeat(isMistakes: false)
+        session?.resetMistakes()
+        session?.resetAnsweredPairs()
+        session?.load { [weak self] in
+            self?.router?.showRepeat(isMistakes: false)
             self?.view?.enableInteraction(true)
         }
     }
     
     /// Направляет на экран со всеми словами
     func allWordsButtonTapped() {
-        Router.shared.showAllWords()
+        router?.showAllWords()
     }
 }

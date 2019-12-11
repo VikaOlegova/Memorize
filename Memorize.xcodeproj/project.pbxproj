@@ -43,6 +43,59 @@
 		3C8E7459239E8F3500AD21C6 /* FlickrAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E7458239E8F3500AD21C6 /* FlickrAPI.swift */; };
 		3C8E745B239E941500AD21C6 /* FlickrService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E745A239E941500AD21C6 /* FlickrService.swift */; };
 		3C8E745D239EAE4900AD21C6 /* FacadeImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E745C239EAE4900AD21C6 /* FacadeImageService.swift */; };
+		3CC4FA7123A080890052F052 /* TitleTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B2B238DC1E900F17697 /* TitleTextFieldView.swift */; };
+		3CC4FA7223A080890052F052 /* BigGreenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B27238CBF1C00F17697 /* BigGreenButton.swift */; };
+		3CC4FA7323A080890052F052 /* AudioLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B42238E4A9600F17697 /* AudioLabel.swift */; };
+		3CC4FA7423A080890052F052 /* DoubleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B21238C972C00F17697 /* DoubleLabel.swift */; };
+		3CC4FA7523A080890052F052 /* RoundedBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B17238C738B00F17697 /* RoundedBackgroundView.swift */; };
+		3CC4FA7623A080890052F052 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6553523964DAA00ADC021 /* NetworkService.swift */; };
+		3CC4FA7723A080890052F052 /* ImageWithPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC655392396605A00ADC021 /* ImageWithPath.swift */; };
+		3CC4FA7823A080890052F052 /* FacadeImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E745C239EAE4900AD21C6 /* FacadeImageService.swift */; };
+		3CC4FA7923A080890052F052 /* FlickrAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E7458239E8F3500AD21C6 /* FlickrAPI.swift */; };
+		3CC4FA7A23A080890052F052 /* FlickrService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E745A239E941500AD21C6 /* FlickrService.swift */; };
+		3CC4FA7B23A080890052F052 /* GoogleImageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC65532239642B800ADC021 /* GoogleImageAPI.swift */; };
+		3CC4FA7C23A080890052F052 /* GoogleImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6553723965EA000ADC021 /* GoogleImageService.swift */; };
+		3CC4FA7D23A080890052F052 /* MOTranslationPair+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC655432398724700ADC021 /* MOTranslationPair+CoreDataClass.swift */; };
+		3CC4FA7E23A080890052F052 /* MOTranslationPair+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC655442398724700ADC021 /* MOTranslationPair+CoreDataProperties.swift */; };
+		3CC4FA7F23A080890052F052 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC655472398734600ADC021 /* CoreDataService.swift */; };
+		3CC4FA8023A080890052F052 /* YandexTranslateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC655202392075400ADC021 /* YandexTranslateService.swift */; };
+		3CC4FA8123A080890052F052 /* RepeatingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC65530239408E700ADC021 /* RepeatingSession.swift */; };
+		3CC4FA8223A080890052F052 /* ResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6552623935A1B00ADC021 /* ResultCell.swift */; };
+		3CC4FA8323A080890052F052 /* ResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6552823935E1400ADC021 /* ResultViewModel.swift */; };
+		3CC4FA8423A080890052F052 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC655232393592B00ADC021 /* ResultViewController.swift */; };
+		3CC4FA8523A080890052F052 /* ResultPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6552A23939A0300ADC021 /* ResultPresenter.swift */; };
+		3CC4FA8623A080890052F052 /* ResultAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6552C2393A6E600ADC021 /* ResultAssembly.swift */; };
+		3CC4FA8723A080890052F052 /* CorrectAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B562390C01200F17697 /* CorrectAnswerView.swift */; };
+		3CC4FA8823A080890052F052 /* CorrectAnswerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B54238F9DC800F17697 /* CorrectAnswerViewController.swift */; };
+		3CC4FA8923A080890052F052 /* CorrectAnswerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B582390EC4B00F17697 /* CorrectAnswerPresenter.swift */; };
+		3CC4FA8A23A080890052F052 /* CorrectAnswerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B5A2390EC5A00F17697 /* CorrectAnswerAssembly.swift */; };
+		3CC4FA8B23A080890052F052 /* TranslationsAndMistakesCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B40238E4A7400F17697 /* TranslationsAndMistakesCount.swift */; };
+		3CC4FA8C23A080890052F052 /* RepeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B3D238DE71300F17697 /* RepeatViewController.swift */; };
+		3CC4FA8D23A080890052F052 /* RepeatPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B47238E538F00F17697 /* RepeatPresenter.swift */; };
+		3CC4FA8E23A080890052F052 /* RepeatAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B49238E53A100F17697 /* RepeatAssembly.swift */; };
+		3CC4FA8F23A080890052F052 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B3A238DDD3D00F17697 /* Router.swift */; };
+		3CC4FA9023A080890052F052 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B25238CB7E400F17697 /* CheckBox.swift */; };
+		3CC4FA9123A080890052F052 /* TitleCheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B51238F41EC00F17697 /* TitleCheckboxView.swift */; };
+		3CC4FA9223A080890052F052 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6553B239720B700ADC021 /* ImageCollectionViewCell.swift */; };
+		3CC4FA9323A080890052F052 /* ImageCollectionViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6553D239720CC00ADC021 /* ImageCollectionViewCellData.swift */; };
+		3CC4FA9423A080890052F052 /* EditPairViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B23238CAA7A00F17697 /* EditPairViewController.swift */; };
+		3CC4FA9523A080890052F052 /* EditPairPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B31238DCA4700F17697 /* EditPairPresenter.swift */; };
+		3CC4FA9623A080890052F052 /* EditPairAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B33238DD36E00F17697 /* EditPairAssembly.swift */; };
+		3CC4FA9723A080890052F052 /* MainMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B19238C7B3600F17697 /* MainMenuButton.swift */; };
+		3CC4FA9823A080890052F052 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049AF6238C714D00F17697 /* MainMenuViewController.swift */; };
+		3CC4FA9923A080890052F052 /* MainMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B35238DD98400F17697 /* MainMenuPresenter.swift */; };
+		3CC4FA9A23A080890052F052 /* MainMenuAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B37238DD9B700F17697 /* MainMenuAssembly.swift */; };
+		3CC4FA9B23A080890052F052 /* TranslationPairCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B1D238C902D00F17697 /* TranslationPairCell.swift */; };
+		3CC4FA9C23A080890052F052 /* TranslationPairViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B1F238C919800F17697 /* TranslationPairViewModel.swift */; };
+		3CC4FA9D23A080890052F052 /* AllWordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B1B238C8D8000F17697 /* AllWordsViewController.swift */; };
+		3CC4FA9E23A080890052F052 /* AllWordsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B4B238E622E00F17697 /* AllWordsPresenter.swift */; };
+		3CC4FA9F23A080890052F052 /* AllWordsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B4D238E624000F17697 /* AllWordsAssembly.swift */; };
+		3CC4FAA023A080890052F052 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049AF4238C714D00F17697 /* AppDelegate.swift */; };
+		3CC4FAA123A080890052F052 /* TranslationPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C049B4F238F10E700F17697 /* TranslationPair.swift */; };
+		3CC4FAA723A09A880052F052 /* RouterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC4FAA623A09A880052F052 /* RouterMock.swift */; };
+		3CC4FAA923A09A9A0052F052 /* MainMenuViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC4FAA823A09A9A0052F052 /* MainMenuViewControllerMock.swift */; };
+		3CC4FAAB23A09AA80052F052 /* CoreDataServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC4FAAA23A09AA80052F052 /* CoreDataServiceMock.swift */; };
+		3CC4FAAD23A0A15D0052F052 /* RepeatingSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC4FAAC23A0A15D0052F052 /* RepeatingSessionMock.swift */; };
 		3CC655212392075400ADC021 /* YandexTranslateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC655202392075400ADC021 /* YandexTranslateService.swift */; };
 		3CC655242393592B00ADC021 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC655232393592B00ADC021 /* ResultViewController.swift */; };
 		3CC6552723935A1B00ADC021 /* ResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6552623935A1B00ADC021 /* ResultCell.swift */; };
@@ -113,6 +166,10 @@
 		3C8E7458239E8F3500AD21C6 /* FlickrAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrAPI.swift; sourceTree = "<group>"; };
 		3C8E745A239E941500AD21C6 /* FlickrService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrService.swift; sourceTree = "<group>"; };
 		3C8E745C239EAE4900AD21C6 /* FacadeImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacadeImageService.swift; sourceTree = "<group>"; };
+		3CC4FAA623A09A880052F052 /* RouterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterMock.swift; sourceTree = "<group>"; };
+		3CC4FAA823A09A9A0052F052 /* MainMenuViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewControllerMock.swift; sourceTree = "<group>"; };
+		3CC4FAAA23A09AA80052F052 /* CoreDataServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataServiceMock.swift; sourceTree = "<group>"; };
+		3CC4FAAC23A0A15D0052F052 /* RepeatingSessionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingSessionMock.swift; sourceTree = "<group>"; };
 		3CC655202392075400ADC021 /* YandexTranslateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YandexTranslateService.swift; sourceTree = "<group>"; };
 		3CC655232393592B00ADC021 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		3CC6552623935A1B00ADC021 /* ResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCell.swift; sourceTree = "<group>"; };
@@ -186,6 +243,7 @@
 		3C049B0B238C715000F17697 /* MemorizeTests */ = {
 			isa = PBXGroup;
 			children = (
+				3CC4FAA223A09A590052F052 /* Mocks */,
 				3C049B0C238C715000F17697 /* MainMenuPresenterTests.swift */,
 				3C049B0E238C715000F17697 /* Info.plist */,
 			);
@@ -346,6 +404,17 @@
 			path = FlickrImage;
 			sourceTree = "<group>";
 		};
+		3CC4FAA223A09A590052F052 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				3CC4FAA623A09A880052F052 /* RouterMock.swift */,
+				3CC4FAA823A09A9A0052F052 /* MainMenuViewControllerMock.swift */,
+				3CC4FAAA23A09AA80052F052 /* CoreDataServiceMock.swift */,
+				3CC4FAAC23A0A15D0052F052 /* RepeatingSessionMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		3CC6551F2392074100ADC021 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -450,7 +519,6 @@
 					};
 					3C049B07238C715000F17697 = {
 						CreatedOnToolsVersion = 10.2;
-						TestTargetID = 3C049AF0238C714D00F17697;
 					};
 				};
 			};
@@ -554,7 +622,60 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CC4FA9E23A080890052F052 /* AllWordsPresenter.swift in Sources */,
+				3CC4FA8E23A080890052F052 /* RepeatAssembly.swift in Sources */,
 				3C049B0D238C715000F17697 /* MainMenuPresenterTests.swift in Sources */,
+				3CC4FA8823A080890052F052 /* CorrectAnswerViewController.swift in Sources */,
+				3CC4FAA923A09A9A0052F052 /* MainMenuViewControllerMock.swift in Sources */,
+				3CC4FA7B23A080890052F052 /* GoogleImageAPI.swift in Sources */,
+				3CC4FA8423A080890052F052 /* ResultViewController.swift in Sources */,
+				3CC4FA7323A080890052F052 /* AudioLabel.swift in Sources */,
+				3CC4FA9523A080890052F052 /* EditPairPresenter.swift in Sources */,
+				3CC4FA9123A080890052F052 /* TitleCheckboxView.swift in Sources */,
+				3CC4FA8923A080890052F052 /* CorrectAnswerPresenter.swift in Sources */,
+				3CC4FA9323A080890052F052 /* ImageCollectionViewCellData.swift in Sources */,
+				3CC4FAAD23A0A15D0052F052 /* RepeatingSessionMock.swift in Sources */,
+				3CC4FAA023A080890052F052 /* AppDelegate.swift in Sources */,
+				3CC4FA7C23A080890052F052 /* GoogleImageService.swift in Sources */,
+				3CC4FA8F23A080890052F052 /* Router.swift in Sources */,
+				3CC4FA7F23A080890052F052 /* CoreDataService.swift in Sources */,
+				3CC4FA8B23A080890052F052 /* TranslationsAndMistakesCount.swift in Sources */,
+				3CC4FA7A23A080890052F052 /* FlickrService.swift in Sources */,
+				3CC4FA8723A080890052F052 /* CorrectAnswerView.swift in Sources */,
+				3CC4FA8223A080890052F052 /* ResultCell.swift in Sources */,
+				3CC4FA9023A080890052F052 /* CheckBox.swift in Sources */,
+				3CC4FA7723A080890052F052 /* ImageWithPath.swift in Sources */,
+				3CC4FA9423A080890052F052 /* EditPairViewController.swift in Sources */,
+				3CC4FA8C23A080890052F052 /* RepeatViewController.swift in Sources */,
+				3CC4FA9723A080890052F052 /* MainMenuButton.swift in Sources */,
+				3CC4FA9A23A080890052F052 /* MainMenuAssembly.swift in Sources */,
+				3CC4FAA123A080890052F052 /* TranslationPair.swift in Sources */,
+				3CC4FA8A23A080890052F052 /* CorrectAnswerAssembly.swift in Sources */,
+				3CC4FA9F23A080890052F052 /* AllWordsAssembly.swift in Sources */,
+				3CC4FA8523A080890052F052 /* ResultPresenter.swift in Sources */,
+				3CC4FA9823A080890052F052 /* MainMenuViewController.swift in Sources */,
+				3CC4FAA723A09A880052F052 /* RouterMock.swift in Sources */,
+				3CC4FA7423A080890052F052 /* DoubleLabel.swift in Sources */,
+				3CC4FA9923A080890052F052 /* MainMenuPresenter.swift in Sources */,
+				3CC4FA7823A080890052F052 /* FacadeImageService.swift in Sources */,
+				3CC4FA7E23A080890052F052 /* MOTranslationPair+CoreDataProperties.swift in Sources */,
+				3CC4FA8323A080890052F052 /* ResultViewModel.swift in Sources */,
+				3CC4FA8023A080890052F052 /* YandexTranslateService.swift in Sources */,
+				3CC4FA9C23A080890052F052 /* TranslationPairViewModel.swift in Sources */,
+				3CC4FA8D23A080890052F052 /* RepeatPresenter.swift in Sources */,
+				3CC4FA7123A080890052F052 /* TitleTextFieldView.swift in Sources */,
+				3CC4FA9623A080890052F052 /* EditPairAssembly.swift in Sources */,
+				3CC4FA8623A080890052F052 /* ResultAssembly.swift in Sources */,
+				3CC4FA8123A080890052F052 /* RepeatingSession.swift in Sources */,
+				3CC4FA7523A080890052F052 /* RoundedBackgroundView.swift in Sources */,
+				3CC4FAAB23A09AA80052F052 /* CoreDataServiceMock.swift in Sources */,
+				3CC4FA7223A080890052F052 /* BigGreenButton.swift in Sources */,
+				3CC4FA9B23A080890052F052 /* TranslationPairCell.swift in Sources */,
+				3CC4FA9223A080890052F052 /* ImageCollectionViewCell.swift in Sources */,
+				3CC4FA7623A080890052F052 /* NetworkService.swift in Sources */,
+				3CC4FA7923A080890052F052 /* FlickrAPI.swift in Sources */,
+				3CC4FA9D23A080890052F052 /* AllWordsViewController.swift in Sources */,
+				3CC4FA7D23A080890052F052 /* MOTranslationPair+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -736,7 +857,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7B26XLTLFZ;
 				INFOPLIST_FILE = MemorizeTests/Info.plist;
@@ -749,7 +869,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Memorize.app/Memorize";
 			};
 			name = Debug;
 		};
@@ -757,7 +876,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7B26XLTLFZ;
 				INFOPLIST_FILE = MemorizeTests/Info.plist;
@@ -770,7 +888,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Memorize.app/Memorize";
 			};
 			name = Release;
 		};
