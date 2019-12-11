@@ -33,15 +33,15 @@ protocol RepeatViewOutput: class {
 }
 
 class RepeatViewController: UIViewController {
-    let translationsAndMistakesCount = TranslationsAndMistakesCount()
-    let audioQuestion = AudioLabel()
-    let translation = TitleTextFieldView()
-    let imageView = UIImageView()
-    let greenButton = BigGreenButton()
+    private let translationsAndMistakesCount = TranslationsAndMistakesCount()
+    private let audioQuestion = AudioLabel()
+    private let translation = TitleTextFieldView()
+    private let imageView = UIImageView()
+    private let greenButton = BigGreenButton()
     
-    let presenter: RepeatViewOutput
+    private let presenter: RepeatViewOutput
     
-    private var imageHeightConstraint: NSLayoutConstraint?
+    private var imageHeightConstraint: NSLayoutConstraint!
     
     init(presenter: RepeatViewOutput) {
         self.presenter = presenter
@@ -99,6 +99,9 @@ class RepeatViewController: UIViewController {
         imageView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -18).isActive = true
         imageView.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: 18).isActive = true
         
+        imageHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: 100)
+        imageHeightConstraint.isActive = true
+        
         presenter.viewDidLoad()
     }
     
@@ -107,7 +110,23 @@ class RepeatViewController: UIViewController {
         presenter.viewWillAppear()
     }
     
-    func passAnswerToPresenter() {
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateImageViewHeight()
+    }
+    
+    private func updateImageViewHeight() {
+        guard let image = imageView.image else { return }
+        
+        let aspect = image.size.height / image.size.width
+        let targetHeight = aspect * imageView.frame.width
+        let maxHeight = greenButton.frame.minY - imageView.frame.minY - 10
+        let height = min(targetHeight, maxHeight)
+        imageHeightConstraint.constant = height
+        imageView.layoutIfNeeded()
+    }
+    
+    private func passAnswerToPresenter() {
         presenter.didEnterTranslation(translation.textField.text ?? "")
     }
     
@@ -171,18 +190,6 @@ extension RepeatViewController: RepeatViewInput {
     
     func show(image: UIImage?) {
         imageView.image = image
-        
-        if let existing = imageHeightConstraint {
-            imageView.removeConstraint(existing)
-        }
-        if let image = image, image.size.height < image.size.width {
-            imageHeightConstraint = imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor,
-                                                                      multiplier: image.size.height / image.size.width)
-        } else {
-            imageView.bottomAnchor.constraint(lessThanOrEqualTo: greenButton.topAnchor, constant: -10).isActive = true
-        }
-        
-        imageHeightConstraint?.isActive = true
     }
     
     func show(titleButton: String) {

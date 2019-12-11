@@ -11,7 +11,7 @@ import UIKit
 class CorrectAnswerView: UIView {
     let colorView = UIView()
     let titleLabel = UILabel()
-    let helpLabel = UILabel()
+    private let helpLabel = UILabel()
     let correctTranslation = AudioLabel()
     let nextButton = UIButton()
     

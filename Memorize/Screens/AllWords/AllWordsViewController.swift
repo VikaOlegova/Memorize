@@ -10,6 +10,7 @@ import UIKit
 
 protocol AllWordsViewInput: class {
     func show(allWords: [TranslationPairViewModel])
+    func showPlaceholder(isHidden: Bool)
 }
 
 protocol AllWordsViewOutput: class {
@@ -17,14 +18,17 @@ protocol AllWordsViewOutput: class {
     func viewWillAppear()
     func addButtonTapped()
     func cellTapped(with pair: TranslationPairViewModel)
-    func didDelete(pair: TranslationPairViewModel)
+    func didDelete(pair: TranslationPairViewModel, allPairsCount: Int)
+    func createButtonTapped()
 }
 
 class AllWordsViewController: UIViewController {
-    let tableView = UITableView(frame: .zero, style: .plain)
-    var data = [TranslationPairViewModel]()
+    private let noWordsLabel = UILabel()
+    private let createButton = UIButton()
+    private let tableView = UITableView(frame: .zero, style: .plain)
+    private var data = [TranslationPairViewModel]()
     
-    let presenter: AllWordsViewOutput
+    private let presenter: AllWordsViewOutput
     
     init(presenter: AllWordsViewOutput) {
         self.presenter = presenter
@@ -43,15 +47,31 @@ class AllWordsViewController: UIViewController {
         navigationItem.title = "Переводы"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         
-        tableView.contentInset.top = 7
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        noWordsLabel.translatesAutoresizingMaskIntoConstraints = false
+        createButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        tableView.contentInset.top = 7
+        noWordsLabel.text = "У Вас пока нет слов:("
+        noWordsLabel.textColor = .gray
+        createButton.setTitle("Создать", for: .normal)
+        createButton.setTitleColor(UIColor(red: 102/255.0, green: 172/255.0, blue: 15/255.0, alpha: 1), for: .normal)
+        createButton.addTarget(self, action: #selector(createButtonTapped), for: .touchUpInside)
         
         view.addSubview(tableView)
+        view.addSubview(noWordsLabel)
+        view.addSubview(createButton)
         
         tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
+        noWordsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        noWordsLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        createButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        createButton.topAnchor.constraint(equalTo: noWordsLabel.bottomAnchor, constant: 5).isActive = true
         
         tableView.register(TranslationPairCell.self, forCellReuseIdentifier: "TranslationPairCell")
         tableView.dataSource = self
@@ -70,6 +90,10 @@ class AllWordsViewController: UIViewController {
     
     @objc func addButtonTapped() {
         presenter.addButtonTapped()
+    }
+    
+    @objc func createButtonTapped() {
+        presenter.createButtonTapped()
     }
 }
 
@@ -96,8 +120,9 @@ extension AllWordsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        presenter.didDelete(pair: data[indexPath.row])
+        presenter.didDelete(pair: data[indexPath.row], allPairsCount: data.count - 1)
         data.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 }
 
@@ -105,5 +130,10 @@ extension AllWordsViewController: AllWordsViewInput {
     func show(allWords: [TranslationPairViewModel]) {
         data = allWords
         tableView.reloadData()
+    }
+    
+    func showPlaceholder(isHidden: Bool) {
+        noWordsLabel.isHidden = isHidden
+        createButton.isHidden = isHidden
     }
 }

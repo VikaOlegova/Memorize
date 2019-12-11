@@ -9,8 +9,8 @@
 import UIKit
 
 class CheckBox: UIButton {
-    let checkedImage = UIImage(named: "checked")
-    let uncheckedImage = UIImage(named: "unchecked")
+    private let checkedImage = UIImage(named: "checked")
+    private let uncheckedImage = UIImage(named: "unchecked")
     
     convenience init() {
         self.init(frame: .zero)

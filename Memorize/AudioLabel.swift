@@ -34,7 +34,7 @@ class AudioLabel: UIView {
         audioButton.setImage(UIImage(named: "audio"), for: .normal)
         
         wordLabel.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        wordLabel.rightAnchor.constraint(equalTo: audioButton.leftAnchor, constant: -1).isActive = true
+        wordLabel.rightAnchor.constraint(equalTo: audioButton.leftAnchor, constant: -5).isActive = true
         wordLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         
         audioButton.rightAnchor.constraint(equalTo: rightAnchor).isActive = true

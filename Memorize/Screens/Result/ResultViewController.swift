@@ -20,11 +20,11 @@ protocol ResultViewOutput: class {
 }
 
 class ResultViewController: UIViewController {
-    let tableView = UITableView(frame: .zero, style: .plain)
-    let greenButton = BigGreenButton()
-    var data = [ResultViewModel]()
+    private let tableView = UITableView(frame: .zero, style: .plain)
+    private let greenButton = BigGreenButton()
+    private var data = [ResultViewModel]()
     
-    let presenter: ResultViewOutput
+    private let presenter: ResultViewOutput
     
     init(presenter: ResultViewOutput) {
         self.presenter = presenter

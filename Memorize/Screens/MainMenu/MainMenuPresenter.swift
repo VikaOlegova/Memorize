@@ -10,13 +10,11 @@ import Foundation
 
 class MainMenuPresenter {
     weak var view: MainMenuViewInput!
-    var repeatWordsCount = 0
+    private var repeatWordsCount = 0
 }
 
 extension MainMenuPresenter: MainMenuViewOutput {
-    func viewDidLoad() {
-        
-    }
+    func viewDidLoad() { }
     
     func viewWillAppear() {
         let coreData = CoreDataService()

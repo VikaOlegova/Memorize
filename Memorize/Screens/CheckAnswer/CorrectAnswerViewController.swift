@@ -20,13 +20,13 @@ protocol CorrectAnswerPopupViewOutput: class {
 }
 
 class CorrectAnswerViewController: UIViewController {
-    var answerView = UIView()
-    let content = CorrectAnswerView()
+    private var answerView = UIView()
+    private let content = CorrectAnswerView()
     
-    lazy var underScreenConstraint = answerView.topAnchor.constraint(equalTo: view.bottomAnchor)
-    lazy var onScreenConstraint = answerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+    private lazy var underScreenConstraint = answerView.topAnchor.constraint(equalTo: view.bottomAnchor)
+    private lazy var onScreenConstraint = answerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
     
-    let presenter: CorrectAnswerPopupViewOutput
+    private let presenter: CorrectAnswerPopupViewOutput
     
     init(presenter: CorrectAnswerPopupViewOutput) {
         self.presenter = presenter
@@ -75,7 +75,7 @@ class CorrectAnswerViewController: UIViewController {
         moveIn()
     }
     
-    func activateOnScreenConstraint(_ onScreen: Bool) {
+    private func activateOnScreenConstraint(_ onScreen: Bool) {
         underScreenConstraint.isActive = !onScreen
         onScreenConstraint.isActive = onScreen
     }
@@ -89,7 +89,7 @@ class CorrectAnswerViewController: UIViewController {
         presenter.playAudioTapped()
     }
     
-    func moveIn() {
+    private func moveIn() {
         self.view.alpha = 0.0
         
         UIView.animate(withDuration: 0.24) {
@@ -99,7 +99,7 @@ class CorrectAnswerViewController: UIViewController {
         }
     }
     
-    func moveOut() {
+    private func moveOut() {
         UIView.animate(withDuration: 0.24, animations: {
             self.view.transform = CGAffineTransform(scaleX: 1.35, y: 1.35)
             self.view.alpha = 0.0

@@ -9,9 +9,9 @@
 import UIKit
 
 class TranslationPairCell: UITableViewCell {
-    let roundedBackgroundView = RoundedBackgroundView()
-    let topLabels = DoubleLabel(multiline: true)
-    let bottomLabels = DoubleLabel(multiline: true)
+    private let roundedBackgroundView = RoundedBackgroundView()
+    private let topLabels = DoubleLabel(multiline: true)
+    private let bottomLabels = DoubleLabel(multiline: true)
     
     var viewModel: TranslationPairViewModel? {
         didSet {

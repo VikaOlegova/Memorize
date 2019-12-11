@@ -10,12 +10,13 @@ import UIKit
 
 class AllWordsPresenter {
     weak var view: AllWordsViewInput!
-    var translationPairs = [TranslationPair]()
+    private var translationPairs = [TranslationPair]()
     
     private func fillAllTranslationPairs() {
         let coreData = CoreDataService()
         coreData.fetchTranslationPairs(of: .allPairs) { [weak self] in
             self?.translationPairs = $0
+            self?.view.showPlaceholder(isHidden: !$0.isEmpty)
             self?.showAllPairs()
         }
     }
@@ -32,8 +33,11 @@ class AllWordsPresenter {
 }
 
 extension AllWordsPresenter: AllWordsViewOutput {
-    func didDelete(pair: TranslationPairViewModel) {
+    func didDelete(pair: TranslationPairViewModel, allPairsCount: Int) {
+        let coreData = CoreDataService()
+        coreData.deleteTranslationPair(originalWord: pair.firstWord, translatedWord: pair.secondWord) { }
         
+        view.showPlaceholder(isHidden: allPairsCount != 0)
     }
     
     func viewDidLoad() { }
@@ -55,5 +59,9 @@ extension AllWordsPresenter: AllWordsViewOutput {
             return
         }
         Router.shared.showEdit(translationPair: notNilPair)
+    }
+    
+    func createButtonTapped() {
+        Router.shared.showCreatePair()
     }
 }

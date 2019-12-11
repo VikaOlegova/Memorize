@@ -23,10 +23,10 @@ protocol MainMenuViewOutput: class {
 }
 
 class MainMenuViewController: UIViewController {
-    let repeatWordsButton = MainMenuButton()
-    let allWordsButton = MainMenuButton()
+    private let repeatWordsButton = MainMenuButton()
+    private let allWordsButton = MainMenuButton()
     
-    let presenter: MainMenuViewOutput
+    private let presenter: MainMenuViewOutput
     
     init(presenter: MainMenuViewOutput) {
         self.presenter = presenter

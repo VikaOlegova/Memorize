@@ -17,7 +17,7 @@ class GoogleImageService {
         let link: String
     }
     
-    let networkService = NetworkService()
+    private let networkService = NetworkService()
     
     func loadImageList(searchString: String,
                                completion: @escaping ([GoogleImage]) -> ()) {
@@ -26,7 +26,6 @@ class GoogleImageService {
         
         let url = GoogleImageAPI.searchPath(text: searchString)
         networkService.getData(at: url) { data in
-            print(String(data: data!, encoding: .utf8))
             guard let data = data,
                 let parsed = try? JSONDecoder().decode(ResponseData.self, from: data)
                 else {

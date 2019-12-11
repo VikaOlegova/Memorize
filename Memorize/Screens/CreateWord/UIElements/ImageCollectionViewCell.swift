@@ -9,8 +9,8 @@
 import UIKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
-    let imageView: UIImageView
-    let spinner: UIActivityIndicatorView
+    private let imageView: UIImageView
+    private let spinner: UIActivityIndicatorView
     
     override init(frame: CGRect) {
         imageView = UIImageView(frame: frame)

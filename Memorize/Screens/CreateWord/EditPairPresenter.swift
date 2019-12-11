@@ -11,11 +11,11 @@ import UIKit
 class EditPairPresenter {
     weak var view: EditPairViewInput!
     private var translationPair: TranslationPair?
-    var isCreating = true
-    var fromLanguage: Language = .EN
-    var toLanguage: Language = .RU
-    let googleImageService = GoogleImageService()
-    var images = [ImageCollectionViewCellData]()
+    private var isCreating = true
+    private var fromLanguage: Language = .EN
+    private var toLanguage: Language = .RU
+    private let googleImageService = GoogleImageService()
+    private var images = [ImageCollectionViewCellData]()
     
     func edit(translationPair: TranslationPair) {
         self.translationPair = translationPair
@@ -130,7 +130,10 @@ extension EditPairPresenter: EditPairViewOutput {
                     translatedWord: String?,
                     reverseTranslationEnabled: Bool,
                     image: UIImage?) {
-        guard let originalWord = originalWord, let translatedWord = translatedWord else {
+        guard let originalWord = originalWord,
+            let translatedWord = translatedWord,
+            !originalWord.isEmpty,
+            !translatedWord.isEmpty else {
             view.showAlert(title: "Вы заполнили не все обязательные поля!")
             return
         }

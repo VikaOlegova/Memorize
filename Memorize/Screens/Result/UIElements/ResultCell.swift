@@ -9,9 +9,9 @@
 import UIKit
 
 class ResultCell: UITableViewCell {
-    let roundedBackgroundView = RoundedBackgroundView()
-    let wordLabel = UILabel()
-    let rightImageView = UIImageView()
+    private let roundedBackgroundView = RoundedBackgroundView()
+    private let wordLabel = UILabel()
+    private let rightImageView = UIImageView()
     
     var viewModel: ResultViewModel? {
         didSet {

@@ -9,7 +9,7 @@
 import UIKit
 
 class MainMenuButton: UIButton {
-    let roundedBackgroundView = RoundedBackgroundView()
+    private let roundedBackgroundView = RoundedBackgroundView()
     let doubleLabel = DoubleLabel()
     
     convenience init() {

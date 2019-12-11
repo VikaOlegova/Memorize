@@ -15,8 +15,8 @@ enum ResultScreenType {
 
 class ResultPresenter {
     weak var view: ResultViewInput!
-    let words: [TranslationPair]
-    let resultScreenType: ResultScreenType
+    private let words: [TranslationPair]
+    private let resultScreenType: ResultScreenType
     
     init(resultScreenType: ResultScreenType) {
         self.resultScreenType = resultScreenType
@@ -32,7 +32,7 @@ class ResultPresenter {
         }
     }
     
-    func fillView() {
+    private func fillView() {
         var viewModels = [ResultViewModel]()
         let image: UIImage
         

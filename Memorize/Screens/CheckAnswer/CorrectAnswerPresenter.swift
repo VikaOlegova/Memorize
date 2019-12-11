@@ -11,11 +11,11 @@ import AVFoundation
 
 class CorrectAnswerPresenter {
     weak var view: CorrectAnswerPopupViewInput!
-    let isCorrect: Bool
-    let correctTranslation: String
-    let correctTranslationLanguage: Language
-    let synthesizer = AVSpeechSynthesizer()
-    let didTapNextCallback: (() -> ())
+    private let isCorrect: Bool
+    private let correctTranslation: String
+    private let correctTranslationLanguage: Language
+    private let synthesizer = AVSpeechSynthesizer()
+    private let didTapNextCallback: (() -> ())
     
     init(isCorrect: Bool, correctTranslation: String,
          correctTranslationLanguage: Language,

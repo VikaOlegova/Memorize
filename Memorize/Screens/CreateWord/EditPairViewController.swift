@@ -32,19 +32,19 @@ protocol EditPairViewOutput: class {
 }
 
 class EditPairViewController: UIViewController {
-    let stackView = UIStackView()
-    let originalView = TitleTextFieldView()
-    let fromToButton = UIButton()
-    let checkBoxView = TitleCheckboxView()
-    let translationView = TitleTextFieldView()
-    let collectionView: UICollectionView
-    let flowLayout: UICollectionViewFlowLayout
+    private let stackView = UIStackView()
+    private let originalView = TitleTextFieldView()
+    private let fromToButton = UIButton()
+    private let checkBoxView = TitleCheckboxView()
+    private let translationView = TitleTextFieldView()
+    private let collectionView: UICollectionView
+    private let flowLayout: UICollectionViewFlowLayout
     
-    let saveButton = BigGreenButton()
-    var images = [ImageCollectionViewCellData]()
+    private let saveButton = BigGreenButton()
+    private var images = [ImageCollectionViewCellData]()
     
-    var searchWorkItem = DispatchWorkItem(block: { })
-    let presenter: EditPairViewOutput
+    private var searchWorkItem = DispatchWorkItem(block: { })
+    private let presenter: EditPairViewOutput
     
     private var currentImageCell: ImageCollectionViewCellData?
     

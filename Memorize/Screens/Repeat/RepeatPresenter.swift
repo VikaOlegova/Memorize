@@ -12,22 +12,22 @@ import AVFoundation
 class RepeatPresenter {
     weak var view: RepeatViewInput!
     
-    var translationPairs: [TranslationPair]
-    var currentTranslationPair: TranslationPair = TranslationPair.empty
-    var mistakeCounter = 0
-    var translationCounter = 0
-    var showKeyboardWorkItem: DispatchWorkItem?
-    let isMistakes: Bool
-    let synthesizer = AVSpeechSynthesizer()
+    private var translationPairs: [TranslationPair]
+    private var currentTranslationPair: TranslationPair = TranslationPair.empty
+    private var mistakeCounter = 0
+    private var translationCounter = 0
+    private var showKeyboardWorkItem: DispatchWorkItem?
+    private let isMistakes: Bool
+    private let synthesizer = AVSpeechSynthesizer()
     
-    let coreData = CoreDataService()
+    private let coreData = CoreDataService()
     
     init(isMistakes: Bool) {
         self.isMistakes = isMistakes
         translationPairs = isMistakes ? TranslationSession.shared.mistakes.shuffled() : TranslationSession.shared.repeatPairs
     }
     
-    func showNextQuestion() -> Bool {
+    private func showNextQuestion() -> Bool {
         guard translationCounter < translationPairs.count else { return false}
         
         currentTranslationPair = translationPairs[translationCounter]
@@ -58,7 +58,7 @@ class RepeatPresenter {
         return true
     }
     
-    func showResultScreen() {
+    private func showResultScreen() {
         Router.shared.showResult(resultScreenType: isMistakes ? .mistakesCorrectionEnded : .repeatingEnded(withMistakes: !TranslationSession.shared.mistakes.isEmpty))
     }
 }

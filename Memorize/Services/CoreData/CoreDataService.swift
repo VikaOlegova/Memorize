@@ -120,7 +120,7 @@ class CoreDataService {
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
             
             if type == .repeatPairs {
-                request.predicate = NSPredicate(format: "nextShowDate <= %@", Date().dateOnly as NSDate)
+//                request.predicate = NSPredicate(format: "nextShowDate <= %@", Date().dateOnly as NSDate)
             }
             
             do {
@@ -143,7 +143,7 @@ class CoreDataService {
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
             
             if type == .repeatPairs {
-                request.predicate = NSPredicate(format: "nextShowDate <= %@", Date().dateOnly as NSDate)
+//                request.predicate = NSPredicate(format: "nextShowDate <= %@", Date().dateOnly as NSDate)
             }
             
             request.returnsObjectsAsFaults = false
@@ -244,17 +244,22 @@ class CoreDataService {
                                translatedWord: String,
                                completion: @escaping () -> ()) {
         appDelegate.persistentContainer.performBackgroundTask { (context) in
-                defer {
-                    DispatchQueue.main.async {
-                        completion()
-                    }
+            defer {
+                DispatchQueue.main.async {
+                    completion()
                 }
+            }
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
             request.predicate = NSPredicate(format: "originalWord = %@ AND translatedWord = %@",
                                             argumentArray: [originalWord, translatedWord])
             do {
                 if let result = try context.fetch(request).first {
                     context.delete(result)
+                }
+                do {
+                    try context.save()
+                } catch {
+                    print("Storing data Failed")
                 }
             } catch {
                 print("Fetching data Failed")
