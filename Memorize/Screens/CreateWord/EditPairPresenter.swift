@@ -20,13 +20,16 @@ class EditPairPresenter {
     private let coreData: CoreDataServiceProtocol
     private let imageService: ImageServiceProtocol
     private let translateService: TranslateServiceProtocol
+    private let router: RouterProtocol
     
     init(coreData: CoreDataServiceProtocol,
          imageService: ImageServiceProtocol,
-         translateService: TranslateServiceProtocol) {
+         translateService: TranslateServiceProtocol,
+         router: RouterProtocol) {
         self.coreData = coreData
         self.imageService = imageService
         self.translateService = translateService
+        self.router = router
     }
     
     /// Заполняет данные о пришедшем слове для редактирования
@@ -136,11 +139,11 @@ extension EditPairPresenter: EditPairViewOutput {
                 let translatedWord = translatedWord,
                 !originalWord.isEmpty,
                 !translatedWord.isEmpty else {
-            Router.shared.showAlert(title: "Вы заполнили не все обязательные поля!")
+            router.showAlert(title: "Вы заполнили не все обязательные поля!", completion: nil)
             return
         }
         guard originalWord != translatedWord else {
-            Router.shared.showAlert(title: "Слово и его перевод не могут быть одинаковыми!")
+            router.showAlert(title: "Слово и его перевод не могут быть одинаковыми!", completion: nil)
             return
         }
         
@@ -155,13 +158,13 @@ extension EditPairPresenter: EditPairViewOutput {
             self?.view?.enableGreenButton(enable: true)
             switch result {
             case .firstFailed:
-                Router.shared.showAlert(title: "Такое слово уже существует!")
+                self?.router.showAlert(title: "Такое слово уже существует!", completion: nil)
             case .secondFailed:
-                Router.shared.returnBack(completion: {
-                    Router.shared.showAlert(title: "Обратное слово уже существует! Сохранилась только оригинальная пара!")
+                self?.router.returnBack(completion: {
+                    self?.router.showAlert(title: "Обратное слово уже существует! Сохранилась только оригинальная пара!", completion: nil)
                 })
             case .success:
-                Router.shared.returnBack()
+                self?.router.returnBack(completion: nil)
             }
         }
         

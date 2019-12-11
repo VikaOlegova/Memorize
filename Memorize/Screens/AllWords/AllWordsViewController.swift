@@ -54,7 +54,7 @@ class AllWordsViewController: UIViewController {
     private let tableView = UITableView(frame: .zero, style: .plain)
     private var data = [TranslationPairViewModel]()
     
-    private let presenter: AllWordsViewOutput
+    let presenter: AllWordsViewOutput
     
     init(presenter: AllWordsViewOutput) {
         self.presenter = presenter

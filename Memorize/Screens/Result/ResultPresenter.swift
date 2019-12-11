@@ -23,18 +23,24 @@ class ResultPresenter {
     weak var view: ResultViewInput?
     private let words: [TranslationPair]
     private let resultScreenType: ResultScreenType
+    private let repeatingSession: RepeatingSessionProtocol
+    private let router: RouterProtocol
     
-    init(resultScreenType: ResultScreenType) {
+    init(resultScreenType: ResultScreenType,
+         repeatingSession: RepeatingSessionProtocol,
+         router: RouterProtocol) {
         self.resultScreenType = resultScreenType
+        self.repeatingSession = repeatingSession
+        self.router = router
         
         switch resultScreenType {
         case .repeatingEnded(withMistakes: false):
-            words = RepeatingSession.shared.answeredPairs
+            words = self.repeatingSession.answeredPairs
         case .repeatingEnded(withMistakes: true):
-            words = RepeatingSession.shared.mistakes
+            words = self.repeatingSession.mistakes
         case .mistakesCorrectionEnded:
-            words = RepeatingSession.shared.mistakes
-            RepeatingSession.shared.resetMistakes()
+            words = self.repeatingSession.mistakes
+            self.repeatingSession.resetMistakes()
         }
     }
     
@@ -69,9 +75,9 @@ extension ResultPresenter: ResultViewOutput {
     func didTapGreenButton() {
         switch resultScreenType {
         case .repeatingEnded(withMistakes: true):
-            Router.shared.showMistakes()
+            router.showMistakes()
         default:
-            RepeatingSession.shared.repeatPairs.isEmpty ? Router.shared.returnToMainMenu() : Router.shared.closeResult()
+            repeatingSession.repeatPairs.isEmpty ? router.returnToMainMenu() : router.closeResult()
         }
     }
     

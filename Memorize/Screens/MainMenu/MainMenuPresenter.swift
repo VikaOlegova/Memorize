@@ -15,8 +15,8 @@ class MainMenuPresenter {
     var repeatWordsCount = 0
     var allWordsCount = 0
     private let coreData: CoreDataServiceProtocol
-    private weak var router: RouterProtocol?
-    private weak var session: RepeatingSessionProtocol?
+    private let router: RouterProtocol
+    private let session: RepeatingSessionProtocol
     
     init(coreData: CoreDataServiceProtocol,
          router: RouterProtocol,
@@ -46,25 +46,25 @@ extension MainMenuPresenter: MainMenuViewOutput {
     func repeatWordsButtonTapped() {
         guard repeatWordsCount != 0 else {
             guard allWordsCount != 0 else {
-                router?.showAlert(title: "Сначала добавьте слова;)", completion: { [weak self] in
-                    self?.router?.showCreatePair()
+                router.showAlert(title: "Сначала добавьте слова;)", completion: { [weak self] in
+                    self?.router.showCreatePair()
                 })
                 return
             }
-            router?.showAlert(title: "На сегодня все!", completion: nil)
+            router.showAlert(title: "На сегодня все!", completion: nil)
             return
         }
         view?.enableInteraction(false)
-        session?.resetMistakes()
-        session?.resetAnsweredPairs()
-        session?.load { [weak self] in
-            self?.router?.showRepeat(isMistakes: false)
+        session.resetMistakes()
+        session.resetAnsweredPairs()
+        session.load { [weak self] in
+            self?.router.showRepeat(isMistakes: false)
             self?.view?.enableInteraction(true)
         }
     }
     
     /// Направляет на экран со всеми словами
     func allWordsButtonTapped() {
-        router?.showAllWords()
+        router.showAllWords()
     }
 }

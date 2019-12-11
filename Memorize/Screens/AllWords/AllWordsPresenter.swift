@@ -12,18 +12,23 @@ import UIKit
 class AllWordsPresenter {
     /// Слабая ссылка на вью экрана всех слов
     weak var view: AllWordsViewInput?
-    private var translationPairs = [TranslationPair]()
-    private let coreData: CoreDataServiceProtocol
+    var translationPairs = [TranslationPair]()
+    let coreData: CoreDataServiceProtocol
+    private let router: RouterProtocol
     
-    init(coreData: CoreDataServiceProtocol) {
+    init(coreData: CoreDataServiceProtocol, router: RouterProtocol) {
         self.coreData = coreData
+        self.router = router
     }
     
     private func fillAllTranslationPairs() {
         coreData.fetchTranslationPairs(of: .allPairs) { [weak self] in
             self?.translationPairs = $0
-            self?.view?.showPlaceholder(isHidden: !$0.isEmpty)
-            self?.showAllPairs()
+            let hasPairs = !$0.isEmpty
+            self?.view?.showPlaceholder(isHidden: hasPairs)
+            if hasPairs {
+                self?.showAllPairs()
+            }
         }
     }
     
@@ -38,7 +43,7 @@ class AllWordsPresenter {
     }
     
     private func goToCreateScreen() {
-        Router.shared.showCreatePair()
+        router.showCreatePair()
     }
 }
 
@@ -73,9 +78,8 @@ extension AllWordsPresenter: AllWordsViewOutput {
             return translationPair.originalWord == pair.originalWord
         }
         guard let notNilPair = translationPair else {
-            print("Невозможная ошибка: не найдена нужная пара в массиве всех слов")
             return
         }
-        Router.shared.showEdit(translationPair: notNilPair)
+        router.showEdit(translationPair: notNilPair)
     }
 }

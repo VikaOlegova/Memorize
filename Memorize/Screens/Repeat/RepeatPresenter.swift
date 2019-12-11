@@ -23,14 +23,21 @@ class RepeatPresenter {
     private let synthesizer = AVSpeechSynthesizer()
     
     private let coreData: CoreDataServiceProtocol
+    private let repeatingSession: RepeatingSessionProtocol
+    private let router: RouterProtocol
     
-    init(coreData: CoreDataServiceProtocol, isMistakes: Bool) {
+    init(coreData: CoreDataServiceProtocol,
+         repeatingSession: RepeatingSessionProtocol,
+         router: RouterProtocol,
+         isMistakes: Bool) {
         self.coreData = coreData
+        self.repeatingSession = repeatingSession
+        self.router = router
         self.isMistakes = isMistakes
         if !isMistakes {
-            RepeatingSession.shared.shuffleRepeatPairs()
+            self.repeatingSession.shuffleRepeatPairs()
         }
-        translationPairs = isMistakes ? RepeatingSession.shared.mistakes.shuffled() : RepeatingSession.shared.repeatPairs
+        translationPairs = isMistakes ? self.repeatingSession.mistakes.shuffled() : self.repeatingSession.repeatPairs
     }
     
     private func showNextQuestion() -> Bool {
@@ -65,7 +72,7 @@ class RepeatPresenter {
     }
     
     private func showResultScreen() {
-        Router.shared.showResult(resultScreenType: isMistakes ? .mistakesCorrectionEnded : .repeatingEnded(withMistakes: !RepeatingSession.shared.mistakes.isEmpty))
+        router.showResult(resultScreenType: isMistakes ? .mistakesCorrectionEnded : .repeatingEnded(withMistakes: !repeatingSession.mistakes.isEmpty))
     }
 }
 
@@ -90,22 +97,22 @@ extension RepeatPresenter: RepeatViewOutput {
         synthesizer.stopSpeaking(at: .immediate)
         let isCorrect = currentTranslationPair.translatedWord.isAlmostEqual(to: enteredTranslation)
         if !isMistakes {
-            RepeatingSession.shared.addAnsweredPair(pair: currentTranslationPair)
-            RepeatingSession.shared.removeFirstPairFromRepeatPairs()
+            repeatingSession.addAnsweredPair(pair: currentTranslationPair)
+            repeatingSession.removeFirstPairFromRepeatPairs()
             coreData.updateCounterAndDate(originalWord: currentTranslationPair.originalWord,
                                           isMistake: !isCorrect) { }
             if !isCorrect {
                 mistakeCounter += 1
-                RepeatingSession.shared.addMistake(mistake: currentTranslationPair)
+                repeatingSession.addMistake(mistake: currentTranslationPair)
             }
         }
-        Router.shared.showCorrectAnswer(isCorrect: isCorrect,
+        router.showCorrectAnswer(isCorrect: isCorrect,
                                         correctTranslation: currentTranslationPair.translatedWord,
                                         correctTranslationLanguage: currentTranslationPair.translatedLanguage) { [weak self] in
                                             guard let weakSelf = self else { return }
                                             if weakSelf.isMistakes, !isCorrect {
                                                 weakSelf.translationCounter = 0
-                                                weakSelf.translationPairs = RepeatingSession.shared.mistakes.shuffled()
+                                                weakSelf.translationPairs = weakSelf.repeatingSession.mistakes.shuffled()
                                             }
                                             if !weakSelf.showNextQuestion() {
                                                 weakSelf.showResultScreen()
@@ -148,7 +155,7 @@ extension RepeatPresenter: RepeatViewOutput {
     /// Обновляет счетчик ошибок
     func viewWillAppear() {
         if !isMistakes {
-            mistakeCounter = RepeatingSession.shared.mistakes.count
+            mistakeCounter = repeatingSession.mistakes.count
             view?.show(mistakeCount: mistakeCounter)
         }
     }

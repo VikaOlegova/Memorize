@@ -9,7 +9,7 @@
 import Foundation
 
 /// Модель данных для ячейки таблицы экрана со всеми словами
-class TranslationPairViewModel {
+class TranslationPairViewModel: Equatable {
     /// Слово
     let originalWord: String
     
@@ -27,5 +27,12 @@ class TranslationPairViewModel {
         self.originalWordLanguage = originalWordLanguage
         self.translatedWord = translatedWord
         self.translatedWordLanguage = translatedWordLanguage
+    }
+    
+    static func == (lhs: TranslationPairViewModel, rhs: TranslationPairViewModel) -> Bool {
+        return lhs.originalWord == rhs.originalWord &&
+            lhs.originalWordLanguage == rhs.originalWordLanguage &&
+            lhs.translatedWord == rhs.translatedWord &&
+            lhs.translatedWordLanguage == rhs.translatedWordLanguage
     }
 }

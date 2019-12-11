@@ -31,8 +31,14 @@ class CoreDataServiceMock: CoreDataServiceProtocol {
         }
     }
     
+    var stubbedOutTranslationPairs = [TranslationPair]()
     func fetchTranslationPairs(of type: TranslationPairType, completion: @escaping ([TranslationPair]) -> ()) {
-        fatalError()
+        switch type {
+        case .allPairs:
+            completion(stubbedOutTranslationPairs)
+        default:
+            completion([])
+        }
     }
     
     func updateTranslationPair(oldOriginalWord: String, newOriginalWord: String, newTranslatedWord: String, image: UIImage?, completion: @escaping () -> ()) {
@@ -43,13 +49,19 @@ class CoreDataServiceMock: CoreDataServiceProtocol {
         fatalError()
     }
     
+    var deleteTranslationPairCounter = 0
     func deleteTranslationPair(originalWord: String, completion: @escaping () -> ()) {
-        fatalError()
+        deleteTranslationPairCounter += 1
+        completion()
     }
     
     func verify(allPairsCounter: Int = 0,
-                repeatPairsCounter: Int = 0) {
+                repeatPairsCounter: Int = 0,
+                deleteTranslationPairCounter: Int = 0,
+                stubbedOutTranslationPairs: [TranslationPair] = []) {
         XCTAssertEqual(self.allPairsCounter, allPairsCounter)
         XCTAssertEqual(self.repeatPairsCounter, repeatPairsCounter)
+        XCTAssertEqual(self.deleteTranslationPairCounter, deleteTranslationPairCounter)
+        XCTAssertEqual(self.stubbedOutTranslationPairs, stubbedOutTranslationPairs)
     }
 }

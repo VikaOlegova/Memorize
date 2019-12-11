@@ -26,7 +26,7 @@ enum Language: String {
 }
 
 /// Слово с переводом
-class TranslationPair {
+class TranslationPair: Equatable {
     /// Слово
     var originalWord: String
     
@@ -57,5 +57,12 @@ class TranslationPair {
         self.originalLanguage = originalLanguage
         self.translatedLanguage = translatedLanguage
         self.image = image
+    }
+    
+    static func == (lhs: TranslationPair, rhs: TranslationPair) -> Bool {
+        return lhs.originalWord == rhs.originalWord &&
+            lhs.originalLanguage == rhs.originalLanguage &&
+            lhs.translatedWord == rhs.translatedWord &&
+            lhs.translatedLanguage == lhs.translatedLanguage
     }
 }

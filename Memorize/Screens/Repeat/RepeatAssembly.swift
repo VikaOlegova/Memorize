@@ -12,7 +12,10 @@ import UIKit
 class RepeatAssembly {
     func create(isMistakes: Bool) -> UIViewController {
         let coreData = CoreDataService()
-        let presenter = RepeatPresenter(coreData: coreData, isMistakes: isMistakes)
+        let presenter = RepeatPresenter(coreData: coreData,
+                                        repeatingSession: RepeatingSession.shared,
+                                        router: Router.shared,
+                                        isMistakes: isMistakes)
         let viewController = RepeatViewController(presenter: presenter)
         
         presenter.view = viewController

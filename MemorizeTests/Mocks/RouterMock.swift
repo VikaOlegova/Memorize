@@ -29,8 +29,9 @@ class RouterMock: RouterProtocol {
         showCreatePairCounter += 1
     }
     
+    var showEditTranslationPairCounter = [TranslationPair]()
     func showEdit(translationPair: TranslationPair) {
-        fatalError()
+        showEditTranslationPairCounter.append(translationPair)
     }
     
     func showCorrectAnswer(isCorrect: Bool, correctTranslation: String, correctTranslationLanguage: Language, didTapNextCallback: @escaping () -> ()) {
@@ -66,10 +67,12 @@ class RouterMock: RouterProtocol {
     func verify(showRepeatArguments: [Bool] = [],
                 showCreatePairCounter: Int = 0,
                 showAlertArguments: [String] = [],
-                showAllWordsCounter: Int = 0) {
+                showAllWordsCounter: Int = 0,
+                showEditTranslationPairCounter: [TranslationPair] = []) {
         XCTAssertEqual(self.showRepeatArguments, showRepeatArguments)
         XCTAssertEqual(self.showCreatePairCounter, showCreatePairCounter)
         XCTAssertEqual(self.showAlertArguments, showAlertArguments)
         XCTAssertEqual(self.showAllWordsCounter, showAllWordsCounter)
+        XCTAssertEqual(self.showEditTranslationPairCounter, showEditTranslationPairCounter)
     }
 }

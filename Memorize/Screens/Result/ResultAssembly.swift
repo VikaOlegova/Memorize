@@ -11,7 +11,9 @@ import UIKit
 /// Собирает все зависимости для экрана результата
 class ResultAssembly {
     func create(resultScreenType: ResultScreenType) -> UIViewController {
-        let presenter = ResultPresenter(resultScreenType: resultScreenType)
+        let presenter = ResultPresenter(resultScreenType: resultScreenType,
+                                        repeatingSession: RepeatingSession.shared,
+                                        router: Router.shared)
         let viewController = ResultViewController(presenter: presenter)
         
         presenter.view = viewController

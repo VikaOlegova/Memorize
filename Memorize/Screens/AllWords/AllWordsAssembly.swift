@@ -12,7 +12,7 @@ import UIKit
 class AllWordsAssembly {
     func create() -> UIViewController {
         let coreData = CoreDataService()
-        let presenter = AllWordsPresenter(coreData: coreData)
+        let presenter = AllWordsPresenter(coreData: coreData, router: Router.shared)
         let viewController = AllWordsViewController(presenter: presenter)
         
         presenter.view = viewController
