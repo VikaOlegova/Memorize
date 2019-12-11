@@ -22,7 +22,7 @@ class RepeatPresenter {
     private let isMistakes: Bool
     private let synthesizer = AVSpeechSynthesizer()
     
-    private let coreData: CoreDataServiceProtocol
+    let coreData: CoreDataServiceProtocol
     private let repeatingSession: RepeatingSessionProtocol
     private let router: RouterProtocol
     

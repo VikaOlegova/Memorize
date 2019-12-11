@@ -1,5 +1,5 @@
 //
-//  AllWordsAssemblyTests.swift
+//  MainManuAssemblyTests.swift
 //  MemorizeTests
 //
 //  Created by Вика on 11/12/2019.
@@ -8,14 +8,14 @@
 
 import XCTest
 
-class AllWordsAssemblyTests: XCTestCase {
+class MainMenuAssemblyTests: XCTestCase {
     
-    var assembly: AllWordsAssembly!
+    var assembly: MainMenuAssembly!
     
     override func setUp() {
         super.setUp()
         
-        assembly = AllWordsAssembly()
+        assembly = MainMenuAssembly()
     }
     
     override func tearDown() {
@@ -24,12 +24,12 @@ class AllWordsAssemblyTests: XCTestCase {
         super.tearDown()
     }
     
-    func testThatAssemblyCreatesAllWordsScreen() {
+    func testThatAssemblyCreatesMainMenuScreen() {
         // act
-        let view = assembly.create() as! AllWordsViewController
+        let view = assembly.create() as! MainMenuViewController
         
         // assert
-        let presenter = view.presenter as! AllWordsPresenter
+        let presenter = view.presenter as! MainMenuPresenter
         let coreData = presenter.coreData as! CoreDataService
         
         XCTAssertNotNil(presenter)

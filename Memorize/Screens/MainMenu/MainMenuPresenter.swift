@@ -14,7 +14,7 @@ class MainMenuPresenter {
     weak var view: MainMenuViewInput?
     var repeatWordsCount = 0
     var allWordsCount = 0
-    private let coreData: CoreDataServiceProtocol
+    let coreData: CoreDataServiceProtocol
     private let router: RouterProtocol
     private let session: RepeatingSessionProtocol
     

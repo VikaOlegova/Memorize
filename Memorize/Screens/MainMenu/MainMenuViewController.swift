@@ -46,7 +46,7 @@ class MainMenuViewController: UIViewController {
     private let repeatWordsButton = MainMenuButton()
     private let allWordsButton = MainMenuButton()
     
-    private let presenter: MainMenuViewOutput
+    let presenter: MainMenuViewOutput
     
     init(presenter: MainMenuViewOutput) {
         self.presenter = presenter

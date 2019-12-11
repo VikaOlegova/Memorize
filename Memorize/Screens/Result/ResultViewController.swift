@@ -41,7 +41,7 @@ class ResultViewController: UIViewController {
     private let greenButton = BigGreenButton()
     private var data = [ResultViewModel]()
     
-    private let presenter: ResultViewOutput
+    let presenter: ResultViewOutput
     
     init(presenter: ResultViewOutput) {
         self.presenter = presenter

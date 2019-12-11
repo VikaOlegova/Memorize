@@ -41,7 +41,7 @@ class CorrectAnswerViewController: UIViewController {
     private lazy var underScreenConstraint = answerView.topAnchor.constraint(equalTo: view.bottomAnchor)
     private lazy var onScreenConstraint = answerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
     
-    private let presenter: CorrectAnswerPopupViewOutput
+    let presenter: CorrectAnswerPopupViewOutput
     
     init(presenter: CorrectAnswerPopupViewOutput) {
         self.presenter = presenter

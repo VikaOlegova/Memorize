@@ -98,7 +98,7 @@ class RepeatViewController: UIViewController {
     private let imageView = UIImageView()
     private let greenButton = BigGreenButton()
     
-    private let presenter: RepeatViewOutput
+    let presenter: RepeatViewOutput
     
     private var imageHeightConstraint: NSLayoutConstraint!
     

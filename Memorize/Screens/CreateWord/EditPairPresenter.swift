@@ -12,14 +12,14 @@ import UIKit
 class EditPairPresenter {
     /// Слабая ссылка на вью экрана создания\редактирования слова
     weak var view: EditPairViewInput?
-    private var translationPair: TranslationPair?
+    var translationPair: TranslationPair?
     private var isCreating = true
     private var fromLanguage: Language = .EN
     private var toLanguage: Language = .RU
     private var images = [ImageCollectionViewCellData]()
-    private let coreData: CoreDataServiceProtocol
-    private let imageService: ImageServiceProtocol
-    private let translateService: TranslateServiceProtocol
+    let coreData: CoreDataServiceProtocol
+    let imageService: ImageServiceProtocol
+    let translateService: TranslateServiceProtocol
     private let router: RouterProtocol
     
     init(coreData: CoreDataServiceProtocol,

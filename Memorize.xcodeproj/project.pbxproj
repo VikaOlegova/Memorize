@@ -43,6 +43,11 @@
 		3C40C52123A0BA2500354714 /* AllWordsPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C40C52023A0BA2500354714 /* AllWordsPresenterTests.swift */; };
 		3C40C52323A0D33A00354714 /* AllWordsViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C40C52223A0D33A00354714 /* AllWordsViewControllerMock.swift */; };
 		3C40C52523A10CDE00354714 /* AllWordsAssemblyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C40C52423A10CDE00354714 /* AllWordsAssemblyTests.swift */; };
+		3C40C52723A1284200354714 /* MainManuAssemblyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C40C52623A1284200354714 /* MainManuAssemblyTests.swift */; };
+		3C40C52923A1296500354714 /* EditPairAssemblyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C40C52823A1296500354714 /* EditPairAssemblyTests.swift */; };
+		3C40C52D23A12FA100354714 /* RepeatAssemblyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C40C52C23A12FA100354714 /* RepeatAssemblyTests.swift */; };
+		3C40C52F23A132C300354714 /* ResultAssemblyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C40C52E23A132C300354714 /* ResultAssemblyTests.swift */; };
+		3C40C53123A1343900354714 /* CorrectAnswerAssemblyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C40C53023A1343900354714 /* CorrectAnswerAssemblyTests.swift */; };
 		3C8E7459239E8F3500AD21C6 /* FlickrAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E7458239E8F3500AD21C6 /* FlickrAPI.swift */; };
 		3C8E745B239E941500AD21C6 /* FlickrService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E745A239E941500AD21C6 /* FlickrService.swift */; };
 		3C8E745D239EAE4900AD21C6 /* FacadeImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E745C239EAE4900AD21C6 /* FacadeImageService.swift */; };
@@ -169,6 +174,11 @@
 		3C40C52023A0BA2500354714 /* AllWordsPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllWordsPresenterTests.swift; sourceTree = "<group>"; };
 		3C40C52223A0D33A00354714 /* AllWordsViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllWordsViewControllerMock.swift; sourceTree = "<group>"; };
 		3C40C52423A10CDE00354714 /* AllWordsAssemblyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllWordsAssemblyTests.swift; sourceTree = "<group>"; };
+		3C40C52623A1284200354714 /* MainManuAssemblyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainManuAssemblyTests.swift; sourceTree = "<group>"; };
+		3C40C52823A1296500354714 /* EditPairAssemblyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPairAssemblyTests.swift; sourceTree = "<group>"; };
+		3C40C52C23A12FA100354714 /* RepeatAssemblyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatAssemblyTests.swift; sourceTree = "<group>"; };
+		3C40C52E23A132C300354714 /* ResultAssemblyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultAssemblyTests.swift; sourceTree = "<group>"; };
+		3C40C53023A1343900354714 /* CorrectAnswerAssemblyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectAnswerAssemblyTests.swift; sourceTree = "<group>"; };
 		3C8E7458239E8F3500AD21C6 /* FlickrAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrAPI.swift; sourceTree = "<group>"; };
 		3C8E745A239E941500AD21C6 /* FlickrService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrService.swift; sourceTree = "<group>"; };
 		3C8E745C239EAE4900AD21C6 /* FacadeImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacadeImageService.swift; sourceTree = "<group>"; };
@@ -253,6 +263,11 @@
 				3C049B0C238C715000F17697 /* MainMenuPresenterTests.swift */,
 				3C40C52023A0BA2500354714 /* AllWordsPresenterTests.swift */,
 				3C40C52423A10CDE00354714 /* AllWordsAssemblyTests.swift */,
+				3C40C52623A1284200354714 /* MainManuAssemblyTests.swift */,
+				3C40C52823A1296500354714 /* EditPairAssemblyTests.swift */,
+				3C40C52C23A12FA100354714 /* RepeatAssemblyTests.swift */,
+				3C40C52E23A132C300354714 /* ResultAssemblyTests.swift */,
+				3C40C53023A1343900354714 /* CorrectAnswerAssemblyTests.swift */,
 				3C049B0E238C715000F17697 /* Info.plist */,
 			);
 			path = MemorizeTests;
@@ -642,6 +657,7 @@
 				3CC4FA9523A080890052F052 /* EditPairPresenter.swift in Sources */,
 				3CC4FA9123A080890052F052 /* TitleCheckboxView.swift in Sources */,
 				3CC4FA8923A080890052F052 /* CorrectAnswerPresenter.swift in Sources */,
+				3C40C52923A1296500354714 /* EditPairAssemblyTests.swift in Sources */,
 				3CC4FA9323A080890052F052 /* ImageCollectionViewCellData.swift in Sources */,
 				3C40C52123A0BA2500354714 /* AllWordsPresenterTests.swift in Sources */,
 				3CC4FAAD23A0A15D0052F052 /* RepeatingSessionMock.swift in Sources */,
@@ -649,12 +665,14 @@
 				3CC4FA7C23A080890052F052 /* GoogleImageService.swift in Sources */,
 				3C40C52323A0D33A00354714 /* AllWordsViewControllerMock.swift in Sources */,
 				3CC4FA8F23A080890052F052 /* Router.swift in Sources */,
+				3C40C52F23A132C300354714 /* ResultAssemblyTests.swift in Sources */,
 				3CC4FA7F23A080890052F052 /* CoreDataService.swift in Sources */,
 				3CC4FA8B23A080890052F052 /* TranslationsAndMistakesCount.swift in Sources */,
 				3CC4FA7A23A080890052F052 /* FlickrService.swift in Sources */,
 				3CC4FA8723A080890052F052 /* CorrectAnswerView.swift in Sources */,
 				3CC4FA8223A080890052F052 /* ResultCell.swift in Sources */,
 				3CC4FA9023A080890052F052 /* CheckBox.swift in Sources */,
+				3C40C53123A1343900354714 /* CorrectAnswerAssemblyTests.swift in Sources */,
 				3CC4FA7723A080890052F052 /* ImageWithPath.swift in Sources */,
 				3CC4FA9423A080890052F052 /* EditPairViewController.swift in Sources */,
 				3CC4FA8C23A080890052F052 /* RepeatViewController.swift in Sources */,
@@ -662,6 +680,7 @@
 				3CC4FA9A23A080890052F052 /* MainMenuAssembly.swift in Sources */,
 				3CC4FAA123A080890052F052 /* TranslationPair.swift in Sources */,
 				3CC4FA8A23A080890052F052 /* CorrectAnswerAssembly.swift in Sources */,
+				3C40C52D23A12FA100354714 /* RepeatAssemblyTests.swift in Sources */,
 				3CC4FA9F23A080890052F052 /* AllWordsAssembly.swift in Sources */,
 				3CC4FA8523A080890052F052 /* ResultPresenter.swift in Sources */,
 				3CC4FA9823A080890052F052 /* MainMenuViewController.swift in Sources */,
@@ -680,6 +699,7 @@
 				3CC4FA8623A080890052F052 /* ResultAssembly.swift in Sources */,
 				3CC4FA8123A080890052F052 /* RepeatingSession.swift in Sources */,
 				3CC4FA7523A080890052F052 /* RoundedBackgroundView.swift in Sources */,
+				3C40C52723A1284200354714 /* MainManuAssemblyTests.swift in Sources */,
 				3CC4FAAB23A09AA80052F052 /* CoreDataServiceMock.swift in Sources */,
 				3CC4FA7223A080890052F052 /* BigGreenButton.swift in Sources */,
 				3CC4FA9B23A080890052F052 /* TranslationPairCell.swift in Sources */,

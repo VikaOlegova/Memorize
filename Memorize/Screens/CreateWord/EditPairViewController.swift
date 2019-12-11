@@ -100,7 +100,7 @@ class EditPairViewController: UIViewController {
     private var images = [ImageCollectionViewCellData]()
     
     private var searchWorkItem = DispatchWorkItem(block: { })
-    private let presenter: EditPairViewOutput
+    let presenter: EditPairViewOutput
     
     private var currentImageCell: ImageCollectionViewCellData?
     
