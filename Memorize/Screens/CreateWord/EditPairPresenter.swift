@@ -150,16 +150,19 @@ extension EditPairPresenter: EditPairViewOutput {
                                 originalLanguage: fromLanguage,
                                 translatedLanguage: toLanguage,
                                 image: image,
-                                completion: { completion(!reverseTranslationEnabled && $0) })
-            
-            if reverseTranslationEnabled {
-                saveTranslationPair(originalWord: translatedWord,
-                                    translatedWord: originalWord,
-                                    originalLanguage: toLanguage,
-                                    translatedLanguage: fromLanguage,
-                                    image: image,
-                                    completion: { completion($0) })
-            }
+                                completion: { [weak self] in
+                                    guard let weakSelf = self else { return }
+                                    if reverseTranslationEnabled && !$0 || !reverseTranslationEnabled{
+                                        completion($0)
+                                        return
+                                    }
+                                    weakSelf.saveTranslationPair(originalWord: translatedWord,
+                                                        translatedWord: originalWord,
+                                                        originalLanguage: weakSelf.toLanguage,
+                                                        translatedLanguage: weakSelf.fromLanguage,
+                                                        image: image,
+                                                        completion: { completion($0) })
+            })
         } else {
             updateTranslationPair(originalWord: originalWord,
                                   translatedWord: translatedWord,
