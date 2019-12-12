@@ -114,7 +114,7 @@ class CoreDataService {
                                 translatedLanguage: Language,
                                 image: UIImage?,
                                 completion: @escaping () -> ()) {
-        appDelegate.persistentContainer.performBackgroundTask { [weak self] (context) in
+        appDelegate.persistentContainer.performBackgroundTask { (context) in
             defer {
                 DispatchQueue.main.async {
                     completion()
@@ -137,7 +137,6 @@ class CoreDataService {
             print("Storing Data..")
             do {
                 try context.save()
-                self?.appDelegate.saveContext()
             } catch {
                 print("Storing data Failed")
             }
@@ -214,7 +213,7 @@ class CoreDataService {
                                newTranslatedWord: String,
                                image: UIImage?,
                                completion: @escaping () -> ()) {
-        appDelegate.persistentContainer.performBackgroundTask { [weak self] (context) in
+        appDelegate.persistentContainer.performBackgroundTask { (context) in
             defer {
                 DispatchQueue.main.async {
                     completion()
@@ -237,7 +236,6 @@ class CoreDataService {
                     
                     do {
                         try context.save()
-                        self?.appDelegate.saveContext()
                     } catch {
                         print("Storing data Failed")
                     }
@@ -257,7 +255,7 @@ class CoreDataService {
     func updateCounterAndDate(originalWord: String,
                               isMistake: Bool,
                               completion: @escaping () -> ()) {
-        appDelegate.persistentContainer.performBackgroundTask { [weak self] (context) in
+        appDelegate.persistentContainer.performBackgroundTask { (context) in
             defer {
                 DispatchQueue.main.async {
                     completion()
@@ -280,7 +278,6 @@ class CoreDataService {
                     
                     do {
                         try context.save()
-                        self?.appDelegate.saveContext()
                     } catch {
                         print("Storing data Failed")
                     }
@@ -298,7 +295,7 @@ class CoreDataService {
     ///   - completion: оповещает о конце выполнения функции
     func deleteTranslationPair(originalWord: String,
                                completion: @escaping () -> ()) {
-        appDelegate.persistentContainer.performBackgroundTask { [weak self] (context) in
+        appDelegate.persistentContainer.performBackgroundTask { (context) in
             defer {
                 DispatchQueue.main.async {
                     completion()
@@ -312,7 +309,6 @@ class CoreDataService {
                 }
                 do {
                     try context.save()
-                    self?.appDelegate.saveContext()
                 } catch {
                     print("Storing data Failed")
                 }
