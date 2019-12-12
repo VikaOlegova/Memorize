@@ -149,7 +149,7 @@ class CoreDataService {
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
             
             if type == .repeatPairs {
-//                request.predicate = NSPredicate(format: "nextShowDate <= %@", Date().dateOnly as NSDate)
+                request.predicate = NSPredicate(format: "nextShowDate <= %@", Date().dateOnly as NSDate)
             }
             
             do {
@@ -177,7 +177,7 @@ class CoreDataService {
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
             
             if type == .repeatPairs {
-//                request.predicate = NSPredicate(format: "nextShowDate <= %@", Date().dateOnly as NSDate)
+                request.predicate = NSPredicate(format: "nextShowDate <= %@", Date().dateOnly as NSDate)
             }
             
             request.returnsObjectsAsFaults = false
@@ -316,4 +316,38 @@ class CoreDataService {
             }
         }
     }
+    
+//    private func perform<ObjectType>(fetchRequest: NSFetchRequest<ObjectType>,
+//                                     process: @escaping ([ObjectType])->(),
+//                                     completion: (()->())? = nil) {
+//        appDelegate.persistentContainer.performBackgroundTask { [weak self] (context) in
+//            do {
+//                let result = try context.fetch(fetchRequest)
+//                process(result)
+//                do {
+//                    if context.hasChanges {
+//                        try context.save()
+//                        self?.appDelegate.saveContext()
+//                    }
+//
+//                    DispatchQueue.main.async {
+//                        completion?()
+//                    }
+//
+//                } catch {
+//                    print("Storing data Failed")
+//
+//                    DispatchQueue.main.async {
+//                        completion?()
+//                    }
+//                }
+//            } catch {
+//                print("Fetching data Failed")
+//
+//                DispatchQueue.main.async {
+//                    completion?()
+//                }
+//            }
+//        }
+//    }
 }
