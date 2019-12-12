@@ -38,13 +38,13 @@ class EditPairPresenter {
     }
     
     private func reloadImages(text: String) {
-        images = Array(repeating: (), count: 10).map { ImageCollectionViewCellData() }
+        images = Array(repeating: (), count: 10).map { ImageCollectionViewCellData.loading }
         view.show(images: images)
         
         googleImageService.loadImageList(searchString: text) { [weak self] imagesToLoad in
             guard let weakSelf = self else { return }
             
-            weakSelf.images = Array(repeating: (), count: imagesToLoad.count).map { ImageCollectionViewCellData() }
+            weakSelf.images = Array(repeating: (), count: imagesToLoad.count).map { ImageCollectionViewCellData.loading }
             weakSelf.view.show(images: weakSelf.images)
             
             for (index, imageToLoad) in imagesToLoad.enumerated() {
@@ -113,8 +113,8 @@ extension EditPairPresenter: EditPairViewOutput {
         }
         guard let pair = translationPair else { return }
         
-        if !isCreating {
-            view.show(images: [ImageCollectionViewCellData(image: pair.image)])
+        if !isCreating, let image = pair.image {
+            view.show(images: [ImageCollectionViewCellData(image: image)])
         }
         
         view.show(originalWord: pair.originalWord, reverseTranslationCheckBox: newPair)

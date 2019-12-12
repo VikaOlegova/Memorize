@@ -13,7 +13,13 @@ class ImageCollectionViewCellData {
     
     var isLoaded: Bool { return image != nil }
     
-    init(image: UIImage? = nil) {
+    static var loading: ImageCollectionViewCellData {
+        return ImageCollectionViewCellData()
+    }
+    
+    private init() { }
+    
+    init(image: UIImage) {
         self.image = image
     }
 }
