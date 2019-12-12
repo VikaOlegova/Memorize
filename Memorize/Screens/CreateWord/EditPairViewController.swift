@@ -98,6 +98,7 @@ class EditPairViewController: UIViewController {
         originalView.label.text = "Новое слово или фраза"
         originalView.textField.placeholder = "Введите слово"
         originalView.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        originalView.textField.delegate = self
         fromToButton.setTitleColor(.black, for: .normal)
         fromToButton.addTarget(self, action:#selector(fromToButtonTapped), for: .touchUpInside)
         checkBoxView.titleLabel.text = "Создать обратный перевод"
@@ -237,5 +238,18 @@ extension EditPairViewController: UICollectionViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         updateSelectedCell()
+    }
+}
+
+extension EditPairViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let oldLength = textField.text?.count ?? 0
+        let replacementLength = string.count
+        let rangeLength = range.length
+        print(rangeLength)
+        
+        let newLength = oldLength - rangeLength + replacementLength
+        
+        return newLength <= 80
     }
 }

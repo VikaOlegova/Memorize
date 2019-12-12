@@ -76,10 +76,9 @@ class EditPairPresenter {
                                      image: UIImage?,
                                      completion: @escaping (_ saved: Bool)->()) {
         let coreData = CoreDataService()
-        coreData.checkExistenceOfTranslationPair(originalWord: originalWord,
-                                                 translatedWord: translatedWord) { [weak self] isExisting in
+        coreData.checkExistenceOfTranslationPair(originalWord: originalWord) { [weak self] isExisting in
             if isExisting {
-                self?.view.showAlert(title: "Такая пара уже существует!")
+                self?.view.showAlert(title: "Такое слово уже существует!")
                 completion(false)
             } else {
                 coreData.saveNewTranslationPair(originalWord: originalWord,
@@ -99,7 +98,6 @@ class EditPairPresenter {
         guard let pair = translationPair else { return }
         let coreData = CoreDataService()
         coreData.updateTranslationPair(oldOriginalWord: pair.originalWord,
-                                       oldTranslatedWord: pair.translatedWord,
                                        newOriginalWord: originalWord,
                                        newTranslatedWord: translatedWord,
                                        image: image,

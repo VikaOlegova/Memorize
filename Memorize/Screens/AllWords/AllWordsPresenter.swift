@@ -35,7 +35,7 @@ class AllWordsPresenter {
 extension AllWordsPresenter: AllWordsViewOutput {
     func didDelete(pair: TranslationPairViewModel, allPairsCount: Int) {
         let coreData = CoreDataService()
-        coreData.deleteTranslationPair(originalWord: pair.firstWord, translatedWord: pair.secondWord) { }
+        coreData.deleteTranslationPair(originalWord: pair.firstWord) { }
         
         view.showPlaceholder(isHidden: allPairsCount != 0)
     }

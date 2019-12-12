@@ -10,20 +10,30 @@ import UIKit
 import CoreData
 
 extension Date {
+    /// Возвращает текущую дату со времаенем 0:00
     var dateOnly: Date {
         let components = Calendar.current.dateComponents([.year, .month, .day], from: self)
         return Calendar.current.date(from: components)!
     }
     
+    /// Прибавляет к текущей дате указанное количество дней
+    ///
+    /// - Parameter days: количество прибавляемых дней
+    /// - Returns: дата, полученная прибавлением указанного количества дней к текущей
     func add(days: Int) -> Date {
         return Calendar.current.date(byAdding: .day, value: days, to: self)!
     }
     
+    /// Дата завтрашнего дня со временем 0:00
     static var tomorrow: NSDate {
         return Date().add(days: 1).dateOnly as NSDate
     }
 }
 
+/// Тип пар слов
+///
+/// - allPairs: все пары из кордаты
+/// - repeatPairs: пары для повторения сегодня из кордаты
 enum TranslationPairType {
     case allPairs
     case repeatPairs
@@ -56,16 +66,21 @@ private extension TranslationPair {
     }
 }
 
+
+/// Класс для работы с кордатой
 class CoreDataService {
     private let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    /// Проверяет, есть ли уже в кордате данное слово
+    ///
+    /// - Parameters:
+    ///   - originalWord: данное слово
+    ///   - completion: при выполнении функции возвращает true, если такое слово есть, или false, если его нет
     func checkExistenceOfTranslationPair(originalWord: String,
-                                         translatedWord: String,
                                          completion: @escaping (Bool) -> ()) {
         appDelegate.persistentContainer.performBackgroundTask { (context) in
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
-            request.predicate = NSPredicate(format: "originalWord =[c] %@ AND translatedWord =[c] %@",
-                                            argumentArray: [originalWord, translatedWord])
+            request.predicate = NSPredicate(format: "originalWord =[c] %@", originalWord)
             do {
                 let count = try context.count(for: request)
                 DispatchQueue.main.async {
@@ -80,6 +95,15 @@ class CoreDataService {
         }
     }
     
+    /// Сохраняет в кордату слово
+    ///
+    /// - Parameters:
+    ///   - originalWord: слово
+    ///   - translatedWord: его перевод
+    ///   - originalLanguage: язык слова
+    ///   - translatedLanguage: язык его перевода
+    ///   - image: картинка к слову
+    ///   - completion: оповещает о конце выполнения функции
     func saveNewTranslationPair(originalWord: String,
                                 translatedWord: String,
                                 originalLanguage: Language,
@@ -115,6 +139,11 @@ class CoreDataService {
         }
     }
     
+    /// Возвращает количество пар слов указанного типа из кордаты
+    ///
+    /// - Parameters:
+    ///   - type: тип пар слов
+    ///   - completion: при выполнении функции возвращает кол-во таких пар
     func countOfTranslationPairs(of type: TranslationPairType, completion: @escaping (Int) -> ()) {
         appDelegate.persistentContainer.performBackgroundTask { (context) in
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
@@ -137,6 +166,11 @@ class CoreDataService {
         }
     }
 
+    /// Возвращает массив пар слов указанного типа из кордаты
+    ///
+    /// - Parameters:
+    ///   - type: тип пар слов
+    ///   - completion: при выполнении функции возвращает массив пар слов
     func fetchTranslationPairs(of type: TranslationPairType, completion: @escaping ([TranslationPair]) -> ()) {
         appDelegate.persistentContainer.performBackgroundTask { (context) in
             print("Fetching Data..")
@@ -162,8 +196,15 @@ class CoreDataService {
         }
     }
     
+    /// Обновляет пару слов в кордате после редактирования
+    ///
+    /// - Parameters:
+    ///   - oldOriginalWord: слово в кордате
+    ///   - newOriginalWord: новое значение слова
+    ///   - newTranslatedWord: новое значение перевода слова
+    ///   - image: новая картинка к новому слову
+    ///   - completion: оповещает о конце выполнения функции
     func updateTranslationPair(oldOriginalWord: String,
-                               oldTranslatedWord: String,
                                newOriginalWord: String,
                                newTranslatedWord: String,
                                image: UIImage?,
@@ -176,8 +217,7 @@ class CoreDataService {
             }
             
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
-            request.predicate = NSPredicate(format: "originalWord = %@ AND translatedWord = %@",
-                                            argumentArray: [oldOriginalWord, oldTranslatedWord])
+            request.predicate = NSPredicate(format: "originalWord = %@", oldOriginalWord)
             do {
                 if let result = try context.fetch(request).first {
                     result.originalWord = newOriginalWord
@@ -202,8 +242,13 @@ class CoreDataService {
         }
     }
     
+    /// Обновляет дату следующего показа и счетчик правильных ответов подряд слова в кордате при повторении
+    ///
+    /// - Parameters:
+    ///   - originalWord: само слово
+    ///   - isMistake: была ли допущена ошибка
+    ///   - completion: оповещает о конце выполнения функции
     func updateCounterAndDate(originalWord: String,
-                              translatedWord: String,
                               isMistake: Bool,
                               completion: @escaping () -> ()) {
         appDelegate.persistentContainer.performBackgroundTask { (context) in
@@ -214,8 +259,7 @@ class CoreDataService {
             }
             
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
-            request.predicate = NSPredicate(format: "originalWord = %@ AND translatedWord = %@",
-                                            argumentArray: [originalWord, translatedWord])
+            request.predicate = NSPredicate(format: "originalWord = %@", originalWord)
             do {
                 if let result = try context.fetch(request).first {
                     
@@ -240,8 +284,12 @@ class CoreDataService {
         }
     }
     
+    /// Удаляет указанное слово из кордаты
+    ///
+    /// - Parameters:
+    ///   - originalWord: само слово
+    ///   - completion: оповещает о конце выполнения функции
     func deleteTranslationPair(originalWord: String,
-                               translatedWord: String,
                                completion: @escaping () -> ()) {
         appDelegate.persistentContainer.performBackgroundTask { (context) in
             defer {
@@ -250,8 +298,7 @@ class CoreDataService {
                 }
             }
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
-            request.predicate = NSPredicate(format: "originalWord = %@ AND translatedWord = %@",
-                                            argumentArray: [originalWord, translatedWord])
+            request.predicate = NSPredicate(format: "originalWord = %@", originalWord)
             do {
                 if let result = try context.fetch(request).first {
                     context.delete(result)

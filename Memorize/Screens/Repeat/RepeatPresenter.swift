@@ -84,7 +84,6 @@ extension RepeatPresenter: RepeatViewOutput {
             TranslationSession.shared.addAnsweredPair(pair: currentTranslationPair)
             TranslationSession.shared.removeFirstPairFromRepeatPairs()
             coreData.updateCounterAndDate(originalWord: currentTranslationPair.originalWord,
-                                          translatedWord: currentTranslationPair.translatedWord,
                                           isMistake: !isCorrect) { }
             if !isCorrect {
                 mistakeCounter += 1
