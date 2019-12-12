@@ -28,6 +28,11 @@ extension Date {
     static var tomorrow: NSDate {
         return Date().add(days: 1).dateOnly as NSDate
     }
+    
+    /// Сегодняшняя дата со временем 0:00
+    static var today: NSDate {
+        return Date().dateOnly as NSDate
+    }
 }
 
 /// Тип пар слов
@@ -122,7 +127,7 @@ class CoreDataService {
             newPair.originalLanguage = originalLanguage.rawValue
             newPair.translatedLanguage = translatedLanguage.rawValue
             newPair.counter = 0
-            newPair.nextShowDate = Date.tomorrow
+            newPair.nextShowDate = Date.today
             
             if let image = image,
                 let jpegData = image.jpegData(compressionQuality: 1.0) {
