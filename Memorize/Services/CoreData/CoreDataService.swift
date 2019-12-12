@@ -227,7 +227,7 @@ class CoreDataService {
                     result.originalWord = newOriginalWord
                     result.translatedWord = newTranslatedWord
                     result.counter = 0
-                    result.nextShowDate = Date.tomorrow
+                    result.nextShowDate = Date.today
                     
                     if let image = image,
                         let jpegData = image.jpegData(compressionQuality: 1.0) {
