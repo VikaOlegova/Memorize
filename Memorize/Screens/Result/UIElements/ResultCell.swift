@@ -8,11 +8,13 @@
 
 import UIKit
 
+/// Класс ячейки таблицы на экране результата
 class ResultCell: UITableViewCell {
     private let roundedBackgroundView = RoundedBackgroundView()
     private let wordLabel = UILabel()
     private let rightImageView = UIImageView()
     
+    /// Модель данных для ячейки
     var viewModel: ResultViewModel? {
         didSet {
             guard let model = viewModel else { return }

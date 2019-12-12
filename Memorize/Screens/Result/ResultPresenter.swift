@@ -8,12 +8,18 @@
 
 import UIKit
 
+/// Тип экрана результата
+///
+/// - repeatingEnded: конец повторения
+/// - mistakesCorrectionEnded: конец исправления ошибок
 enum ResultScreenType {
     case repeatingEnded(withMistakes: Bool)
     case mistakesCorrectionEnded
 }
 
+/// Презентер экрана результата
 class ResultPresenter {
+    /// Слабая ссылка на вью
     weak var view: ResultViewInput!
     private let words: [TranslationPair]
     private let resultScreenType: ResultScreenType
@@ -23,12 +29,12 @@ class ResultPresenter {
         
         switch resultScreenType {
         case .repeatingEnded(withMistakes: false):
-            words = TranslationSession.shared.answeredPairs
+            words = RepeatingSession.shared.answeredPairs
         case .repeatingEnded(withMistakes: true):
-            words = TranslationSession.shared.mistakes
+            words = RepeatingSession.shared.mistakes
         case .mistakesCorrectionEnded:
-            words = TranslationSession.shared.mistakes
-            TranslationSession.shared.resetMistakes()
+            words = RepeatingSession.shared.mistakes
+            RepeatingSession.shared.resetMistakes()
         }
     }
     
@@ -59,15 +65,17 @@ class ResultPresenter {
 }
 
 extension ResultPresenter: ResultViewOutput {
+    /// Производит переход на нужный экран
     func didTapGreenButton() {
         switch resultScreenType {
         case .repeatingEnded(withMistakes: true):
             Router.shared.showMistakes()
         default:
-            TranslationSession.shared.repeatPairs.isEmpty ? Router.shared.returnToMainMenu() : Router.shared.closeResult()
+            RepeatingSession.shared.repeatPairs.isEmpty ? Router.shared.returnToMainMenu() : Router.shared.closeResult()
         }
     }
     
+    /// Заполняет вьюху нужными данными
     func viewDidLoad() {
         fillView()
     }

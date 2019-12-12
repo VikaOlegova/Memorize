@@ -8,17 +8,34 @@
 
 import UIKit
 
+/// Протокол входных данных для экрана результата
 protocol ResultViewInput: class {
+    /// Показывает заголовок экрана
+    ///
+    /// - Parameter title: заголовок
     func show(title: String)
+    
+    /// Показывает текст зеленой кнопки
+    ///
+    /// - Parameter textButton: текст кнопки
     func show(textButton: String)
+    
+    /// Отдает массив всех существующих слов в кордате в формате вью модели
+    ///
+    /// - Parameter allWords:
     func show(allWords: [ResultViewModel])
 }
 
+/// Протокол выходных данных с экрана результата
 protocol ResultViewOutput: class {
+    /// Событие нажатия на кнопку
     func didTapGreenButton()
+    
+    /// Вьюха загрузилась
     func viewDidLoad()
 }
 
+/// Экран результата повторения\исправления ошибок
 class ResultViewController: UIViewController {
     private let tableView = UITableView(frame: .zero, style: .plain)
     private let greenButton = BigGreenButton()

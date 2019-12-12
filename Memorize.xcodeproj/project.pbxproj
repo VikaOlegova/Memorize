@@ -46,7 +46,7 @@
 		3CC6552923935E1400ADC021 /* ResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6552823935E1400ADC021 /* ResultViewModel.swift */; };
 		3CC6552B23939A0300ADC021 /* ResultPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6552A23939A0300ADC021 /* ResultPresenter.swift */; };
 		3CC6552D2393A6E600ADC021 /* ResultAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6552C2393A6E600ADC021 /* ResultAssembly.swift */; };
-		3CC65531239408E700ADC021 /* TranslationSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC65530239408E700ADC021 /* TranslationSession.swift */; };
+		3CC65531239408E700ADC021 /* RepeatingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC65530239408E700ADC021 /* RepeatingSession.swift */; };
 		3CC65533239642B800ADC021 /* GoogleImageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC65532239642B800ADC021 /* GoogleImageAPI.swift */; };
 		3CC6553623964DAA00ADC021 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6553523964DAA00ADC021 /* NetworkService.swift */; };
 		3CC6553823965EA000ADC021 /* GoogleImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC6553723965EA000ADC021 /* GoogleImageService.swift */; };
@@ -113,7 +113,7 @@
 		3CC6552823935E1400ADC021 /* ResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewModel.swift; sourceTree = "<group>"; };
 		3CC6552A23939A0300ADC021 /* ResultPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultPresenter.swift; sourceTree = "<group>"; };
 		3CC6552C2393A6E600ADC021 /* ResultAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultAssembly.swift; sourceTree = "<group>"; };
-		3CC65530239408E700ADC021 /* TranslationSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationSession.swift; sourceTree = "<group>"; };
+		3CC65530239408E700ADC021 /* RepeatingSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingSession.swift; sourceTree = "<group>"; };
 		3CC65532239642B800ADC021 /* GoogleImageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleImageAPI.swift; sourceTree = "<group>"; };
 		3CC6553523964DAA00ADC021 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		3CC6553723965EA000ADC021 /* GoogleImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleImageService.swift; sourceTree = "<group>"; };
@@ -317,7 +317,7 @@
 				3CC6553F239870FB00ADC021 /* CoreData */,
 				3CC6553423964CFD00ADC021 /* GoogleImage */,
 				3CC655202392075400ADC021 /* YandexTranslateService.swift */,
-				3CC65530239408E700ADC021 /* TranslationSession.swift */,
+				3CC65530239408E700ADC021 /* RepeatingSession.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -488,7 +488,7 @@
 				3C049B2C238DC1E900F17697 /* TitleTextFieldView.swift in Sources */,
 				3CC655452398724700ADC021 /* MOTranslationPair+CoreDataClass.swift in Sources */,
 				3C049B32238DCA4700F17697 /* EditPairPresenter.swift in Sources */,
-				3CC65531239408E700ADC021 /* TranslationSession.swift in Sources */,
+				3CC65531239408E700ADC021 /* RepeatingSession.swift in Sources */,
 				3CC655482398734600ADC021 /* CoreDataService.swift in Sources */,
 				3C049B572390C01200F17697 /* CorrectAnswerView.swift in Sources */,
 				3C049B5B2390EC5A00F17697 /* CorrectAnswerAssembly.swift in Sources */,

@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 
+/// Презентер экрана результата для введенного слова при повторении\исправлении ошибок
 class CorrectAnswerPresenter {
     weak var view: CorrectAnswerPopupViewInput!
     private let isCorrect: Bool
@@ -33,6 +34,7 @@ extension CorrectAnswerPresenter: CorrectAnswerPopupViewOutput {
         view.show(correctTranslation: correctTranslation)
     }
     
+    /// Воспроизводит чтение корректного перевода
     func playAudioTapped() {
         guard !synthesizer.isSpeaking else {
             synthesizer.stopSpeaking(at: .immediate)
@@ -52,6 +54,7 @@ extension CorrectAnswerPresenter: CorrectAnswerPopupViewOutput {
         synthesizer.speak(utterance)
     }
     
+    /// Останавливает чтение и производит переход на экран со следующим спрашиваемым словом
     func nextButtonTapped() {
         synthesizer.stopSpeaking(at: .immediate)
         didTapNextCallback()

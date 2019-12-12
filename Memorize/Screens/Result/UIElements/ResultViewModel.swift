@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Модель данных для ячейки таблицы на экране результата
 class ResultViewModel {
     let word: String
     let image: UIImage

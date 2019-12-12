@@ -70,7 +70,7 @@ class Router {
         
         switch resultScreenType {
         case .repeatingEnded:
-            if !TranslationSession.shared.repeatPairs.isEmpty {
+            if !RepeatingSession.shared.repeatPairs.isEmpty {
                 rootNavigationController.pushViewController(newVC,
                                                             animated: true)
                 return

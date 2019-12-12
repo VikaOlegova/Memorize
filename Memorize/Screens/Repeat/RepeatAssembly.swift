@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Собирает все зависимости для экрана повторения\исправления ошибок
 class RepeatAssembly {
     func create(isMistakes: Bool) -> UIViewController {
         let presenter = RepeatPresenter(isMistakes: isMistakes)

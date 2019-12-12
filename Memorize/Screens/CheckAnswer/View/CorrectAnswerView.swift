@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Вьюха, содержащая корректный ответ и правильность ответа
 class CorrectAnswerView: UIView {
     let colorView = UIView()
     let titleLabel = UILabel()
@@ -76,6 +77,9 @@ class CorrectAnswerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// Скрывает вспомогательный лейбл, не нужный при правильном ответе
+    ///
+    /// - Parameter hide: скрыть или нет
     func hideHelpLabel(_ hide: Bool = true) {
         hideLabelConstraint.isActive = hide
     }

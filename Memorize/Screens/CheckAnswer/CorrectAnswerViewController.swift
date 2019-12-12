@@ -8,17 +8,32 @@
 
 import UIKit
 
+/// Протокол входных данных для экрана с правильным отвтеом
 protocol CorrectAnswerPopupViewInput: class {
+    /// Настройка содержимой информации во вью в зависимости от правильности ответа
+    ///
+    /// - Parameter correctAnswer: правильный ответ или нет
     func setupUI(forCorrectAnswer correctAnswer: Bool)
+    
+    /// Показать корректный перевод спрашиваемого слова
+    ///
+    /// - Parameter correctTranslation: корректный перевод
     func show(correctTranslation: String)
 }
 
+/// Протокол выходных данных с экрана с правильным отвтеом
 protocol CorrectAnswerPopupViewOutput: class {
+    /// Экран загрузился
     func viewDidLoad()
+    
+    /// Событие нажатия на аудиокнопку
     func playAudioTapped()
+    
+    /// Событие нажатия на кнопку Далее
     func nextButtonTapped()
 }
 
+/// Экран результата для введенного слова при повторении\исправлении ошибок
 class CorrectAnswerViewController: UIViewController {
     private var answerView = UIView()
     private let content = CorrectAnswerView()

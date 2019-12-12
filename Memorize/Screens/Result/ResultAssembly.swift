@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Собирает все зависимости для экрана результата
 class ResultAssembly {
     func create(resultScreenType: ResultScreenType) -> UIViewController {
         let presenter = ResultPresenter(resultScreenType: resultScreenType)

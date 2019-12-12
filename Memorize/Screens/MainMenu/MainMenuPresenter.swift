@@ -33,7 +33,7 @@ extension MainMenuPresenter: MainMenuViewOutput {
             return
         }
         view.enableInteraction(false)
-        TranslationSession.shared.load { [weak self] in
+        RepeatingSession.shared.load { [weak self] in
             Router.shared.showRepeat(isMistakes: false)
             self?.view.enableInteraction(true)
         }

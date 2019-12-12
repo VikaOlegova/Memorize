@@ -66,7 +66,6 @@ private extension TranslationPair {
     }
 }
 
-
 /// Класс для работы с кордатой
 class CoreDataService {
     private let appDelegate = UIApplication.shared.delegate as! AppDelegate

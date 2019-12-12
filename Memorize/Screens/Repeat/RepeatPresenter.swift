@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 
+/// Презентер экрана повторения\заучивания ошибок
 class RepeatPresenter {
     weak var view: RepeatViewInput!
     
@@ -24,7 +25,7 @@ class RepeatPresenter {
     
     init(isMistakes: Bool) {
         self.isMistakes = isMistakes
-        translationPairs = isMistakes ? TranslationSession.shared.mistakes.shuffled() : TranslationSession.shared.repeatPairs
+        translationPairs = isMistakes ? RepeatingSession.shared.mistakes.shuffled() : RepeatingSession.shared.repeatPairs
     }
     
     private func showNextQuestion() -> Bool {
@@ -59,7 +60,7 @@ class RepeatPresenter {
     }
     
     private func showResultScreen() {
-        Router.shared.showResult(resultScreenType: isMistakes ? .mistakesCorrectionEnded : .repeatingEnded(withMistakes: !TranslationSession.shared.mistakes.isEmpty))
+        Router.shared.showResult(resultScreenType: isMistakes ? .mistakesCorrectionEnded : .repeatingEnded(withMistakes: !RepeatingSession.shared.mistakes.isEmpty))
     }
 }
 
@@ -68,6 +69,7 @@ extension RepeatPresenter: RepeatViewOutput {
         _ = showNextQuestion()
     }
     
+    /// Меняет текст кнопки
     func textFieldChanged(textIsEmpty: Bool) {
         if textIsEmpty {
             view.show(titleButton: "Показать перевод")
@@ -76,18 +78,19 @@ extension RepeatPresenter: RepeatViewOutput {
         }
     }
     
+    /// Проверяет, является ли корректным введенный перевод, и в зависимости от этого открывает нужный экран
     func didEnterTranslation(_ enteredTranslation: String) {
         showKeyboardWorkItem?.cancel()
         synthesizer.stopSpeaking(at: .immediate)
         let isCorrect = currentTranslationPair.translatedWord.lowercased().replacingOccurrences(of: "ё", with: "е") == enteredTranslation.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "ё", with: "е")
         if !isMistakes {
-            TranslationSession.shared.addAnsweredPair(pair: currentTranslationPair)
-            TranslationSession.shared.removeFirstPairFromRepeatPairs()
+            RepeatingSession.shared.addAnsweredPair(pair: currentTranslationPair)
+            RepeatingSession.shared.removeFirstPairFromRepeatPairs()
             coreData.updateCounterAndDate(originalWord: currentTranslationPair.originalWord,
                                           isMistake: !isCorrect) { }
             if !isCorrect {
                 mistakeCounter += 1
-                TranslationSession.shared.addMistake(mistake: currentTranslationPair)
+                RepeatingSession.shared.addMistake(mistake: currentTranslationPair)
             }
         }
         Router.shared.showCorrectAnswer(isCorrect: isCorrect,
@@ -96,7 +99,7 @@ extension RepeatPresenter: RepeatViewOutput {
                                             guard let weakSelf = self else { return }
                                             if weakSelf.isMistakes, !isCorrect {
                                                 weakSelf.translationCounter = 0
-                                                weakSelf.translationPairs = TranslationSession.shared.mistakes.shuffled()
+                                                weakSelf.translationPairs = RepeatingSession.shared.mistakes.shuffled()
                                             }
                                             if !weakSelf.showNextQuestion() {
                                                 weakSelf.showResultScreen()
@@ -104,6 +107,7 @@ extension RepeatPresenter: RepeatViewOutput {
         }
     }
     
+    /// Воспроизводит слово для перевода
     func playAudioTapped() {
         guard !synthesizer.isSpeaking else {
             synthesizer.stopSpeaking(at: .immediate)
@@ -123,19 +127,22 @@ extension RepeatPresenter: RepeatViewOutput {
         synthesizer.speak(utterance)
     }
     
+    /// Отменяет автоматическое открытие клавиатуры
     func didOpenKeyboard() {
         showKeyboardWorkItem?.cancel()
     }
     
+    /// Отменяет автоматическое открытие клавиатуры, останавливает чтение слова и переходит на экран результата
     func didTapRightBarButtonItem() {
         showKeyboardWorkItem?.cancel()
         synthesizer.stopSpeaking(at: .immediate)
         showResultScreen()
     }
     
+    /// Обновляет счетчик ошибок
     func viewWillAppear() {
         if !isMistakes {
-            mistakeCounter = TranslationSession.shared.mistakes.count
+            mistakeCounter = RepeatingSession.shared.mistakes.count
             view.show(mistakeCount: mistakeCounter)
         }
     }

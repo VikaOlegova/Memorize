@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Вьюха, содержащая текущее повторяемое\исправляемое слово, количество допущенных ошибок и с какого на какой язык переводить
 class TranslationsAndMistakesCount: UIView {
     private let translationLabel = UILabel()
     let translationCounter = UILabel()
@@ -64,6 +65,7 @@ class TranslationsAndMistakesCount: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// Скрыть информацию об ошибках для режима заучивания ошибок
     func hideMistakes() {
         mistakeLabel.isHidden = true
         mistakeCounter.isHidden = true
