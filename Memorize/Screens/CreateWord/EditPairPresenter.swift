@@ -150,10 +150,10 @@ extension EditPairPresenter: EditPairViewOutput {
                                 originalLanguage: fromLanguage,
                                 translatedLanguage: toLanguage,
                                 image: image,
-                                completion: { [weak self] in
+                                completion: { [weak self] saved in
                                     guard let weakSelf = self else { return }
-                                    if reverseTranslationEnabled && !$0 || !reverseTranslationEnabled{
-                                        completion($0)
+                                    guard reverseTranslationEnabled, saved else {
+                                        completion(saved)
                                         return
                                     }
                                     weakSelf.saveTranslationPair(originalWord: translatedWord,
@@ -161,7 +161,7 @@ extension EditPairPresenter: EditPairViewOutput {
                                                         originalLanguage: weakSelf.toLanguage,
                                                         translatedLanguage: weakSelf.fromLanguage,
                                                         image: image,
-                                                        completion: { completion($0) })
+                                                        completion: completion)
             })
         } else {
             updateTranslationPair(originalWord: originalWord,
