@@ -18,9 +18,11 @@ class MainMenuPresenter {
     private let router: RouterProtocol
     private let session: RepeatingSessionProtocol
     
-    init(coreData: CoreDataServiceProtocol,
-         router: RouterProtocol,
-         session: RepeatingSessionProtocol) {
+    init(
+        coreData: CoreDataServiceProtocol,
+        router: RouterProtocol,
+        session: RepeatingSessionProtocol
+        ) {
         self.coreData = coreData
         self.router = router
         self.session = session

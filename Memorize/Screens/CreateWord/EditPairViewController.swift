@@ -9,7 +9,7 @@
 import UIKit
 
 /// Протокол входных данных для экрана создания\редактирования слова
-protocol EditPairViewInput: class {
+protocol EditPairViewInput: AnyObject {
     /// Показывает слово и говорит, нужно ли отображать чекбокс для создания обратной пары
     ///
     /// - Parameters:
@@ -66,7 +66,7 @@ protocol EditPairViewInput: class {
 }
 
 /// Протокол выходных данных с экрана создания\редактирования слова
-protocol EditPairViewOutput: class {
+protocol EditPairViewOutput: AnyObject {
     /// Событие на нажатие кнопки Сохранить
     ///
     /// - Parameters:
@@ -74,10 +74,12 @@ protocol EditPairViewOutput: class {
     ///   - translatedWord: новый перевод
     ///   - reverseTranslationEnabled: создавать ли обратную пару
     ///   - image: новое изображение к слову
-    func saveTapped(originalWord: String?,
-                    translatedWord: String?,
-                    reverseTranslationEnabled: Bool,
-                    image: UIImage?)
+    func saveTapped(
+        originalWord: String?,
+        translatedWord: String?,
+        reverseTranslationEnabled: Bool,
+        image: UIImage?
+    )
     
     /// Событие на загрузку экрана
     func viewDidLoad()
@@ -207,10 +209,12 @@ class EditPairViewController: UIViewController {
     }
     
     @objc func saveButtonTapped() {
-        presenter.saveTapped(originalWord: originalView.textField.text,
-                             translatedWord: translationView.textField.text,
-                             reverseTranslationEnabled: checkBoxView.checkBox.isSelected,
-                             image: currentImageCell?.image)
+        presenter.saveTapped(
+            originalWord: originalView.textField.text,
+            translatedWord: translationView.textField.text,
+            reverseTranslationEnabled: checkBoxView.checkBox.isSelected,
+            image: currentImageCell?.image
+        )
     }
     
     @objc func textFieldDidChange() {

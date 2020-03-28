@@ -22,10 +22,12 @@ class EditPairPresenter {
     let translateService: TranslateServiceProtocol
     private let router: RouterProtocol
     
-    init(coreData: CoreDataServiceProtocol,
-         imageService: ImageServiceProtocol,
-         translateService: TranslateServiceProtocol,
-         router: RouterProtocol) {
+    init(
+        coreData: CoreDataServiceProtocol,
+        imageService: ImageServiceProtocol,
+        translateService: TranslateServiceProtocol,
+        router: RouterProtocol
+        ) {
         self.coreData = coreData
         self.imageService = imageService
         self.translateService = translateService
@@ -74,53 +76,61 @@ class EditPairPresenter {
                             return
                     }
                     
-                    cellData?.image = loadedImage.uiImage
+                    data.image = loadedImage.uiImage
                     self?.view?.show(image: data, at: newIndex)
                 })
             }
         }
     }
     
-    private func saveTranslationPair(originalWord: String,
-                                     translatedWord: String,
-                                     originalLanguage: Language,
-                                     translatedLanguage: Language,
-                                     image: UIImage?,
-                                     completion: @escaping (_ saved: Bool)->()) {
+    private func saveTranslationPair(
+        originalWord: String,
+        translatedWord: String,
+        originalLanguage: Language,
+        translatedLanguage: Language,
+        image: UIImage?,
+        completion: @escaping (_ saved: Bool) -> ()
+        ) {
         coreData.checkExistenceOfTranslationPair(originalWord: originalWord) { [weak self] isExisting in
             if isExisting {
                 completion(false)
             } else {
-                self?.coreData.saveNewTranslationPair(originalWord: originalWord,
-                                                translatedWord: translatedWord,
-                                                originalLanguage: originalLanguage,
-                                                translatedLanguage: translatedLanguage,
-                                                image: image,
-                                                completion: { completion(true) })
+                self?.coreData.saveNewTranslationPair(
+                    originalWord: originalWord,
+                    translatedWord: translatedWord,
+                    originalLanguage: originalLanguage,
+                    translatedLanguage: translatedLanguage,
+                    image: image,
+                    completion: { completion(true) }
+                )
             }
         }
     }
     
-    private func updateTranslationPair(originalWord: String,
-                                       translatedWord: String,
-                                       image: UIImage?,
-                                       completion: @escaping (_ saved: Bool)->()) {
+    private func updateTranslationPair(
+        originalWord: String,
+        translatedWord: String,
+        image: UIImage?,
+        completion: @escaping (_ saved: Bool)->()
+        ) {
         guard let pair = translationPair else {
             completion(false)
             return
         }
         coreData.checkExistenceOfTranslationPair(originalWord: originalWord) { [weak self] isExisting in
-                if isExisting {
-                    completion(false)
-                } else {
-                    self?.coreData.updateTranslationPair(oldOriginalWord: pair.originalWord,
-                                                   newOriginalWord: originalWord,
-                                                   newTranslatedWord: translatedWord,
-                                                   image: image,
-                                                   completion: { completion(true) })
+            if isExisting {
+                completion(false)
+            } else {
+                self?.coreData.updateTranslationPair(
+                    oldOriginalWord: pair.originalWord,
+                    newOriginalWord: originalWord,
+                    newTranslatedWord: translatedWord,
+                    image: image,
+                    completion: { completion(true) }
+                )
             }
+        }
     }
-}
 }
 
 extension EditPairPresenter: EditPairViewOutput {
@@ -143,16 +153,20 @@ extension EditPairPresenter: EditPairViewOutput {
     }
     
     /// Сохраняет новое слово или изменения в старом
-    func saveTapped(originalWord: String?,
-                    translatedWord: String?,
-                    reverseTranslationEnabled: Bool,
-                    image: UIImage?) {
-        guard let originalWord = originalWord,
-                let translatedWord = translatedWord,
-                !originalWord.isEmpty,
-                !translatedWord.isEmpty else {
-            router.showAlert(title: "Вы заполнили не все обязательные поля!", completion: nil)
-            return
+    func saveTapped(
+        originalWord: String?,
+        translatedWord: String?,
+        reverseTranslationEnabled: Bool,
+        image: UIImage?
+        ) {
+        guard
+            let originalWord = originalWord,
+            let translatedWord = translatedWord,
+            !originalWord.isEmpty,
+            !translatedWord.isEmpty
+            else {
+                router.showAlert(title: "Вы заполнили не все обязательные поля!", completion: nil)
+                return
         }
         guard originalWord != translatedWord else {
             router.showAlert(title: "Слово и его перевод не могут быть одинаковыми!", completion: nil)
@@ -181,33 +195,40 @@ extension EditPairPresenter: EditPairViewOutput {
         }
         
         if isCreating {
-            saveTranslationPair(originalWord: originalWord,
-                                translatedWord: translatedWord,
-                                originalLanguage: fromLanguage,
-                                translatedLanguage: toLanguage,
-                                image: image,
-                                completion: { [weak self] saved in
-                                    guard let weakSelf = self else { return }
-                                    guard reverseTranslationEnabled, saved else {
-                                        completion(saved ? .success : .firstFailed)
-                                        return
-                                    }
-                                    weakSelf.saveTranslationPair(originalWord: translatedWord,
-                                                        translatedWord: originalWord,
-                                                        originalLanguage: weakSelf.toLanguage,
-                                                        translatedLanguage: weakSelf.fromLanguage,
-                                                        image: image,
-                                                        completion: { saved in
-                                                            completion(saved ? .success : .secondFailed)
-                                    })
-            })
+            saveTranslationPair(
+                originalWord: originalWord,
+                translatedWord: translatedWord,
+                originalLanguage: fromLanguage,
+                translatedLanguage: toLanguage,
+                image: image,
+                completion: { [weak self] saved in
+                    guard let self = self else { return }
+                    guard reverseTranslationEnabled, saved else {
+                        completion(saved ? .success : .firstFailed)
+                        return
+                    }
+                    self.saveTranslationPair(
+                        originalWord: translatedWord,
+                        translatedWord: originalWord,
+                        originalLanguage: self.toLanguage,
+                        translatedLanguage: self.fromLanguage,
+                        image: image,
+                        completion: { saved in
+                            completion(saved ? .success : .secondFailed)
+                        }
+                    )
+                }
+            )
         } else {
-            updateTranslationPair(originalWord: originalWord,
-                                  translatedWord: translatedWord,
-                                  image: image,
-                                  completion: { saved in
-                                    completion(saved ? .success: .firstFailed)
-            })
+            updateTranslationPair(
+                originalWord: originalWord,
+                translatedWord: translatedWord,
+                image: image,
+                completion: { saved in
+                    completion(saved ? .success: .firstFailed
+                    )
+                }
+            )
         }
     }
     

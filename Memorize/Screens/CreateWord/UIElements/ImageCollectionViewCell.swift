@@ -22,6 +22,9 @@ class ImageCollectionViewCell: UICollectionViewCell {
         spinner.hidesWhenStopped = true
         
         super.init(frame: frame)
+        
+        contentView.addSubview(imageView)
+        contentView.addSubview(spinner)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,13 +34,8 @@ class ImageCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        if imageView.superview == nil {
-            contentView.addSubview(imageView)
-            contentView.addSubview(spinner)
-        }
-        
-        spinner.frame = bounds;
-        imageView.frame = bounds;
+        spinner.frame = bounds
+        imageView.frame = bounds
     }
     
     /// Отображает либо картинку, либо спиннер

@@ -9,7 +9,7 @@
 import UIKit
 
 /// Протокол входных данных для экрана повторения\заучивания ошибок
-protocol RepeatViewInput: class {
+protocol RepeatViewInput: AnyObject {
     /// Показывает кол-во допущенных ошибок
     ///
     /// - Parameter mistakeCount: кол-во ошибок
@@ -63,7 +63,7 @@ protocol RepeatViewInput: class {
 }
 
 /// Протокол выходных данных с экрана повторения\заучивания ошибок
-protocol RepeatViewOutput: class {
+protocol RepeatViewOutput: AnyObject {
     /// Событие на загрузку экрана
     func viewDidLoad()
     
@@ -275,9 +275,11 @@ extension RepeatViewController: RepeatViewInput {
     
     func showRightBarButtonItem(show: Bool) {
         if show {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop,
-                                                                target: self,
-                                                                action: #selector(rightBarButtonItemTapped))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(
+                barButtonSystemItem: .stop,
+                target: self,
+                action: #selector(rightBarButtonItemTapped)
+            )
         }
     }
 }

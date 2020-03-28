@@ -9,7 +9,7 @@
 import UIKit
 
 /// Протокол входных данных для экрана результата
-protocol ResultViewInput: class {
+protocol ResultViewInput: AnyObject {
     /// Показывает заголовок экрана
     ///
     /// - Parameter title: заголовок
@@ -27,7 +27,7 @@ protocol ResultViewInput: class {
 }
 
 /// Протокол выходных данных с экрана результата
-protocol ResultViewOutput: class {
+protocol ResultViewOutput: AnyObject {
     /// Событие нажатия на кнопку
     func didTapGreenButton()
     

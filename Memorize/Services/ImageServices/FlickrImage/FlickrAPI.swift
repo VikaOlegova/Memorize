@@ -18,9 +18,9 @@ class FlickrAPI {
     ///
     /// - Parameter text: текст для поиска изображений
     /// - Returns: ссылка запроса
-    static func searchPath(text: String) -> URL {
+    static func searchPath(text: String) -> URL? {
         guard var components = URLComponents(string: baseUrl) else {
-            return URL(string: baseUrl)!
+            return nil
         }
         
         let params = [
@@ -35,6 +35,6 @@ class FlickrAPI {
         
         components.queryItems = params.map{ URLQueryItem(name: $0.key, value: $0.value) }
         
-        return components.url!
+        return components.url
     }
 }

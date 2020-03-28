@@ -20,7 +20,6 @@ struct ImageWithPath {
     /// - Parameter uiImage: изображение
     /// - Returns: объект GoogleImage с заполненным полем uiImage
     func with(uiImage: UIImage) -> ImageWithPath {
-        return ImageWithPath(path: path,
-                           uiImage: uiImage)
+        return ImageWithPath(path: path, uiImage: uiImage)
     }
 }

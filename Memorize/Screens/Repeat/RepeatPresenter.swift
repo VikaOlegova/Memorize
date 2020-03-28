@@ -15,7 +15,7 @@ class RepeatPresenter {
     weak var view: RepeatViewInput?
     
     private var translationPairs: [TranslationPair]
-    private var currentTranslationPair: TranslationPair = TranslationPair.empty
+    private var currentTranslationPair = TranslationPair.empty
     private var mistakeCounter = 0
     private var translationCounter = 0
     private var showKeyboardWorkItem: DispatchWorkItem?
@@ -26,10 +26,12 @@ class RepeatPresenter {
     private let repeatingSession: RepeatingSessionProtocol
     private let router: RouterProtocol
     
-    init(coreData: CoreDataServiceProtocol,
-         repeatingSession: RepeatingSessionProtocol,
-         router: RouterProtocol,
-         isMistakes: Bool) {
+    init(
+        coreData: CoreDataServiceProtocol,
+        repeatingSession: RepeatingSessionProtocol,
+        router: RouterProtocol,
+        isMistakes: Bool
+        ) {
         self.coreData = coreData
         self.repeatingSession = repeatingSession
         self.router = router
@@ -97,26 +99,30 @@ extension RepeatPresenter: RepeatViewOutput {
         synthesizer.stopSpeaking(at: .immediate)
         let isCorrect = currentTranslationPair.translatedWord.isAlmostEqual(to: enteredTranslation)
         if !isMistakes {
-            repeatingSession.addAnsweredPair(pair: currentTranslationPair)
+            repeatingSession.add(answeredPair: currentTranslationPair)
             repeatingSession.removeFirstPairFromRepeatPairs()
-            coreData.updateCounterAndDate(originalWord: currentTranslationPair.originalWord,
-                                          isMistake: !isCorrect) { }
+            coreData.updateCounterAndDate(
+                originalWord: currentTranslationPair.originalWord,
+                isMistake: !isCorrect
+            ) { }
             if !isCorrect {
                 mistakeCounter += 1
-                repeatingSession.addMistake(mistake: currentTranslationPair)
+                repeatingSession.add(mistake: currentTranslationPair)
             }
         }
-        router.showCorrectAnswer(isCorrect: isCorrect,
-                                        correctTranslation: currentTranslationPair.translatedWord,
-                                        correctTranslationLanguage: currentTranslationPair.translatedLanguage) { [weak self] in
-                                            guard let weakSelf = self else { return }
-                                            if weakSelf.isMistakes, !isCorrect {
-                                                weakSelf.translationCounter = 0
-                                                weakSelf.translationPairs = weakSelf.repeatingSession.mistakes.shuffled()
-                                            }
-                                            if !weakSelf.showNextQuestion() {
-                                                weakSelf.showResultScreen()
-                                            }
+        router.showCorrectAnswer(
+            isCorrect: isCorrect,
+            correctTranslation: currentTranslationPair.translatedWord,
+            correctTranslationLanguage: currentTranslationPair.translatedLanguage
+        ) { [weak self] in
+            guard let self = self else { return }
+            if self.isMistakes, !isCorrect {
+                self.translationCounter = 0
+                self.translationPairs = self.repeatingSession.mistakes.shuffled()
+            }
+            if !self.showNextQuestion() {
+                self.showResultScreen()
+            }
         }
     }
     

@@ -9,14 +9,9 @@
 import UIKit
 
 /// Модель данных для ячейки таблицы экрана результата
-class ResultViewModel {
+struct ResultViewModel {
     /// Слово
     let word: String
     /// Иконка, говорящая о корректности\некорректности перевода слова при ответе
     let image: UIImage
-    
-    init(word: String, image: UIImage) {
-        self.word = word
-        self.image = image
-    }
 }

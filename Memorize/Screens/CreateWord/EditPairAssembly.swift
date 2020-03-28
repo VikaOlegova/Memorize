@@ -15,10 +15,12 @@ class EditPairAssembly {
         let networkService = NetworkService()
         let imageService = FacadeImageService(networkService: networkService)        
         let yandexTranslateService = YandexTranslateService()
-        let presenter = EditPairPresenter(coreData: coreData,
-                                          imageService: imageService,
-                                          translateService: yandexTranslateService,
-                                          router: Router.shared)
+        let presenter = EditPairPresenter(
+            coreData: coreData,
+            imageService: imageService,
+            translateService: yandexTranslateService,
+            router: Router.shared
+        )
         let viewController = EditPairViewController(presenter: presenter)
         
         presenter.view = viewController

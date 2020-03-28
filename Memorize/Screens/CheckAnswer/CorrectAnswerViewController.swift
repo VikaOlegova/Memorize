@@ -9,7 +9,7 @@
 import UIKit
 
 /// Протокол входных данных для экрана с оценкой правильности ответа
-protocol CorrectAnswerPopupViewInput: class {
+protocol CorrectAnswerPopupViewInput: AnyObject {
     /// Настройка содержимой информации во вью в зависимости от правильности ответа
     ///
     /// - Parameter correctAnswer: правильный ответ или нет
@@ -22,7 +22,7 @@ protocol CorrectAnswerPopupViewInput: class {
 }
 
 /// Протокол выходных данных с экрана с оценкой правильности ответа
-protocol CorrectAnswerPopupViewOutput: class {
+protocol CorrectAnswerPopupViewOutput: AnyObject {
     /// Событие на загрузку экрана
     func viewDidLoad()
     
@@ -59,7 +59,6 @@ class CorrectAnswerViewController: UIViewController {
         view.backgroundColor = UIColor.white.withAlphaComponent(0.85)
         
         answerView.translatesAutoresizingMaskIntoConstraints = false
-        content.translatesAutoresizingMaskIntoConstraints = false
         
         answerView.backgroundColor = .white
         answerView.layer.shadowColor = UIColor.black.cgColor

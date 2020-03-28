@@ -34,10 +34,12 @@ class AllWordsPresenter {
     
     private func showAllPairs() {
         let translationPairViewModels = translationPairs.map {
-            return TranslationPairViewModel(originalWord: $0.originalWord,
-                                     originalWordLanguage: $0.originalLanguage.rawValue,
-                                     translatedWord: $0.translatedWord,
-                                     translatedWordLanguage: $0.translatedLanguage.rawValue)
+            return TranslationPairViewModel(
+                originalWord: $0.originalWord,
+                originalWordLanguage: $0.originalLanguage.rawValue,
+                translatedWord: $0.translatedWord,
+                translatedWordLanguage: $0.translatedLanguage.rawValue
+            )
         }
         view?.show(allWords: translationPairViewModels)
     }
@@ -74,7 +76,7 @@ extension AllWordsPresenter: AllWordsViewOutput {
     
     /// Направляет на экран редактирования слова
     func cellTapped(with pair: TranslationPairViewModel) {
-        let translationPair = translationPairs.first { (translationPair) -> Bool in
+        let translationPair = translationPairs.first { translationPair -> Bool in
             return translationPair.originalWord == pair.originalWord
         }
         guard let notNilPair = translationPair else {

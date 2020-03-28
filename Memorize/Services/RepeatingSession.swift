@@ -9,7 +9,7 @@
 import UIKit
 
 /// Протокол сессии для повторения
-protocol RepeatingSessionProtocol: class {
+protocol RepeatingSessionProtocol: AnyObject {
     
     var mistakes: [TranslationPair] { get }
     var repeatPairs: [TranslationPair] { get }
@@ -29,7 +29,7 @@ protocol RepeatingSessionProtocol: class {
     /// Добавляет слово в массив ошибок
     ///
     /// - Parameter mistake: слово, в котором была допущена ошибка
-    func addMistake(mistake: TranslationPair)
+    func add(mistake: TranslationPair)
     
     /// Очищает массив ошибок
     func resetMistakes()
@@ -40,7 +40,7 @@ protocol RepeatingSessionProtocol: class {
     /// Добавляет в массив отвеченных слов указанное слово
     ///
     /// - Parameter pair: слово для добавления
-    func addAnsweredPair(pair: TranslationPair)
+    func add(answeredPair: TranslationPair)
 }
 
 /// Класс сессии для повторения
@@ -78,7 +78,7 @@ class RepeatingSession: RepeatingSessionProtocol {
     /// Добавляет слово в массив ошибок
     ///
     /// - Parameter mistake: слово, в котором была допущена ошибка
-    func addMistake(mistake: TranslationPair) {
+    func add(mistake: TranslationPair) {
         mistakes.append(mistake)
     }
     
@@ -95,7 +95,7 @@ class RepeatingSession: RepeatingSessionProtocol {
     /// Добавляет в массив отвеченных слов указанное слово
     ///
     /// - Parameter pair: слово для добавления
-    func addAnsweredPair(pair: TranslationPair) {
-        answeredPairs.append(pair)
+    func add(answeredPair: TranslationPair) {
+        answeredPairs.append(answeredPair)
     }
 }

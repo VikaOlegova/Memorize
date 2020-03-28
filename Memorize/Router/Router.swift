@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol RouterProtocol: class {
+protocol RouterProtocol: AnyObject {
     /// Показывает экран главного меню
     func start() -> UINavigationController
     
@@ -35,10 +35,12 @@ protocol RouterProtocol: class {
     ///   - correctTranslation: корректный перевод
     ///   - correctTranslationLanguage: язык перевода
     ///   - didTapNextCallback: оповещает о нажатии на кнопку Далее
-    func showCorrectAnswer(isCorrect: Bool,
-                           correctTranslation: String,
-                           correctTranslationLanguage: Language,
-                           didTapNextCallback: @escaping ()->())
+    func showCorrectAnswer(
+        isCorrect: Bool,
+        correctTranslation: String,
+        correctTranslationLanguage: Language,
+        didTapNextCallback: @escaping ()->()
+    )
     
     /// Показывает экран результата повторения или исправления ошибок в зависимости от параметра
     ///
@@ -119,14 +121,18 @@ class Router: RouterProtocol {
     ///   - correctTranslation: корректный перевод
     ///   - correctTranslationLanguage: язык перевода
     ///   - didTapNextCallback: оповещает о нажатии на кнопку Далее
-    func showCorrectAnswer(isCorrect: Bool,
-                           correctTranslation: String,
-                           correctTranslationLanguage: Language,
-                           didTapNextCallback: @escaping ()->()) {
-        let subViewController = CorrectAnswerAssembly().create(isCorrect: isCorrect,
-                                                               correctTranslation: correctTranslation,
-                                                               correctTranslationLanguage: correctTranslationLanguage,
-                                                               didTapNextCallback: didTapNextCallback)
+    func showCorrectAnswer(
+        isCorrect: Bool,
+        correctTranslation: String,
+        correctTranslationLanguage: Language,
+        didTapNextCallback: @escaping ()->()
+        ) {
+        let subViewController = CorrectAnswerAssembly().create(
+            isCorrect: isCorrect,
+            correctTranslation: correctTranslation,
+            correctTranslationLanguage: correctTranslationLanguage,
+            didTapNextCallback: didTapNextCallback
+        )
         rootNavigationController.viewControllers.last?.add(subViewController: subViewController)
     }
     
@@ -146,8 +152,7 @@ class Router: RouterProtocol {
         switch resultScreenType {
         case .repeatingEnded:
             if !RepeatingSession.shared.repeatPairs.isEmpty {
-                rootNavigationController.pushViewController(newVC,
-                                                            animated: true)
+                rootNavigationController.pushViewController(newVC, animated: true)
                 return
             }
         default:

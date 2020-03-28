@@ -29,7 +29,6 @@ class CorrectAnswerView: UIView {
         colorView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         helpLabel.translatesAutoresizingMaskIntoConstraints = false
-        correctTranslation.translatesAutoresizingMaskIntoConstraints = false
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         
         let blueColor = UIColor(red: 47/255.0, green: 135/255.0, blue: 158/255.0, alpha: 1)

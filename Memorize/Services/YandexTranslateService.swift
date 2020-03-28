@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Интерфейс для работы с Yandex Translate API
+/// Протокол для работы с Yandex Translate API
 protocol TranslateServiceProtocol {
     /// Переводит указанный текст на указанный язык
     ///
@@ -37,7 +37,12 @@ class YandexTranslateService: TranslateServiceProtocol {
     
     func translate(text: String, from: Language, to: Language, completion: @escaping ([String])->()) {
         
-        var components = URLComponents(string: baseURL)!
+        guard var components = URLComponents(string: baseURL) else {
+            DispatchQueue.main.async {
+                completion([])
+            }
+            return
+        }
         components.queryItems = [
             "key" : apiKey,
             "text" : text,

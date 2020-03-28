@@ -26,9 +26,11 @@ class ResultPresenter {
     private let repeatingSession: RepeatingSessionProtocol
     private let router: RouterProtocol
     
-    init(resultScreenType: ResultScreenType,
-         repeatingSession: RepeatingSessionProtocol,
-         router: RouterProtocol) {
+    init(
+        resultScreenType: ResultScreenType,
+        repeatingSession: RepeatingSessionProtocol,
+        router: RouterProtocol
+        ) {
         self.resultScreenType = resultScreenType
         self.repeatingSession = repeatingSession
         self.router = router
@@ -63,7 +65,7 @@ class ResultPresenter {
             view?.show(textButton: "OK")
         }
             
-        words.forEach { (word) in
+        words.forEach { word in
             viewModels.append(ResultViewModel(word: word.originalWord, image: image))
         }
         view?.show(allWords: viewModels)

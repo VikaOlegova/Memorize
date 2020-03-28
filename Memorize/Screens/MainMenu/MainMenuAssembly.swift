@@ -12,9 +12,11 @@ import UIKit
 class MainMenuAssembly {
     func create() -> UIViewController {
         let coreData = CoreDataService()
-        let presenter = MainMenuPresenter(coreData: coreData,
-                                          router: Router.shared,
-                                          session: RepeatingSession.shared)
+        let presenter = MainMenuPresenter(
+            coreData: coreData,
+            router: Router.shared,
+            session: RepeatingSession.shared
+        )
         let viewController = MainMenuViewController(presenter: presenter)
         
         presenter.view = viewController

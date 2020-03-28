@@ -9,7 +9,7 @@
 import UIKit
 
 /// Протокол входных данных для экрана главного меню
-protocol MainMenuViewInput: class {
+protocol MainMenuViewInput: AnyObject {
     /// Показывает кол-во слов для повторения
     ///
     /// - Parameter repeatWordsCount: кол-во слов для повторения
@@ -27,7 +27,7 @@ protocol MainMenuViewInput: class {
 }
 
 /// Протокол выходных данных для экрана главного меню
-protocol MainMenuViewOutput: class {
+protocol MainMenuViewOutput: AnyObject {
     /// Событие на загрузку экрана главного меню
     func viewDidLoad()
     

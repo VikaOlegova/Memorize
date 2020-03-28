@@ -9,7 +9,7 @@
 import Foundation
 
 /// Класс для получения изображений и ссылок на них c гугла
-class GoogleImageService: ImageServiceProtocol {
+class GoogleImageService: ImageWithOnlyPathServiceProtocol {
     private struct ResponseData: Decodable {
         let items: [ResponseItem]
     }
@@ -24,34 +24,25 @@ class GoogleImageService: ImageServiceProtocol {
         self.networkService = networkService
     }
     
-    func loadImageList(searchString: String,
-                       completion: @escaping ([ImageWithPath]) -> ()) {
-        
-        let url = GoogleImageAPI.searchPath(text: searchString)
+    func loadImageList(searchString: String, completion: @escaping ([ImageWithPath]) -> ()) {
+        guard let url = GoogleImageAPI.searchPath(text: searchString) else {
+            DispatchQueue.main.async { completion([]) }
+            return
+        }
         networkService.getData(at: url) { data in
-            guard let data = data,
+            guard
+                let data = data,
                 let parsed = try? JSONDecoder().decode(ResponseData.self, from: data)
                 else {
                     DispatchQueue.main.async { completion([]) }
                     return
             }
             
-            let googleImages = parsed.items.compactMap { (object) -> ImageWithPath? in
+            let googleImages = parsed.items.compactMap { object -> ImageWithPath? in
                 guard let url = URL(string: object.link) else { return nil }
                 return ImageWithPath(path: url, uiImage: nil)
             }
             DispatchQueue.main.async { completion(googleImages) }
-        }
-    }
-    
-    func loadImage(for image: ImageWithPath,
-                           completion: @escaping (ImageWithPath) -> ()) {
-        networkService.loadImage(at: image.path) { loadedImage in
-            guard let loadedImage = loadedImage else {
-                DispatchQueue.main.async { completion(image) }
-                return
-            }
-            DispatchQueue.main.async { completion(image.with(uiImage: loadedImage)) }
         }
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 /// Протокол входных данных для экрана всех слов
-protocol AllWordsViewInput: class {
+protocol AllWordsViewInput: AnyObject {
     /// Показывает все слова
     ///
     /// - Parameter allWords: массив всех слов, а точнее, массив моделей данных всех слов
@@ -22,7 +22,7 @@ protocol AllWordsViewInput: class {
 }
 
 /// Протокол выходных данных с экрана всех слов
-protocol AllWordsViewOutput: class {
+protocol AllWordsViewOutput: AnyObject {
     /// Событие на загрузку экрана всех слов
     func viewDidLoad()
     

@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 
 extension String {
+    /// Удаление пробелов и новых строк с обоих концов строки
     var trimmed: String {
         return self.trimmingCharacters(in: .whitespacesAndNewlines)
     }
@@ -21,6 +22,10 @@ extension String {
             .trimmed
     }
     
+    /// Проверка на равенство данной строки с другой по определенным условиям
+    ///
+    /// - Parameter other: другая строка для сравнения
+    /// - Returns: Равны или нет
     func isAlmostEqual(to other: String) -> Bool {
         return self.myComparable == other.myComparable
     }
@@ -77,15 +82,17 @@ private extension TranslationPair {
             image = UIImage(data: imageData as Data, scale: 1.0)
         }
         
-        self.init(originalWord: originalWord,
-                  translatedWord: translatedWord,
-                  originalLanguage: originalLanguage,
-                  translatedLanguage: translatedLanguage,
-                  image: image)
+        self.init(
+            originalWord: originalWord,
+            translatedWord: translatedWord,
+            originalLanguage: originalLanguage,
+            translatedLanguage: translatedLanguage,
+            image: image
+        )
     }
 }
 
-/// Интерфейс для работы с кордатой
+/// Протокол для работы с кордатой
 protocol CoreDataServiceProtocol {
     /// Проверяет, есть ли уже в кордате данное слово
     ///
@@ -93,8 +100,10 @@ protocol CoreDataServiceProtocol {
     ///   - originalWord: данное слово
     ///   - completion: сообщает о конце выполнения функции
     /// - Returns: true, если такое слово есть, или false, если его нет
-    func checkExistenceOfTranslationPair(originalWord: String,
-                                         completion: @escaping (Bool) -> ())
+    func checkExistenceOfTranslationPair(
+        originalWord: String,
+        completion: @escaping (Bool) -> ()
+    )
     
     /// Сохраняет в кордату слово
     ///
@@ -105,12 +114,14 @@ protocol CoreDataServiceProtocol {
     ///   - translatedLanguage: язык его перевода
     ///   - image: картинка к слову
     ///   - completion: сообщает о конце выполнения функции
-    func saveNewTranslationPair(originalWord: String,
-                                translatedWord: String,
-                                originalLanguage: Language,
-                                translatedLanguage: Language,
-                                image: UIImage?,
-                                completion: @escaping () -> ())
+    func saveNewTranslationPair(
+        originalWord: String,
+        translatedWord: String,
+        originalLanguage: Language,
+        translatedLanguage: Language,
+        image: UIImage?,
+        completion: @escaping () -> ()
+    )
     
     /// Возвращает количество пар слов указанного типа из кордаты
     ///
@@ -136,11 +147,13 @@ protocol CoreDataServiceProtocol {
     ///   - newTranslatedWord: новое значение перевода слова
     ///   - image: новая картинка
     ///   - completion: сообщает о конце выполнения функции
-    func updateTranslationPair(oldOriginalWord: String,
-                               newOriginalWord: String,
-                               newTranslatedWord: String,
-                               image: UIImage?,
-                               completion: @escaping () -> ())
+    func updateTranslationPair(
+        oldOriginalWord: String,
+        newOriginalWord: String,
+        newTranslatedWord: String,
+        image: UIImage?,
+        completion: @escaping () -> ()
+    )
     
     /// Обновляет дату следующего показа и счетчик правильных ответов подряд слова в кордате при повторении
     ///
@@ -148,17 +161,18 @@ protocol CoreDataServiceProtocol {
     ///   - originalWord: само слово
     ///   - isMistake: была ли допущена ошибка
     ///   - completion: сообщает о конце выполнения функции
-    func updateCounterAndDate(originalWord: String,
-                              isMistake: Bool,
-                              completion: @escaping () -> ())
+    func updateCounterAndDate(
+        originalWord: String,
+        isMistake: Bool,
+        completion: @escaping () -> ()
+    )
     
     /// Удаляет указанное слово из кордаты
     ///
     /// - Parameters:
     ///   - originalWord: само слово
     ///   - completion: сообщает о конце выполнения функции
-    func deleteTranslationPair(originalWord: String,
-                               completion: @escaping () -> ())
+    func deleteTranslationPair(originalWord: String, completion: @escaping () -> ())
 }
 
 /// Класс для работы с кордатой
@@ -167,9 +181,11 @@ class CoreDataService: CoreDataServiceProtocol {
         return AppDelegate.shared.persistentContainer
     }
     
-    func checkExistenceOfTranslationPair(originalWord: String,
-                                         completion: @escaping (Bool) -> ()) {
-        persistentContainer.performBackgroundTask { (context) in
+    func checkExistenceOfTranslationPair(
+        originalWord: String,
+        completion: @escaping (Bool) -> ()
+        ) {
+        persistentContainer.performBackgroundTask { context in
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
             request.predicate = NSPredicate(format: "originalWord =[c] %@", originalWord.trimmed)
             do {
@@ -186,13 +202,15 @@ class CoreDataService: CoreDataServiceProtocol {
         }
     }
     
-    func saveNewTranslationPair(originalWord: String,
-                                translatedWord: String,
-                                originalLanguage: Language,
-                                translatedLanguage: Language,
-                                image: UIImage?,
-                                completion: @escaping () -> ()) {
-        persistentContainer.performBackgroundTask { (context) in
+    func saveNewTranslationPair(
+        originalWord: String,
+        translatedWord: String,
+        originalLanguage: Language,
+        translatedLanguage: Language,
+        image: UIImage?,
+        completion: @escaping () -> ()
+        ) {
+        persistentContainer.performBackgroundTask { context in
             defer {
                 DispatchQueue.main.async {
                     completion()
@@ -222,7 +240,7 @@ class CoreDataService: CoreDataServiceProtocol {
     }
  
     func countOfTranslationPairs(of type: TranslationPairType, completion: @escaping (Int) -> ()) {
-        persistentContainer.performBackgroundTask { (context) in
+        persistentContainer.performBackgroundTask { context in
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
             
             if type == .repeatPairs {
@@ -244,7 +262,7 @@ class CoreDataService: CoreDataServiceProtocol {
     }
 
     func fetchTranslationPairs(of type: TranslationPairType, completion: @escaping ([TranslationPair]) -> ()) {
-        persistentContainer.performBackgroundTask { (context) in
+        persistentContainer.performBackgroundTask { context in
             print("Fetching Data..")
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
             
@@ -268,12 +286,14 @@ class CoreDataService: CoreDataServiceProtocol {
         }
     }
     
-    func updateTranslationPair(oldOriginalWord: String,
-                               newOriginalWord: String,
-                               newTranslatedWord: String,
-                               image: UIImage?,
-                               completion: @escaping () -> ()) {
-        persistentContainer.performBackgroundTask { (context) in
+    func updateTranslationPair(
+        oldOriginalWord: String,
+        newOriginalWord: String,
+        newTranslatedWord: String,
+        image: UIImage?,
+        completion: @escaping () -> ()
+        ) {
+        persistentContainer.performBackgroundTask { context in
             defer {
                 DispatchQueue.main.async {
                     completion()
@@ -306,10 +326,12 @@ class CoreDataService: CoreDataServiceProtocol {
         }
     }
     
-    func updateCounterAndDate(originalWord: String,
-                              isMistake: Bool,
-                              completion: @escaping () -> ()) {
-        persistentContainer.performBackgroundTask { (context) in
+    func updateCounterAndDate(
+        originalWord: String,
+        isMistake: Bool,
+        completion: @escaping () -> ()
+        ) {
+        persistentContainer.performBackgroundTask { context in
             defer {
                 DispatchQueue.main.async {
                     completion()
@@ -342,9 +364,8 @@ class CoreDataService: CoreDataServiceProtocol {
         }
     }
 
-    func deleteTranslationPair(originalWord: String,
-                               completion: @escaping () -> ()) {
-        persistentContainer.performBackgroundTask { (context) in
+    func deleteTranslationPair(originalWord: String, completion: @escaping () -> ()) {
+        persistentContainer.performBackgroundTask { context in
             defer {
                 DispatchQueue.main.async {
                     completion()

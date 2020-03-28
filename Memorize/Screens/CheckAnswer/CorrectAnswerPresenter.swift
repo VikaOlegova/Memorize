@@ -19,9 +19,11 @@ class CorrectAnswerPresenter {
     private let synthesizer = AVSpeechSynthesizer()
     private let didTapNextCallback: (() -> ())
     
-    init(isCorrect: Bool, correctTranslation: String,
-         correctTranslationLanguage: Language,
-         didTapNextCallback: @escaping ()->()) {
+    init(
+        isCorrect: Bool, correctTranslation: String,
+        correctTranslationLanguage: Language,
+        didTapNextCallback: @escaping ()->()
+        ) {
         self.isCorrect = isCorrect
         self.correctTranslation = correctTranslation
         self.didTapNextCallback = didTapNextCallback

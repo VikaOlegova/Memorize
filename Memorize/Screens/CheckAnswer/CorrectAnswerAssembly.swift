@@ -10,14 +10,18 @@ import UIKit
 
 /// Собирает все зависимости для экрана с оценкой правильности ответа
 class CorrectAnswerAssembly {
-    func create(isCorrect: Bool,
-                correctTranslation: String,
-                correctTranslationLanguage: Language,
-                didTapNextCallback: @escaping ()->()) -> UIViewController {
-        let presenter = CorrectAnswerPresenter(isCorrect: isCorrect,
-                                               correctTranslation: correctTranslation,
-                                               correctTranslationLanguage: correctTranslationLanguage,
-                                               didTapNextCallback: didTapNextCallback)
+    func create(
+        isCorrect: Bool,
+        correctTranslation: String,
+        correctTranslationLanguage: Language,
+        didTapNextCallback: @escaping ()->()
+        ) -> UIViewController {
+        let presenter = CorrectAnswerPresenter(
+            isCorrect: isCorrect,
+            correctTranslation: correctTranslation,
+            correctTranslationLanguage: correctTranslationLanguage,
+            didTapNextCallback: didTapNextCallback
+        )
         let viewController = CorrectAnswerViewController(presenter: presenter)
         
         presenter.view = viewController

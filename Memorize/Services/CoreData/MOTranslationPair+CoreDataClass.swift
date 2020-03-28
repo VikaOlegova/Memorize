@@ -11,6 +11,4 @@ import Foundation
 import CoreData
 
 @objc(MOTranslationPair)
-public class MOTranslationPair: NSManagedObject {
-
-}
+public class MOTranslationPair: NSManagedObject { }
