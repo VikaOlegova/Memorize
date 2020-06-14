@@ -41,7 +41,7 @@ class CoreDataServiceMock: CoreDataServiceProtocol {
         }
     }
     
-    func updateTranslationPair(oldOriginalWord: String, newOriginalWord: String, newTranslatedWord: String, image: UIImage?, completion: @escaping () -> ()) {
+    func updateTranslationPair(originalWord: String, newTranslatedWord: String, completion: @escaping () -> ()) {
         fatalError()
     }
     

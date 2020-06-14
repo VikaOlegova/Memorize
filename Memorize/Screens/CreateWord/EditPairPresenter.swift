@@ -90,7 +90,7 @@ class EditPairPresenter {
         translatedLanguage: Language,
         image: UIImage?,
         completion: @escaping (_ saved: Bool) -> ()
-        ) {
+    ) {
         coreData.checkExistenceOfTranslationPair(originalWord: originalWord) { [weak self] isExisting in
             if isExisting {
                 completion(false)
@@ -100,31 +100,6 @@ class EditPairPresenter {
                     translatedWord: translatedWord,
                     originalLanguage: originalLanguage,
                     translatedLanguage: translatedLanguage,
-                    image: image,
-                    completion: { completion(true) }
-                )
-            }
-        }
-    }
-    
-    private func updateTranslationPair(
-        originalWord: String,
-        translatedWord: String,
-        image: UIImage?,
-        completion: @escaping (_ saved: Bool)->()
-        ) {
-        guard let pair = translationPair else {
-            completion(false)
-            return
-        }
-        coreData.checkExistenceOfTranslationPair(originalWord: originalWord) { [weak self] isExisting in
-            if isExisting {
-                completion(false)
-            } else {
-                self?.coreData.updateTranslationPair(
-                    oldOriginalWord: pair.originalWord,
-                    newOriginalWord: originalWord,
-                    newTranslatedWord: translatedWord,
                     image: image,
                     completion: { completion(true) }
                 )
@@ -149,7 +124,7 @@ extension EditPairPresenter: EditPairViewOutput {
         view?.show(translation: pair.translatedWord)
         view?.show(languageInfo: pair.originalLanguage.fromTo(pair.translatedLanguage))
         view?.show(reverseTranslationEnabled: true)
-        view?.show(title: isCreating ? "Создать" : "Редактировать")
+        view?.show(title: isCreating ? "Создание" : "Редактирование перевода")
     }
     
     /// Сохраняет новое слово или изменения в старом
@@ -158,7 +133,7 @@ extension EditPairPresenter: EditPairViewOutput {
         translatedWord: String?,
         reverseTranslationEnabled: Bool,
         image: UIImage?
-        ) {
+    ) {
         guard
             let originalWord = originalWord,
             let translatedWord = translatedWord,
@@ -220,14 +195,10 @@ extension EditPairPresenter: EditPairViewOutput {
                 }
             )
         } else {
-            updateTranslationPair(
+            coreData.updateTranslationPair(
                 originalWord: originalWord,
-                translatedWord: translatedWord,
-                image: image,
-                completion: { saved in
-                    completion(saved ? .success: .firstFailed
-                    )
-                }
+                newTranslatedWord: translatedWord,
+                completion: { completion(.success) }
             )
         }
     }

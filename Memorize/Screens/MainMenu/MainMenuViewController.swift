@@ -75,7 +75,7 @@ class MainMenuViewController: UIViewController {
         repeatWordsButton.doubleLabel.leftLabel.text = "Повторить"
         repeatWordsButton.addTarget(self, action: #selector(repeatWordsButtonTapped), for: .touchUpInside)
         
-        allWordsButton.doubleLabel.leftLabel.text = "Все переводы"
+        allWordsButton.doubleLabel.leftLabel.text = "Все карточки"
         allWordsButton.addTarget(self, action: #selector(allWordsButtonTapped), for: .touchUpInside)
         
         repeatWordsButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true

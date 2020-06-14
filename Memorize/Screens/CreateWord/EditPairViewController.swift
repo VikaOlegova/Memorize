@@ -160,14 +160,14 @@ class EditPairViewController: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.isPagingEnabled = true
         
-        originalView.label.text = "Новое слово или фраза"
+        originalView.label.text = "Новое слово"
         originalView.textField.placeholder = "Введите слово"
         originalView.textField.returnKeyType = .done
         originalView.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         originalView.textField.delegate = self
         fromToButton.setTitleColor(.black, for: .normal)
         fromToButton.addTarget(self, action:#selector(fromToButtonTapped), for: .touchUpInside)
-        checkBoxView.titleLabel.text = "Создать обратный перевод"
+        checkBoxView.titleLabel.text = "Создать обратную карточку"
         translationView.label.text = "Перевод"
         translationView.textField.placeholder = "Введите перевод"
         translationView.textField.returnKeyType = .done
@@ -234,6 +234,10 @@ class EditPairViewController: UIViewController {
 extension EditPairViewController: EditPairViewInput {
     func show(originalWord: String, reverseTranslationCheckBox: Bool) {
         originalView.textField.text = originalWord
+        if !reverseTranslationCheckBox {
+            originalView.label.text = "Слово"
+            originalView.textField.isEnabled = false
+        }
         checkBoxView.isHidden = !reverseTranslationCheckBox
     }
     

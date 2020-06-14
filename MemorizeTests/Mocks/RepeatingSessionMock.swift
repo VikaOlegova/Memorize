@@ -31,7 +31,7 @@ class RepeatingSessionMock: RepeatingSessionProtocol {
         fatalError()
     }
     
-    func addMistake(mistake: TranslationPair) {
+    func add(mistake: TranslationPair) {
         fatalError()
     }
     
@@ -43,7 +43,7 @@ class RepeatingSessionMock: RepeatingSessionProtocol {
         resetAnsweredPairsCounter += 1
     }
     
-    func addAnsweredPair(pair: TranslationPair) {
+    func add(answeredPair: TranslationPair) {
         fatalError()
     }
     

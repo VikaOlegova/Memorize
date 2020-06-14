@@ -142,16 +142,12 @@ protocol CoreDataServiceProtocol {
     /// Обновляет пару слов в кордате после редактирования
     ///
     /// - Parameters:
-    ///   - oldOriginalWord: слово в кордате
-    ///   - newOriginalWord: новое значение слова
+    ///   - originalWord: слово в кордате
     ///   - newTranslatedWord: новое значение перевода слова
-    ///   - image: новая картинка
     ///   - completion: сообщает о конце выполнения функции
     func updateTranslationPair(
-        oldOriginalWord: String,
-        newOriginalWord: String,
+        originalWord: String,
         newTranslatedWord: String,
-        image: UIImage?,
         completion: @escaping () -> ()
     )
     
@@ -287,10 +283,8 @@ class CoreDataService: CoreDataServiceProtocol {
     }
     
     func updateTranslationPair(
-        oldOriginalWord: String,
-        newOriginalWord: String,
+        originalWord: String,
         newTranslatedWord: String,
-        image: UIImage?,
         completion: @escaping () -> ()
         ) {
         persistentContainer.performBackgroundTask { context in
@@ -301,18 +295,12 @@ class CoreDataService: CoreDataServiceProtocol {
             }
             
             let request: NSFetchRequest<MOTranslationPair> = MOTranslationPair.fetchRequest()
-            request.predicate = NSPredicate(format: "originalWord =[c] %@", oldOriginalWord.trimmed)
+            request.predicate = NSPredicate(format: "originalWord =[c] %@", originalWord.trimmed)
             do {
                 if let result = try context.fetch(request).first {
-                    result.originalWord = newOriginalWord.trimmed
                     result.translatedWord = newTranslatedWord.trimmed
                     result.counter = 0
                     result.nextShowDate = Date.today
-                    
-                    if let image = image,
-                        let jpegData = image.jpegData(compressionQuality: 1.0) {
-                        result.image = NSData(data: jpegData)
-                    }
                     
                     do {
                         try context.save()

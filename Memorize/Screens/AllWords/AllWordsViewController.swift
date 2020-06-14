@@ -70,7 +70,7 @@ class AllWordsViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        navigationItem.title = "Переводы"
+        navigationItem.title = "Карточки"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,7 +78,7 @@ class AllWordsViewController: UIViewController {
         createButton.translatesAutoresizingMaskIntoConstraints = false
         
         tableView.contentInset.top = 7
-        noWordsLabel.text = "У Вас пока нет слов:("
+        noWordsLabel.text = "У Вас пока нет карточек:("
         noWordsLabel.textColor = .gray
         createButton.setTitle("Создать", for: .normal)
         createButton.setTitleColor(UIColor(red: 102/255.0, green: 172/255.0, blue: 15/255.0, alpha: 1), for: .normal)
